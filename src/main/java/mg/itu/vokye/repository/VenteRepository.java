@@ -11,40 +11,37 @@ import java.time.LocalDate;
 @Repository
 public interface VenteRepository extends JpaRepository<Vente, Integer> {
 
-    @Query(value = "SELECT SUM(p.prix) AS sum_vente " +
-            "FROM Vente v " +
-            "JOIN Chariot c ON v.id_chariot = c.id_chariot " +
-            "JOIN Employe e ON c.id_employe = e.id_employe " +
-            "JOIN Produit p ON v.id_produit = p.id_produit " +
-            "WHERE e.id_employe = :employeeId " +
-            "AND (:dateVente IS NULL OR v.date_vente = :dateVente) ",
+    @Query(value = "SELECT sum(sum_vente) " +
+            "FROM recette_vente " +
+            "WHERE id_employe = :employeeId " +
+            "AND (cast(:dateVente as date) IS NULL OR date_vente = cast(:dateVente as date)) " +
+            "group by id_employe",
             nativeQuery = true)
     Double getRecette(@Param("employeeId") Integer employeeId, @Param("dateVente") LocalDate dateVente);
 
-    @Query(value = "SELECT SUM(p.prix) - :cota  AS sum_vente " +
-            "FROM Vente v " +
-            "JOIN Chariot c ON v.id_chariot = c.id_chariot " +
-            "JOIN Employe e ON c.id_employe = e.id_employe " +
-            "JOIN Produit p ON v.id_produit = p.id_produit " +
-            "WHERE e.id_employe = :employeeId " +
-            "AND (:dateVente IS NULL OR v.date_vente = :dateVente) " +
-            "GROUP BY e.id_employe " +
-            "HAVING SUM(p.prix) - :cota > 0",
+    @Query(value = "SELECT sum(sum_vente) " +
+            "FROM recette_vente " +
+            "WHERE (cast(:dateVente as date) IS NULL OR date_vente = cast(:dateVente as date)) ",
+            nativeQuery = true)
+    Double getRecetteAll(@Param("dateVente") LocalDate dateVente);
+// BENEFICE //
+    @Query(value = "SELECT SUM(sum_vente - :cota )  AS sum_vente " +
+            "FROM recette_vente "+
+            "WHERE id_employe = :employeeId " +
+            "AND (cast(:dateVente as date) IS NULL OR date_vente = cast(:dateVente as date)) " +
+            "GROUP BY id_employe " +
+            "HAVING SUM(sum_vente - :cota) > 0",
             nativeQuery = true)
     Double getBenefice(@Param("employeeId") Integer employeeId, @Param("cota") Double cota, @Param("dateVente") LocalDate dateVente);
 
-
-    @Query(value = "SELECT SUM(p.prix) - :cota  AS sum_vente " +
-            "FROM Vente v " +
-            "JOIN Chariot c ON v.id_chariot = c.id_chariot " +
-            "JOIN Employe e ON c.id_employe = e.id_employe " +
-            "JOIN Produit p ON v.id_produit = p.id_produit " +
-            "WHERE e.id_employe = :employeeId " +
-            "AND (:dateVente IS NULL OR v.date_vente = :dateVente) " +
-            "GROUP BY e.id_employe " +
-            "HAVING SUM(p.prix) - :cota < 0",
+// PERTE //
+    @Query(value = "SELECT SUM(sum_vente - :cota )  AS sum_vente " +
+            "FROM recette_vente "+
+            "WHERE id_employe = :employeeId " +
+            "AND (cast(:dateVente as date) IS NULL OR date_vente = cast(:dateVente as date)) " +
+            "GROUP BY id_employe " +
+            "HAVING SUM(sum_vente - :cota) < 0",
             nativeQuery = true)
     Double getPerte(@Param("employeeId") Integer employeeId, @Param("cota") Double cota, @Param("dateVente") LocalDate dateVente);
-
 
 }

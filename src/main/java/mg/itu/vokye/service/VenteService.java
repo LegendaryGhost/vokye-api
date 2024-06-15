@@ -33,6 +33,7 @@ public class VenteService {
     public List<Vente> read() {
         return venteRepository.findAll();
     }
+
     public String update(Vente vente) {
         // Vérifie si la vente existe déjà
         Optional<Vente> optionalExistingVente = venteRepository.findById(vente.getId_vente());
@@ -63,6 +64,11 @@ public class VenteService {
     }
 
 // Recette benefice et perte //
+
+    public Double getRecetteAll(LocalDate dateVente) {
+        return venteRepository.getRecetteAll(dateVente);
+    }
+
     public Double getRecette(Integer idEmploye) {
         return venteRepository.getRecette(idEmploye, null);
     }
@@ -70,7 +76,10 @@ public class VenteService {
     public Double getRecetteByDate(Integer idEmploye, LocalDate dateVente) {
         return venteRepository.getRecette(idEmploye, dateVente);
     }
-// benefice
+
+    // benefice
+
+
     public Double getBenefice(Integer idEmploye) {
         return venteRepository.getBenefice(idEmploye, cota, null
         );
@@ -80,12 +89,15 @@ public class VenteService {
         return venteRepository.getBenefice(idEmploye, cota, dateVente
         );
     }
-// perte
+
+    // perte
+
     public Double getPerte(Integer idEmploye) {
         return venteRepository.getPerte(idEmploye, cota, null
         );
     }
-    public Double getPerteByDate(Integer idEmploye , LocalDate dateVente) {
+
+    public Double getPerteByDate(Integer idEmploye, LocalDate dateVente) {
         return venteRepository.getPerte(idEmploye, cota, dateVente
         );
     }

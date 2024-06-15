@@ -6,6 +6,7 @@ import mg.itu.vokye.repository.DepenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,9 @@ public class DepenseService {
     public String delete(Integer id){
         depenseRepository.deleteById(id);
         return "deleted succes";
+    }
+    public Double getSumDepenseBy(LocalDate dateDepense){
+        return depenseRepository.getDepenseAll(dateDepense);
     }
     
 }
