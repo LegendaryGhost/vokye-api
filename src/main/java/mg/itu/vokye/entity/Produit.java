@@ -9,8 +9,6 @@ public class Produit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProduit;
-    @ManyToOne
-    @JoinColumn(name = "id_produit")
     private String nom;
     private double prix;
 }
