@@ -16,7 +16,7 @@ public class Depense {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id_depense;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "id_type_depense", nullable = false)
     private TypeDepense typeDepense;
 

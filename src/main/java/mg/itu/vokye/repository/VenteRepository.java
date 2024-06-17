@@ -44,4 +44,5 @@ public interface VenteRepository extends JpaRepository<Vente, Integer> {
             nativeQuery = true)
     Double getPerte(@Param("employeeId") Integer employeeId, @Param("cota") Double cota, @Param("dateVente") LocalDate dateVente);
 
+
 }
