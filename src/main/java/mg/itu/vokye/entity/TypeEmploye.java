@@ -12,7 +12,7 @@ public class TypeEmploye {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_type_emp")
-    private Long idTypeEmp;
+    private int idTypeEmp;
 
     @Column(name = "designation")
     private String designation;
@@ -21,11 +21,11 @@ public class TypeEmploye {
     private BigDecimal salaireBase;
 
     @Column(name = "nbre_vente")
-    private Integer nbreVente;
+    private int nbreVente;
 
     @Column(name = "chiffre_affaire")
     private BigDecimal chiffreAffaire;
 
     @Column(name = "pourcentage")
-    private Integer pourcentage;
+    private int pourcentage;
 }
