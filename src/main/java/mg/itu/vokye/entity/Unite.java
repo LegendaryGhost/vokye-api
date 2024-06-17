@@ -9,7 +9,5 @@ public class Unite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUnite;
-    @ManyToOne
-    @JoinColumn(name = "id_unite")
     private String nomUnite;
 }
