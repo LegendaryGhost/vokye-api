@@ -9,8 +9,8 @@ public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idIngredient;
-    @ManyToOne
-    @JoinColumn(name = "id_ingredient")
     private String nom;
+    @ManyToOne
+    @JoinColumn(name = "id_unite")
     private Unite unite;
 }
