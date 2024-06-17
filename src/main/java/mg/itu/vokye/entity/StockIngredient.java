@@ -10,7 +10,7 @@ public class StockIngredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idStockIngredient;
     @ManyToOne
-    @JoinColumn(name = "id_stock_ingredient")
+    @JoinColumn(name = "id_ingredient")
     private Ingredient ingredient;
     private int quantite;
 }
