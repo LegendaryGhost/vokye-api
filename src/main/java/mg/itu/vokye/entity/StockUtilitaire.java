@@ -10,7 +10,7 @@ public class StockUtilitaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idStockUtilitaire;
     @ManyToOne
-    @JoinColumn(name = "id_stock_utilitaire")
+    @JoinColumn(name = "id_utilitaire")
     private Utilitaire utilitaire;
     private int quantite;
 }
