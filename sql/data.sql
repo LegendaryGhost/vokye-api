@@ -4,11 +4,15 @@ VALUES ('Manager', 60000, 15),
        ('Cuisinier', 40000, 10),
        ('Livreur', 25000, 5);
 
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 -- Insert data into employee
-INSERT INTO employe (id_type_employe, nom, prenom, date_entree, date_fin)
-VALUES (1, 'Smith', 'John', '2020-01-01', NULL),
-       (2, 'Doe', 'Jane', '2021-03-15', NULL),
-       (3, 'Brown', 'Michael', '2019-06-20', NULL);
+INSERT INTO employe (id_type_employe, nom, prenom, email, mot_de_passe, date_entree, date_fin)
+VALUES 
+(1, 'Smith', 'John', 'john.smith@example.com', digest('password123', 'sha1'), '2020-01-01', NULL),
+(2, 'Doe', 'Jane', 'jane.doe@example.com', digest('securepass', 'sha1'), '2021-03-15', NULL),
+(3, 'Brown', 'Michael', 'michael.brown@example.com', digest('mypass', 'sha1'), '2019-06-20', NULL);
+
+
 
 -- Insert data into Unite
 INSERT INTO unite (nom_unite)
