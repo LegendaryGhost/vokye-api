@@ -9,6 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/employe")
 public class EmployeController {
+
     private final EmployeService service;
 
     public EmployeController(EmployeService service) {
@@ -43,5 +44,11 @@ public class EmployeController {
     @DeleteMapping("/{id}")
     public void deleteEmploye(@PathVariable Long id) {
         service.deleteEmploye(id);
+    }
+
+    // Get employees by position
+    @GetMapping("/poste/{poste}")
+    public List<Employe> getEmployesByPoste(@PathVariable String poste) {
+        return service.getEmployesByPoste(poste);
     }
 }

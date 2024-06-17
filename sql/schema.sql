@@ -7,25 +7,29 @@ CREATE DATABASE vokye_api;
 -- Création des tables
 
 -- type_employe
-CREATE TABLE type_employe
-(
-    id_type_employe SERIAL PRIMARY KEY,
-    designation     VARCHAR(20),
-    salaire_base    NUMERIC(10, 2),
-    pourcentage     INT
+CREATE TABLE type_emp (
+    id_type_emp SERIAL PRIMARY KEY,
+    Designation VARCHAR(20),
+    salaire_base NUMERIC(10, 2),
+    nbre_vente INT,
+    chiffre_Affaire NUMERIC(16, 2),
+    Pourcentage INT
 );
 
--- employe
-CREATE TABLE employe
-(
-    id_employe      SERIAL PRIMARY KEY,
-    id_type_employe INT,
-    nom             VARCHAR(50),
-    prenom          VARCHAR(50),
-    mot_de_passe    VARCHAR(50),
-    date_entree     DATE,
-    date_fin        DATE,
-    FOREIGN KEY (id_type_employe) REFERENCES type_employe (id_type_employe)
+CREATE TABLE employee (
+    id_employee SERIAL PRIMARY KEY,
+    id_type_emp INT,
+    nom VARCHAR(50),
+    prenom VARCHAR(50),
+    date_de_naissance TIMESTAMP,
+    num_tel INT,
+    poste VARCHAR(50),
+    nbre_vente INT,
+    chiffre_affaire NUMERIC(16, 2),
+    statut BOOLEAN,
+    date_entrer TIMESTAMP,
+    date_fin TIMESTAMP,
+    FOREIGN KEY (id_type_emp) REFERENCES type_emp(id_type_emp)
 );
 
 -- unite
