@@ -13,7 +13,7 @@ public class Employe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_employee")
-    private Long idEmployee;
+    private int idEmployee;
 
     @ManyToOne
     @JoinColumn(name = "id_type_emp")
@@ -29,7 +29,7 @@ public class Employe {
     private Timestamp dateDeNaissance;
 
     @Column(name = "num_tel")
-    private Long numTel;
+    private int numTel;
 
     @Column(name = "poste")
     private String poste;

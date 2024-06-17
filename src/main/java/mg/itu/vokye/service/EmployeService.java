@@ -39,4 +39,9 @@ public class EmployeService {
     public void deleteEmploye(Long id) {
         repository.deleteById(id);
     }
+
+    public List<Employe> getEmployesByPoste(String poste) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getEmployesByPoste'");
+    }
 }
