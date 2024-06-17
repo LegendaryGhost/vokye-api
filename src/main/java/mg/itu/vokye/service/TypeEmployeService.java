@@ -22,7 +22,7 @@ public class TypeEmployeService {
         return repository.findAll();
     }
 
-    public TypeEmploye getTypeEmployeById(Long id) {
+    public TypeEmploye getTypeEmployeById(int id) {
         return repository.findById(id).orElseThrow();
     }
 
@@ -34,7 +34,7 @@ public class TypeEmployeService {
         return repository.save(existingTypeEmploye);
     }
 
-    public void deleteTypeEmploye(Long id) {
+    public void deleteTypeEmploye(int id) {
         repository.deleteById(id);
     }
 }

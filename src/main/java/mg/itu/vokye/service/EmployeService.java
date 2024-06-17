@@ -22,11 +22,11 @@ public class EmployeService {
         return repository.findAll();
     }
 
-    public Employe getEmployeById(Long id) {
+    public Employe getEmployeById(int id) {
         return repository.findById(id).orElseThrow();
     }
 
-    public Employe updateEmploye(Long id, Employe employe) {
+    public Employe updateEmploye(int id, Employe employe) {
         Employe existingEmploye = repository.findById(id).orElseThrow();
         existingEmploye.setNom(employe.getNom());
         existingEmploye.setPrenom(employe.getPrenom());
@@ -36,12 +36,11 @@ public class EmployeService {
         return repository.save(existingEmploye);
     }
 
-    public void deleteEmploye(Long id) {
+    public void deleteEmploye(int id) {
         repository.deleteById(id);
     }
 
     public List<Employe> getEmployesByPoste(String poste) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getEmployesByPoste'");
+        return repository.getEmployesByPoste(poste);
     }
 }
