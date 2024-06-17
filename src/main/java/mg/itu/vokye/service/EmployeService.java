@@ -1,10 +1,11 @@
 package mg.itu.vokye.service;
 
-import mg.itu.vokye.entity.Employe;
-import mg.itu.vokye.repository.EmployeRepository;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import mg.itu.vokye.entity.Employe;
+import mg.itu.vokye.repository.EmployeRepository;
 
 @Service
 public class EmployeService {
@@ -41,6 +42,6 @@ public class EmployeService {
     }
 
     public List<Employe> getEmployesByPoste(String poste) {
-        return repository.getEmployesByPoste(poste);
+        return repository.findByPoste(poste);
     }
 }
