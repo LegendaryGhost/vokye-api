@@ -31,7 +31,7 @@ public class EmployeService {
         Employe existingEmploye = repository.findById(id).orElseThrow();
         existingEmploye.setNom(employe.getNom());
         existingEmploye.setPrenom(employe.getPrenom());
-        existingEmploye.setDateEntree(employe.getDateEntree());
+        existingEmploye.setDateEntrer(employe.getDateEntrer());
         existingEmploye.setDateFin(employe.getDateFin());
         existingEmploye.setTypeEmploye(employe.getTypeEmploye());
         return repository.save(existingEmploye);

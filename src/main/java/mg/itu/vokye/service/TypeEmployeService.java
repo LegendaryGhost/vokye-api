@@ -26,7 +26,7 @@ public class TypeEmployeService {
         return repository.findById(id).orElseThrow();
     }
 
-    public TypeEmploye updateTypeEmploye(Long id, TypeEmploye typeEmploye) {
+    public TypeEmploye updateTypeEmploye(int id, TypeEmploye typeEmploye) {
         TypeEmploye existingTypeEmploye = repository.findById(id).orElseThrow();
         existingTypeEmploye.setDesignation(typeEmploye.getDesignation());
         existingTypeEmploye.setSalaireBase(typeEmploye.getSalaireBase());

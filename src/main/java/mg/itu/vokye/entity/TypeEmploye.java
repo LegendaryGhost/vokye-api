@@ -14,18 +14,18 @@ public class TypeEmploye {
     @Column(name = "id_type_emp")
     private int idTypeEmp;
 
-    @Column(name = "designation")
+    @Column(name = "Designation")
     private String designation;
 
-    @Column(name = "salaire_base")
+    @Column(name = "Salaire_base")
     private BigDecimal salaireBase;
 
-    @Column(name = "nbre_vente")
+    @Column(name = "Nbre_vente")
     private int nbreVente;
 
-    @Column(name = "chiffre_affaire")
+    @Column(name = "Chiffre_affaire")
     private BigDecimal chiffreAffaire;
 
-    @Column(name = "pourcentage")
-    private int pourcentage;
+    @Column(name = "Pourcentage")
+    private Integer pourcentage;
 }

@@ -19,33 +19,33 @@ public class Employe {
     @JoinColumn(name = "id_type_emp")
     private TypeEmploye typeEmploye;
 
-    @Column(name = "nom")
+    @Column(name = "Nom")
     private String nom;
 
-    @Column(name = "prenom")
+    @Column(name = "Prenom")
     private String prenom;
 
-    @Column(name = "date_de_naissance")
+    @Column(name = "Date_de_naissance")
     private Timestamp dateDeNaissance;
 
-    @Column(name = "num_tel")
+    @Column(name = "Num_tel")
     private int numTel;
 
-    @Column(name = "poste")
+    @Column(name = "Poste")
     private String poste;
 
-    @Column(name = "nbre_vente")
+    @Column(name = "Nbre_vente")
     private int numVente;
 
-    @Column(name = "chiffre_affaire")
+    @Column(name = "Chiffre_affaire")
     private Double chiffreAffaires;
 
-    @Column(name = "statut")
+    @Column(name = "Statut")
     private Boolean statut;
 
-    @Column(name = "date_entrer")
+    @Column(name = "Date_entrer")
     private Timestamp dateEntrer;
 
-    @Column(name = "date_fin")
+    @Column(name = "Date_fin")
     private Timestamp dateFin;
 }

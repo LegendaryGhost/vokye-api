@@ -30,19 +30,19 @@ public class EmployeController {
 
     // Find One
     @GetMapping("/{id}")
-    public Employe getEmployeById(@PathVariable Long id) {
+    public Employe getEmployeById(@PathVariable int id) {
         return service.getEmployeById(id);
     }
 
     // Update
     @PutMapping("/{id}")
-    public Employe updateEmploye(@RequestBody Employe employe, @PathVariable Long id) {
+    public Employe updateEmploye(@RequestBody Employe employe, @PathVariable int id) {
         return service.updateEmploye(id, employe);
     }
 
     // Delete
     @DeleteMapping("/{id}")
-    public void deleteEmploye(@PathVariable Long id) {
+    public void deleteEmploye(@PathVariable int id) {
         service.deleteEmploye(id);
     }
 

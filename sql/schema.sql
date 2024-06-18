@@ -10,25 +10,25 @@ CREATE DATABASE vokye_api;
 CREATE TABLE type_emp (
     id_type_emp SERIAL PRIMARY KEY,
     Designation VARCHAR(20),
-    salaire_base NUMERIC(10, 2),
-    nbre_vente INT,
-    chiffre_Affaire NUMERIC(16, 2),
+    Salaire_base NUMERIC(10, 2),
+    Nbre_vente INT,
+    Chiffre_Affaire NUMERIC(16, 2),
     Pourcentage INT
 );
 
 CREATE TABLE employee (
     id_employee SERIAL PRIMARY KEY,
     id_type_emp INT,
-    nom VARCHAR(50),
-    prenom VARCHAR(50),
-    date_de_naissance TIMESTAMP,
-    num_tel INT,
-    poste VARCHAR(50),
-    nbre_vente INT,
-    chiffre_affaire NUMERIC(16, 2),
-    statut BOOLEAN,
-    date_entrer TIMESTAMP,
-    date_fin TIMESTAMP,
+    Nom VARCHAR(50),
+    Prenom VARCHAR(50),
+    Date_de_naissance TIMESTAMP,
+    Num_tel INT,
+    Poste VARCHAR(50),
+    Nbre_vente INT,
+    Chiffre_affaire NUMERIC(16, 2),
+    Statut BOOLEAN,
+    Date_entrer TIMESTAMP,
+    Date_fin TIMESTAMP,
     FOREIGN KEY (id_type_emp) REFERENCES type_emp(id_type_emp)
 );
 
