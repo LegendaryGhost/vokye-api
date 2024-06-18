@@ -6,6 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface EmployeRepository extends JpaRepository<Employe, Long> {
-    @Query("SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END FROM Employe e WHERE e.email = :email AND e.mot_de_passe = digest(:motDePasse, 'sha1')")
-    boolean existsByEmailAndMotDePasse(@Param("email") String email, @Param("motDePasse") String motDePasse);
+
+    @Query(value = "SELECT * " +
+            "FROM employe e " +
+            "WHERE e.email = :email " +
+            "AND e.mot_de_passe = crypt(:motDePasse, e.mot_de_passe)", nativeQuery = true)
+    Employe existsByEmailAndMotDePasse(@Param("email") String email, @Param("motDePasse") String motDePasse);
 }
