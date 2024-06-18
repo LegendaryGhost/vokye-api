@@ -8,9 +8,9 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 -- Insert data into employee
 INSERT INTO employe (id_type_employe, nom, prenom, email, mot_de_passe, date_entree, date_fin)
 VALUES 
-(1, 'Smith', 'John', 'john.smith@example.com', digest('password123', 'sha1'), '2020-01-01', NULL),
-(2, 'Doe', 'Jane', 'jane.doe@example.com', digest('securepass', 'sha1'), '2021-03-15', NULL),
-(3, 'Brown', 'Michael', 'michael.brown@example.com', digest('mypass', 'sha1'), '2019-06-20', NULL);
+(1, 'Smith', 'John', 'john.smith@example.com', crypt('password123', gen_salt('bf')), '2020-01-01', NULL),
+(2, 'Doe', 'Jane', 'jane.doe@example.com', crypt('securepass', gen_salt('bf')), '2021-03-15', NULL),
+(3, 'Brown', 'Michael', 'michael.brown@example.com', crypt('mypass', gen_salt('bf')), '2019-06-20', NULL);
 
 
 
