@@ -16,6 +16,7 @@ public class Employe {
     private TypeEmploye typeEmploye;
     private String nom;
     private String prenom;
+    private String email;
     private String motDePasse;
     private Date dateEntree;
     private Date dateFin;
