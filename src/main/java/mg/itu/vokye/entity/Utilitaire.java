@@ -10,5 +10,7 @@ public class Utilitaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUtilitaire;
     private String nom;
+    @ManyToOne
+    @JoinColumn(name = "id_unite")
     private Unite unite;
 }
