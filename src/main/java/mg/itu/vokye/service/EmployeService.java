@@ -1,10 +1,11 @@
 package mg.itu.vokye.service;
 
-import mg.itu.vokye.entity.Employe;
-import mg.itu.vokye.repository.EmployeRepository;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import mg.itu.vokye.entity.Employe;
+import mg.itu.vokye.repository.EmployeRepository;
 
 @Service
 public class EmployeService {
@@ -22,21 +23,25 @@ public class EmployeService {
         return repository.findAll();
     }
 
-    public Employe getEmployeById(Long id) {
+    public Employe getEmployeById(int id) {
         return repository.findById(id).orElseThrow();
     }
 
-    public Employe updateEmploye(Long id, Employe employe) {
+    public Employe updateEmploye(int id, Employe employe) {
         Employe existingEmploye = repository.findById(id).orElseThrow();
         existingEmploye.setNom(employe.getNom());
         existingEmploye.setPrenom(employe.getPrenom());
-        existingEmploye.setDateEntree(employe.getDateEntree());
+        existingEmploye.setDateEntrer(employe.getDateEntrer());
         existingEmploye.setDateFin(employe.getDateFin());
         existingEmploye.setTypeEmploye(employe.getTypeEmploye());
         return repository.save(existingEmploye);
     }
 
-    public void deleteEmploye(Long id) {
+    public void deleteEmploye(int id) {
         repository.deleteById(id);
+    }
+
+    public List<Employe> getEmployesByPoste(String poste) {
+        return repository.findByPoste(poste);
     }
 }
