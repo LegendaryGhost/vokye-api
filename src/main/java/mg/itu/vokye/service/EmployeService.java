@@ -40,7 +40,7 @@ public class EmployeService {
         repository.deleteById(id);
     }
 
-    public boolean checkEmploye(String motDePasse, String email) {
+    public Employe checkEmploye(String email, String motDePasse) {
         return repository.existsByEmailAndMotDePasse(email, motDePasse);
     }
 }
