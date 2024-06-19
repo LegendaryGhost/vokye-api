@@ -7,9 +7,11 @@ import org.springframework.data.repository.query.Param;
 
 public interface EmployeRepository extends JpaRepository<Employe, Long> {
 
-    @Query(value = "SELECT * " +
+    @Query(value = "SELECT e.* " +
             "FROM employe e " +
-            "WHERE e.email = :email " +
-            "AND e.mot_de_passe = crypt(:motDePasse, e.mot_de_passe)", nativeQuery = true)
+            "INNER JOIN type_employe te ON e.id_type_employe = te.id_type_employe " +
+            "WHERE te.designation = 'Manager' " +
+            "AND e.mot_de_passe = crypt(:motDePasse, e.mot_de_passe) " +
+            "AND e.email = :email", nativeQuery = true)
     Employe existsByEmailAndMotDePasse(@Param("email") String email, @Param("motDePasse") String motDePasse);
 }
