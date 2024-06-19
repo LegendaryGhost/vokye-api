@@ -5,11 +5,12 @@ import mg.itu.vokye.service.EmployeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/employe")
 public class EmployeController {
-
     private final EmployeService service;
 
     public EmployeController(EmployeService service) {
@@ -30,25 +31,25 @@ public class EmployeController {
 
     // Find One
     @GetMapping("/{id}")
-    public Employe getEmployeById(@PathVariable int id) {
+    public Employe getEmployeById(@PathVariable Long id) {
         return service.getEmployeById(id);
     }
 
     // Update
     @PutMapping("/{id}")
-    public Employe updateEmploye(@RequestBody Employe employe, @PathVariable int id) {
+    public Employe updateEmploye(@RequestBody Employe employe, @PathVariable Long id) {
         return service.updateEmploye(id, employe);
     }
 
     // Delete
     @DeleteMapping("/{id}")
-    public void deleteEmploye(@PathVariable int id) {
+    public void deleteEmploye(@PathVariable Long id) {
         service.deleteEmploye(id);
     }
 
-    // Get employees by position
-    @GetMapping("/poste/{poste}")
-    public List<Employe> getEmployesByPoste(@PathVariable String poste) {
-        return service.getEmployesByPoste(poste);
+    @GetMapping("/checkEmploye")
+    public Employe checkEmploye(@RequestParam String email, @RequestParam String motDePasse) {
+        return service.checkEmploye(email, motDePasse);
     }
+
 }

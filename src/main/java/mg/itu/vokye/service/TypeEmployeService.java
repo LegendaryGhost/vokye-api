@@ -22,11 +22,11 @@ public class TypeEmployeService {
         return repository.findAll();
     }
 
-    public TypeEmploye getTypeEmployeById(int id) {
+    public TypeEmploye getTypeEmployeById(Long id) {
         return repository.findById(id).orElseThrow();
     }
 
-    public TypeEmploye updateTypeEmploye(int id, TypeEmploye typeEmploye) {
+    public TypeEmploye updateTypeEmploye(Long id, TypeEmploye typeEmploye) {
         TypeEmploye existingTypeEmploye = repository.findById(id).orElseThrow();
         existingTypeEmploye.setDesignation(typeEmploye.getDesignation());
         existingTypeEmploye.setSalaireBase(typeEmploye.getSalaireBase());
@@ -34,7 +34,7 @@ public class TypeEmployeService {
         return repository.save(existingTypeEmploye);
     }
 
-    public void deleteTypeEmploye(int id) {
+    public void deleteTypeEmploye(Long id) {
         repository.deleteById(id);
     }
 }
