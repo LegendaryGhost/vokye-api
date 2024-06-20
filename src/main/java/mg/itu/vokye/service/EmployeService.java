@@ -39,4 +39,8 @@ public class EmployeService {
     public void deleteEmploye(Long id) {
         repository.deleteById(id);
     }
+
+    public Employe checkEmploye(String email, String motDePasse) {
+        return repository.existsByEmailAndMotDePasse(email, motDePasse);
+    }
 }
