@@ -208,3 +208,7 @@ SELECT e.id_employe,
 FROM employe e
          JOIN
      type_employe t ON e.id_type_employe = t.id_type_employe;
+
+
+CREATE OR REPLACE VIEW vue_chiffre_affaire AS 
+SELECT SUM(v.quantite*p.prix) FROM vente v JOIN produit p ON v.id_produit = p.id_produit ; 

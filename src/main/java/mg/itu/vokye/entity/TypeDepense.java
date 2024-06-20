@@ -4,15 +4,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.math.BigDecimal;
-import lombok.Data;
+import jakarta.persistence.Table;
 
-@Data
 @Entity
-public class Produit {
+@Table(name = "type_depense")
+public class TypeDepense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idProduit;
-    private String nom;
-    private BigDecimal prix;
+    private Long id_type_depense;
+
+    private String designation;
+
+    // Getters and Setters
 }
