@@ -15,6 +15,11 @@ public class DepenseService {
     @Autowired
     DepenseRepository depenseRepository;
 
+    @Autowired
+    VenteService venteService;
+
+
+
     public Depense create(Depense depense) {
         if (depense.getId_depense() == null) {
             return depenseRepository.save(depense);
@@ -40,7 +45,13 @@ public class DepenseService {
         return "deleted succes";
     }
     public Double getSumDepenseBy(LocalDate dateDepense){
+
         return depenseRepository.getDepenseAll(dateDepense);
     }
-    
+
+    public Double get_Benefice(LocalDate date){
+       Double sumVente = venteService.getRecetteAll(date);
+       Double sumDepense = getSumDepenseBy(date);
+       return  sumVente - sumDepense;
+    }
 }
