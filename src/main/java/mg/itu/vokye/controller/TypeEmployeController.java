@@ -2,9 +2,9 @@ package mg.itu.vokye.controller;
 
 import mg.itu.vokye.entity.TypeEmploye;
 import mg.itu.vokye.service.TypeEmployeService;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/type-employe")
@@ -23,8 +23,8 @@ public class TypeEmployeController {
 
     // Read All
     @GetMapping
-    public List<TypeEmploye> getAllTypeEmployes() {
-        return service.getAllTypeEmployes();
+    public Page<TypeEmploye> getAllTypeEmploye(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return service.getAllTypeEmploye(page, size);
     }
 
     // Find One

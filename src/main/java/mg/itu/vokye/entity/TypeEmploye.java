@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 @Entity
 public class TypeEmploye {
@@ -15,8 +17,4 @@ public class TypeEmploye {
     private String designation;
     private BigDecimal salaireBase;
     private Integer pourcentage;
-    @Column(name = "nbre_vente")
-    private int nbreVente;
-    @Column(name = "chiffre_affaire")
-    private Double chiffreAffaire;
 }

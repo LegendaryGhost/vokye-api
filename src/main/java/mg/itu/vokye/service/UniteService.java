@@ -2,9 +2,10 @@ package mg.itu.vokye.service;
 
 import mg.itu.vokye.entity.Unite;
 import mg.itu.vokye.repository.UniteRepository;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UniteService {
@@ -18,8 +19,8 @@ public class UniteService {
         return repository.save(unite);
     }
 
-    public List<Unite> getAllUnite() {
-        return repository.findAll();
+    public Page<Unite> getAllUnite(int page, int size) {
+        return repository.findAll(PageRequest.of(page, size));
     }
 
     public Unite getUniteById(Long id) {

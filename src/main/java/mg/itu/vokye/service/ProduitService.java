@@ -2,6 +2,9 @@ package mg.itu.vokye.service;
 
 import mg.itu.vokye.entity.Produit;
 import mg.itu.vokye.repository.ProduitRepository;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +23,8 @@ public class ProduitService {
         return repository.save(produit);
     }
 
-    public List<Produit> getAllProduit() {
-        return repository.findAll();
+    public Page<Produit> getAllProduit(int page, int size) {
+        return repository.findAll(PageRequest.of(page, size));
     }
 
     public Produit getProduitById(Long id) {

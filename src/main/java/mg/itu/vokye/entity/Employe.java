@@ -21,7 +21,7 @@ public class Employe {
     private Date dateEntree;
     private Date dateFin;
     @Column(name = "date_de_naissance")
-    private Timestamp dateDeNaissance;
+    private Date dateDeNaissance;
     @Column(name = "num_tel")
     private int numTel;
     @Column(name = "designation")

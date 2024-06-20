@@ -2,9 +2,9 @@ package mg.itu.vokye.controller;
 
 import mg.itu.vokye.entity.StockIngredient;
 import mg.itu.vokye.service.StockIngredientService;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/stock-ingredient")
@@ -23,8 +23,8 @@ public class StockIngredientController {
 
     // Read All
     @GetMapping
-    public List<StockIngredient> getAllStockIngredients() {
-        return service.getAllStockIngredient();
+    public Page<StockIngredient> getAllStockIngredient(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return service.getAllStockIngredient(page, size);
     }
 
     // Find One
