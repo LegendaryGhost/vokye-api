@@ -16,5 +16,6 @@ public class EmployeStatsDTO {
     Double recette;
     Double validcota;
     LocalDate in_date;
+    Integer nombre_vente;
 
 }

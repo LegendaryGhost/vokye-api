@@ -28,6 +28,15 @@ public interface VenteRepository extends JpaRepository<Vente, Integer> {
             nativeQuery = true)
     Double getRecetteAll(@Param("dateVente") LocalDate dateVente);
 
+
+    @Query(value = "SELECT sum(sum_vente) " +
+            "FROM recette_vente " +
+            "WHERE date_vente > cast(:dateVente as date) AND date_vente < cast(:dateVente as date) ",
+            nativeQuery = true)
+    Double getRecetteInervalDate(@Param("dateVente") LocalDate dateVenteMin,@Param("dateVente") LocalDate dateVenteMax);
+
+
+
 // BENEFICE //
     @Query(value = "SELECT SUM(sum_vente - cota )  AS sum_vente " +
             "FROM recette_vente "+
@@ -47,6 +56,8 @@ public interface VenteRepository extends JpaRepository<Vente, Integer> {
             "HAVING SUM(sum_vente - cota) < 0",
             nativeQuery = true)
     Double getPerte(@Param("employeeId") Integer employeeId, @Param("dateVente") LocalDate dateVente);
+
+
 
 
 }

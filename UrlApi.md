@@ -67,7 +67,7 @@
 
 ### Get Depense by Date
 - **Method:** `GET`
-- **URL:** `/api/depense/all/depense/{date}`
+- **URL:** `/api/depense/all/depense/2024-06-12`
 
 ### Get Total Depense
 - **Method:** `GET`
@@ -108,34 +108,13 @@
 ### Get Total Recette
 - **Method:** `GET`
 - **URL:** `/api/vente/all/recette/`
-
-### Get Recette Total by Employee
+- ### Get Total Recette Before
 - **Method:** `GET`
-- **URL:** `/api/vente/all/recette/{id_employee}`
-
-### Get Benefice by Employee (All Time)
+- **URL:** `/api/vente/all/recette/2024-06-12`
+- ### Get Prediction on date
 - **Method:** `GET`
-- **URL:** `/api/vente/benefice/{id}`
+- **URL:** `/api/vente/prediction/2024-06-12`
 
-### Get Benefice by Employee and Date
-- **Method:** `GET`
-- **URL:** `/api/vente/benefice/{id}/{date}`
-
-### Get Perte by Employee (All Time)
-- **Method:** `GET`
-- **URL:** `/api/vente/perte/{id}`
-
-### Get Perte by Employee and Date
-- **Method:** `GET`
-- **URL:** `/api/vente/perte/{id}/{date}`
-
-### Get Recette by Employee (All Time)
-- **Method:** `GET`
-- **URL:** `/api/vente/recette/{id}`
-
-### Get Recette by Employee and Date
-- **Method:** `GET`
-- **URL:** `/api/vente/recette/{id}/{date}`
 ```
 
 Voici les URL a utilise pour recuperer et envoyer les fichier a l API vokye sachant que les insert update son envoyer sous forme de JSON.

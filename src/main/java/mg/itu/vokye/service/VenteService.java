@@ -114,18 +114,20 @@ public class VenteService {
     // Employe statistique
     public List<EmployeStatsDTO> getStatsVenteEmp(Integer employeeId, LocalDate dateVente) {
         String sql = "SELECT nom, prenom, SUM(sum_vente) AS recette, SUM(sum_vente - cota) AS validcota, " +
-                "CAST(? AS DATE) AS in_date " +
+                "CAST(? AS DATE) AS in_date,nombre_vente " +
                 "FROM recette_vente " +
                 "WHERE id_employe = ? " +
                 "AND (CAST(? AS DATE) IS NULL OR date_vente = CAST(? AS DATE)) " +
-                "GROUP BY id_employe, nom, prenom";
+                "GROUP BY id_employe, nom, prenom,nombre_vente";
 
         return jdbcTemplate.query(sql, new Object[]{dateVente, employeeId, dateVente, dateVente}, (rs, rowNum) -> new EmployeStatsDTO(
                 rs.getString("nom"),
                 rs.getString("prenom"),
                 rs.getDouble("recette"),
                 rs.getDouble("validcota"),
-                dateVente
+                dateVente,
+                rs.getInt("nombre_vente")
+
         ));
     }
 

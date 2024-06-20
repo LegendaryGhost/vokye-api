@@ -37,8 +37,14 @@ public class VenteController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+
     @PostMapping
-    public ResponseEntity<Vente> createVEnte(@RequestBody Vente vente) {
+    public ResponseEntity<Vente> createVente(@RequestBody Vente vente) {
+        Vente venteCreated = venteService.create(vente);
+        return new ResponseEntity<>(venteCreated, HttpStatus.CREATED);
+    }
+    @PutMapping
+    public ResponseEntity<Vente> updateVente(@RequestBody Vente vente) {
         Vente venteCreated = venteService.create(vente);
         return new ResponseEntity<>(venteCreated, HttpStatus.CREATED);
     }
@@ -75,32 +81,32 @@ public class VenteController {
 
 
 // par id employe
-    @GetMapping("/{type}/{id}")
-    public ResponseEntity<Double> getRecetteOrBeneficeOrPerteByEmp(
-            @PathVariable String type, @PathVariable Integer id) {
-        Double result = getResultByTypeAndId(type, id, null);
-        if (result == null){
-            result = 0.0;
-        }
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-    @GetMapping("/{type}/{id}/{date}")
-    public ResponseEntity<Double> getRecetteOrBeneficeOrPerteByEmpDate(
-            @PathVariable String type, @PathVariable Integer id, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        Double result = getResultByTypeAndId(type, id, date);
-        if (result == null){
-            result = 0.0;
-        }
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-    private Double getResultByTypeAndId(String type, Integer id, LocalDate date) {
-        return switch (type) {
-            case "recette" -> (date == null) ? venteService.getRecette(id) : venteService.getRecetteByDate(id, date);
-            case "benefice" -> (date == null) ? venteService.getBenefice(id) : venteService.getBeneficeByDate(id, date);
-            case "perte" -> (date == null) ? venteService.getPerte(id) : venteService.getPerteByDate(id, date);
-            default -> throw new IllegalArgumentException("Invalid type: " + type);
-        };
-    }
+//    @GetMapping("/{type}/{id}")
+//    public ResponseEntity<Double> getRecetteOrBeneficeOrPerteByEmp(
+//            @PathVariable String type, @PathVariable Integer id) {
+//        Double result = getResultByTypeAndId(type, id, null);
+//        if (result == null){
+//            result = 0.0;
+//        }
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//    }
+//    @GetMapping("/{type}/{id}/{date}")
+//    public ResponseEntity<Double> getRecetteOrBeneficeOrPerteByEmpDate(
+//            @PathVariable String type, @PathVariable Integer id, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+//        Double result = getResultByTypeAndId(type, id, date);
+//        if (result == null){
+//            result = 0.0;
+//        }
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//    }
+//    private Double getResultByTypeAndId(String type, Integer id, LocalDate date) {
+//        return switch (type) {
+//            case "recette" -> (date == null) ? venteService.getRecette(id) : venteService.getRecetteByDate(id, date);
+//            case "benefice" -> (date == null) ? venteService.getBenefice(id) : venteService.getBeneficeByDate(id, date);
+//            case "perte" -> (date == null) ? venteService.getPerte(id) : venteService.getPerteByDate(id, date);
+//            default -> throw new IllegalArgumentException("Invalid type: " + type);
+//        };
+//    }
 
 
     /// Prediction de chiffre d affaire a une date donne
@@ -110,7 +116,7 @@ public class VenteController {
         double prediction = ventePredictionService.predictChiffreAffaireIn(date);
         return ResponseEntity.ok(prediction);
     }
-
+    //Statistique employe
     @GetMapping("/stats/employe")
     public List<EmployeStatsDTO> getStatEmployeBydate(
             @RequestParam Integer employeeId,
