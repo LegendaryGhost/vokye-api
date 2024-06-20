@@ -43,4 +43,8 @@ public class EmployeService {
     public Employe checkEmploye(String email, String motDePasse) {
         return repository.existsByEmailAndMotDePasse(email, motDePasse);
     }
+
+    public List<Employe> getEmployesByDesignation(String designation) {
+        return repository.findByDesignation(designation);
+    }
 }
