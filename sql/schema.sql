@@ -140,11 +140,9 @@ CREATE TABLE chariot
 CREATE TABLE point_vente
 (
     id_point_vente SERIAL PRIMARY KEY,
-    id_chariot     INT,
     localisation   VARCHAR(200),
     longitude      DOUBLE PRECISION,
-    latitude       DOUBLE PRECISION,
-    FOREIGN KEY (id_chariot) REFERENCES chariot (id_chariot)
+    latitude       DOUBLE PRECISION
 );
 
 -- vente
@@ -180,7 +178,8 @@ CREATE TABLE etat_utilitaire
 -- Vues
 
 CREATE OR REPLACE VIEW vue_somme_ventes_point_vente AS
-SELECT pv.id_point_vente,
+SELECT ROW_NUMBER() OVER () AS numero_ligne,
+       pv.id_point_vente,
        pv.localisation,
        v.date_vente,
        SUM(v.quantite * p.prix) AS total_ventes

@@ -87,17 +87,17 @@ VALUES (1),
        (3);
 
 -- Insert data into vente
-INSERT INTO vente (id_chariot, id_produit, quantite, date_vente)
-VALUES (1, 1, 3, '2024-01-20'), -- Chariot 1 sells 3 Cakes
-       (2, 2, 5, '2024-01-21'), -- Chariot 2 sells 5 Breads
-       (3, 3, 10, '2024-01-22');
+INSERT INTO vente (id_chariot,id_point_vente, id_produit, quantite, date_vente)
+VALUES (1,1, 1, 3, '2024-01-20'), -- Chariot 1 sells 3 Cakes
+       (2,1, 2, 5, '2024-01-21'), -- Chariot 2 sells 5 Breads
+       (3,2, 3, 10, '2024-01-22');
 -- Chariot 3 sells 10 Muffins
 
 -- Insert data into point_vente
-INSERT INTO point_vente (id_chariot, localisation, latitude, longitude)
-VALUES (1, 'Analakely', '-18.9070', '47.5263'),
-       (2, 'Andoharanoftsy', '-18.9794', '47.5428'),
-       (3, 'Analamahistsy', '-18.8738', '47.5502');
+INSERT INTO point_vente (localisation,  latitude, longitude)
+VALUES ('Analakely', '-18.9070', '47.5263'),
+       ('Andoharanoftsy', '-18.9794', '47.5428'),
+       ('Analamahistsy', '-18.8738', '47.5502');
 
 -- Insert data into Etat
 INSERT INTO etat (nom)
