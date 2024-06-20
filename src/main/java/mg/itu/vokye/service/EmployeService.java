@@ -42,6 +42,6 @@ public class EmployeService {
     }
 
     public List<Employe> getEmployesByDesignation(String designation) {
-        return employeRepository.findByDesignation(designation);
+        return repository.findByDesignation(designation);
     }
 }
