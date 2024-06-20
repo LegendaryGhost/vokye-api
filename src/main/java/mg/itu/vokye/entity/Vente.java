@@ -1,15 +1,27 @@
 package mg.itu.vokye.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import mg.itu.vokye.dto.EmployeStatsDTO;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
+@SqlResultSetMapping(
+        name = "EmployeStatsDTOMapping",
+        classes = @ConstructorResult(
+                targetClass = EmployeStatsDTO.class,
+                columns = {
+                        @ColumnResult(name = "nom", type = String.class),
+                        @ColumnResult(name = "prenom", type = String.class),
+                        @ColumnResult(name = "recette", type = Double.class),
+                        @ColumnResult(name = "validcota", type = Double.class),
+                        @ColumnResult(name = "in_date", type = LocalDate.class)
+                }
+        )
+)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

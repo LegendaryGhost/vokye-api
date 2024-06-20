@@ -10,6 +10,7 @@ CREATE DATABASE vokye_api;
 CREATE TABLE type_employe
 (
     id_type_employe SERIAL PRIMARY KEY,
+    cota NUMERIC(10,2),
     designation     VARCHAR(20),
     salaire_base    NUMERIC(10, 2),
     pourcentage     INT
@@ -217,13 +218,15 @@ SELECT
     v.date_vente AS date_vente,
     e.id_employe,
     e.id_type_employe,
-    e.nom,
-    e.prenom
+    e.nom as nom,
+    e.prenom as prenom,
+    te.cota
 FROM Vente v
          JOIN chariot c ON v.id_chariot = c.id_chariot
          JOIN employe e ON c.id_employe = e.id_employe
          JOIN produit p ON v.id_produit = p.id_produit
-GROUP BY e.id_employe, v.date_vente
+         JOIN  type_employe te ON e.id_type_employe = te.id_type_employe
+GROUP BY e.id_employe, v.date_vente,te.cota
     );
 
 

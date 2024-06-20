@@ -1,11 +1,19 @@
 package mg.itu.vokye.service;
 
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import mg.itu.vokye.dto.EmployeStatsDTO;
 import mg.itu.vokye.entity.Vente;
 import mg.itu.vokye.repository.VenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +22,9 @@ import java.util.Optional;
 public class VenteService {
 
     @Autowired
+    private JdbcTemplate jdbcTemplate;
+    @Autowired
     private VenteRepository venteRepository;
-    private Double cota = 100000.0;
 
     public Vente create(Vente vente) {
         // Assure-toi que l'ID de vente est null pour s'assurer que c'est une nouvelle vente
@@ -81,24 +90,43 @@ public class VenteService {
 
 
     public Double getBenefice(Integer idEmploye) {
-        return venteRepository.getBenefice(idEmploye, cota, null
+        return venteRepository.getBenefice(idEmploye, null
         );
     }
 
     public Double getBeneficeByDate(Integer idEmploye, LocalDate dateVente) {
-        return venteRepository.getBenefice(idEmploye, cota, dateVente
+        return venteRepository.getBenefice(idEmploye, dateVente
         );
     }
 
     // perte
 
     public Double getPerte(Integer idEmploye) {
-        return venteRepository.getPerte(idEmploye, cota, null
+        return venteRepository.getPerte(idEmploye, null
         );
     }
 
     public Double getPerteByDate(Integer idEmploye, LocalDate dateVente) {
-        return venteRepository.getPerte(idEmploye, cota, dateVente
+        return venteRepository.getPerte(idEmploye, dateVente
         );
     }
+
+    // Employe statistique
+    public List<EmployeStatsDTO> getStatsVenteEmp(Integer employeeId, LocalDate dateVente) {
+        String sql = "SELECT nom, prenom, SUM(sum_vente) AS recette, SUM(sum_vente - cota) AS validcota, " +
+                "CAST(? AS DATE) AS in_date " +
+                "FROM recette_vente " +
+                "WHERE id_employe = ? " +
+                "AND (CAST(? AS DATE) IS NULL OR date_vente = CAST(? AS DATE)) " +
+                "GROUP BY id_employe, nom, prenom";
+
+        return jdbcTemplate.query(sql, new Object[]{dateVente, employeeId, dateVente, dateVente}, (rs, rowNum) -> new EmployeStatsDTO(
+                rs.getString("nom"),
+                rs.getString("prenom"),
+                rs.getDouble("recette"),
+                rs.getDouble("validcota"),
+                dateVente
+        ));
+    }
+
 }

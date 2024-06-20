@@ -2,7 +2,9 @@ package mg.itu.vokye.controller;
 
 
 
+import mg.itu.vokye.dto.EmployeStatsDTO;
 import mg.itu.vokye.entity.Vente;
+import mg.itu.vokye.service.VentePredictionService;
 import mg.itu.vokye.service.VenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,6 +21,8 @@ import java.util.Optional;
 public class VenteController {
     @Autowired
     private VenteService venteService;
+    @Autowired
+    private VentePredictionService ventePredictionService;
 
     @GetMapping("read")
     public ResponseEntity<List<Vente>> getAllVentes() {
@@ -49,7 +53,7 @@ public class VenteController {
     // type soit recette ou benefice perte
 
 
-    @GetMapping("/all/recette/")
+    @GetMapping("/all/recette")
     public ResponseEntity<Double> getRecetteOrBeneficeOrPerteByEmpDateAll() {
         Double result = venteService.getRecetteAll(null);
         if (result == null){
@@ -66,6 +70,9 @@ public class VenteController {
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+
+
 
 // par id employe
     @GetMapping("/{type}/{id}")
@@ -86,7 +93,6 @@ public class VenteController {
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
     private Double getResultByTypeAndId(String type, Integer id, LocalDate date) {
         return switch (type) {
             case "recette" -> (date == null) ? venteService.getRecette(id) : venteService.getRecetteByDate(id, date);
@@ -94,6 +100,22 @@ public class VenteController {
             case "perte" -> (date == null) ? venteService.getPerte(id) : venteService.getPerteByDate(id, date);
             default -> throw new IllegalArgumentException("Invalid type: " + type);
         };
+    }
+
+
+    /// Prediction de chiffre d affaire a une date donne
+
+    @GetMapping("/prediction/{date}")
+    public ResponseEntity<Double> predictVente(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        double prediction = ventePredictionService.predictChiffreAffaireIn(date);
+        return ResponseEntity.ok(prediction);
+    }
+
+    @GetMapping("/stats/employe")
+    public List<EmployeStatsDTO> getStatEmployeBydate(
+            @RequestParam Integer employeeId,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateVente) {
+        return venteService.getStatsVenteEmp(employeeId, dateVente);
     }
 
 

@@ -90,7 +90,9 @@ VALUES (1),
 INSERT INTO vente (id_chariot, id_produit, quantite, date_vente)
 VALUES (1, 1, 3, '2024-01-20'), -- Chariot 1 sells 3 Cakes
        (2, 2, 5, '2024-01-21'), -- Chariot 2 sells 5 Breads
-       (3, 3, 10, '2024-01-22');
+       (3, 3, 10, '2024-01-22'),
+       (1, 3, 10, '2024-01-22'),
+       (2, 2, 10, '2024-01-22');
 -- Chariot 3 sells 10 Muffins
 
 -- Insert data into point_vente
