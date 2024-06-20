@@ -47,8 +47,8 @@ public class EmployeController {
     }
 
     // Get employees by position
-    @GetMapping("/poste/{poste}")
-    public List<Employe> getEmployesByPoste(@PathVariable String poste) {
-        return service.getEmployesByPoste(poste);
+    @GetMapping("/designation/{designation}")
+    public List<Employe> getEmployesByDesignation(@PathVariable String designation) {
+        return service.getEmployesByDesignation(designation);
     }
 }

@@ -3,7 +3,6 @@ package mg.itu.vokye.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data
@@ -31,8 +30,8 @@ public class Employe {
     @Column(name = "Num_tel")
     private int numTel;
 
-    @Column(name = "Poste")
-    private String poste;
+    @Column(name = "Designation")
+    private String designation;
 
     @Column(name = "Nbre_vente")
     private int numVente;
@@ -48,4 +47,13 @@ public class Employe {
 
     @Column(name = "Date_fin")
     private Timestamp dateFin;
+
+    @Column(name = "Mot_de_passe")
+    private String motDePasse;
+
+    @Column(name = "Email")
+    private String email;
+
+    @Column(name = "Photo")
+    private String photo;
 }
