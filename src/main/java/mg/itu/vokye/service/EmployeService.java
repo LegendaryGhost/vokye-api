@@ -41,7 +41,7 @@ public class EmployeService {
         repository.deleteById(id);
     }
 
-    public List<Employe> getEmployesByPoste(String poste) {
-        return repository.findByPoste(poste);
+    public List<Employe> getEmployesByDesignation(String designation) {
+        return employeRepository.findByDesignation(designation);
     }
 }

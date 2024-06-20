@@ -21,9 +21,12 @@ CREATE TABLE employee (
     id_type_emp INT,
     Nom VARCHAR(50),
     Prenom VARCHAR(50),
+    Mot_de_passe VARCHAR(150),
+    Email VARCHAR(50),
+    Photo VARCHAR(50),
+    Designation VARCHAR(20),
     Date_de_naissance TIMESTAMP,
     Num_tel INT,
-    Poste VARCHAR(50),
     Nbre_vente INT,
     Chiffre_affaire NUMERIC(16, 2),
     Statut BOOLEAN,
@@ -31,6 +34,7 @@ CREATE TABLE employee (
     Date_fin TIMESTAMP,
     FOREIGN KEY (id_type_emp) REFERENCES type_emp(id_type_emp)
 );
+
 
 -- unite
 CREATE TABLE unite

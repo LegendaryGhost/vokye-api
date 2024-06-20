@@ -3,8 +3,6 @@ package mg.itu.vokye.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.math.BigDecimal;
-
 @Data
 @Entity
 @Table(name = "type_emp")
@@ -18,14 +16,14 @@ public class TypeEmploye {
     private String designation;
 
     @Column(name = "Salaire_base")
-    private BigDecimal salaireBase;
+    private Double salaireBase;
 
     @Column(name = "Nbre_vente")
     private int nbreVente;
 
-    @Column(name = "Chiffre_affaire")
-    private BigDecimal chiffreAffaire;
+    @Column(name = "Chiffre_Affaire")
+    private Double chiffreAffaire;
 
     @Column(name = "Pourcentage")
-    private Integer pourcentage;
+    private int pourcentage;
 }
