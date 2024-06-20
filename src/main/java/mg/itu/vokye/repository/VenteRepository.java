@@ -14,13 +14,13 @@ import java.util.List;
 @Repository
 public interface VenteRepository extends JpaRepository<Vente, Integer> {
 
-    @Query(value = "SELECT sum(sum_vente) " +
-            "FROM recette_vente " +
-            "WHERE id_employe = :employeeId " +
-            "AND (cast(:dateVente as date) IS NULL OR date_vente = cast(:dateVente as date)) " +
-            "group by id_employe",
-            nativeQuery = true)
-    Double getRecette(@Param("employeeId") Integer employeeId, @Param("dateVente") LocalDate dateVente);
+//    @Query(value = "SELECT sum(sum_vente) " +
+//            "FROM recette_vente " +
+//            "WHERE id_employe = :employeeId " +
+//            "AND (cast(:dateVente as date) IS NULL OR date_vente = cast(:dateVente as date)) " +
+//            "group by id_employe",
+//            nativeQuery = true)
+//    Double getRecette(@Param("employeeId") Integer employeeId, @Param("dateVente") LocalDate dateVente);
 
     @Query(value = "SELECT sum(sum_vente) " +
             "FROM recette_vente " +
@@ -37,25 +37,44 @@ public interface VenteRepository extends JpaRepository<Vente, Integer> {
 
 
 
-// BENEFICE //
-    @Query(value = "SELECT SUM(sum_vente - cota )  AS sum_vente " +
-            "FROM recette_vente "+
-            "WHERE id_employe = :employeeId " +
-            "AND (cast(:dateVente as date) IS NULL OR date_vente = cast(:dateVente as date)) " +
-            "GROUP BY id_employe " +
-            "HAVING SUM(sum_vente - cota) > 0",
-            nativeQuery = true)
-    Double getBenefice(@Param("employeeId") Integer employeeId, @Param("dateVente") LocalDate dateVente);
+//// BENEFICE //
+//    @Query(value = "SELECT SUM(sum_vente - cota )  AS sum_vente " +
+//            "FROM recette_vente "+
+//            "WHERE id_employe = :employeeId " +
+//            "AND (cast(:dateVente as date) IS NULL OR date_vente = cast(:dateVente as date)) " +
+//            "GROUP BY id_employe " +
+//            "HAVING SUM(sum_vente - cota) > 0",
+//            nativeQuery = true)
+//    Double getBenefice(@Param("employeeId") Integer employeeId, @Param("dateVente") LocalDate dateVente);
+//
+//// PERTE //
+//    @Query(value = "SELECT SUM(sum_vente - cota )  AS sum_vente " +
+//            "FROM recette_vente "+
+//            "WHERE id_employe = :employeeId " +
+//            "AND (cast(:dateVente as date) IS NULL OR date_vente = cast(:dateVente as date)) " +
+//            "GROUP BY id_employe " +
+//            "HAVING SUM(sum_vente - cota) < 0",
+//            nativeQuery = true)
+//    Double getPerte(@Param("employeeId") Integer employeeId, @Param("dateVente") LocalDate dateVente);
+//
+@Query(value = "SELECT sum(sum_vente) " +
+        "FROM recette_vente " +
+        "WHERE Year(date_vente) = Year(cast(:dateVente as date)) " +
+        "AND Month(date_vente) = Month(cast(:dateVente as date))",
+        nativeQuery = true)
+Double getRecetteAllMensuel(@Param("dateVente") LocalDate dateVente);
 
-// PERTE //
-    @Query(value = "SELECT SUM(sum_vente - cota )  AS sum_vente " +
-            "FROM recette_vente "+
-            "WHERE id_employe = :employeeId " +
-            "AND (cast(:dateVente as date) IS NULL OR date_vente = cast(:dateVente as date)) " +
-            "GROUP BY id_employe " +
-            "HAVING SUM(sum_vente - cota) < 0",
-            nativeQuery = true)
-    Double getPerte(@Param("employeeId") Integer employeeId, @Param("dateVente") LocalDate dateVente);
+
+
+
+
+    // nombre de vente
+@Query(value = "SELECT sum(nombre_vente) " +
+        "FROM recette_vente "+
+        "WHERE (cast(:dateVente as date) IS NULL OR date_vente = cast(:dateVente as date))",
+        nativeQuery = true)
+Double getCountVente(@Param("dateVente") LocalDate dateVente);
+
 
 
 

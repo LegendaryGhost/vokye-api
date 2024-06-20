@@ -1,21 +1,17 @@
 package mg.itu.vokye.service;
 
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
+
 import mg.itu.vokye.dto.EmployeStatsDTO;
 import mg.itu.vokye.entity.Vente;
 import mg.itu.vokye.repository.VenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -107,8 +103,7 @@ public class VenteService {
     }
 
     public Double getPerteByDate(Integer idEmploye, LocalDate dateVente) {
-        return venteRepository.getPerte(idEmploye, dateVente
-        );
+        return venteRepository.getPerte(idEmploye, dateVente);
     }
 
     // Employe statistique
@@ -129,6 +124,11 @@ public class VenteService {
                 rs.getInt("nombre_vente")
 
         ));
+    }
+
+    public Double getCountVente(LocalDate date){
+        Double count =  venteRepository.getCountVente(date);
+        return Objects.requireNonNullElse(count, 0.0);
     }
 
 }

@@ -221,7 +221,7 @@ SELECT
     e.nom as nom,
     e.prenom as prenom,
     te.cota,
-    count(id_vente) AS nombre_vente
+    SUM(v.quantite) AS nombre_vente
 FROM Vente v
          JOIN chariot c ON v.id_chariot = c.id_chariot
          JOIN employe e ON c.id_employe = e.id_employe

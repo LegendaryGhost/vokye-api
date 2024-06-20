@@ -54,4 +54,5 @@ public class DepenseService {
        Double sumDepense = getSumDepenseBy(date);
        return  sumVente - sumDepense;
     }
+
 }
