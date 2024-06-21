@@ -6,7 +6,6 @@ import mg.itu.vokye.service.EmployeService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,7 +26,8 @@ public class EmployeController {
 
     // Read All
     @GetMapping
-    public Page<Employe> getAllEmploye(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public Page<Employe> getAllEmploye(@RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
         return service.getAllEmploye(page, size);
     }
 
