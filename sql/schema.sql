@@ -150,7 +150,7 @@ CREATE TABLE "public".etat_utilitaire
     id_utilitaire        integer,
     id_etat              integer,
     date_etat_utilitaire date,
-    CONSTRAINT etat_utilitaire_pkey PRIMARY KEY (id_etat_utilitaire),
+    CONSTRAINT etat_utilitaire_pkey PRIMARY KEY (id_etat_utilitaire)
 );
 
 CREATE TABLE "public".produit

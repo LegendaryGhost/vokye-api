@@ -1,6 +1,5 @@
 package mg.itu.vokye.service;
 
-
 import mg.itu.vokye.entity.Depense;
 import mg.itu.vokye.repository.DepenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +18,18 @@ public class DepenseService {
     VenteService venteService;
 
     public Depense create(Depense depense) {
-        if (depense.getId_depense() == null) {
+        if (depense.getIdDepense() == null) {
             return depenseRepository.save(depense);
         }
         return null;
     }
 
-    public List<Depense> read(){
+    public List<Depense> read() {
         return depenseRepository.findAll();
     }
 
     public String update(Depense depense) {
-        Optional<Depense> optionalDepense = depenseRepository.findById(depense.getId_depense());
+        Optional<Depense> optionalDepense = depenseRepository.findById(depense.getIdDepense());
         if (optionalDepense.isPresent()) {
             depenseRepository.save(depense);
             return "Succes update";
@@ -38,25 +37,26 @@ public class DepenseService {
         return "update failed";
     }
 
-    public String delete(Integer id){
+    public String delete(Integer id) {
         depenseRepository.deleteById(id);
         return "deleted succes";
     }
-    public Double getSumDepenseBy(LocalDate dateDepense){
+
+    public Double getSumDepenseBy(LocalDate dateDepense) {
 
         return depenseRepository.getDepenseAll(dateDepense);
     }
 
-    public Double get_Benefice(LocalDate date){
-       Double sumVente = venteService.getRecetteAll(date);
-       Double sumDepense = getSumDepenseBy(date);
-       return  sumVente - sumDepense;
+    public Double get_Benefice(LocalDate date) {
+        Double sumVente = venteService.getRecetteAll(date);
+        Double sumDepense = getSumDepenseBy(date);
+        return sumVente - sumDepense;
     }
 
-    public Double get_BeneficeMonth(Integer month,Integer year){
-        Double sumVente = venteService.getRecetteByMonth(month,year);
-        Double sumDepense = depenseRepository.getDepenseByMonth(month,year);
-        return  sumVente - sumDepense;
+    public Double get_BeneficeMonth(Integer month, Integer year) {
+        Double sumVente = venteService.getRecetteByMonth(month, year);
+        Double sumDepense = depenseRepository.getDepenseByMonth(month, year);
+        return sumVente - sumDepense;
     }
 
 }

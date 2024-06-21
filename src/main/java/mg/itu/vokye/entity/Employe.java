@@ -44,6 +44,4 @@ public class Employe {
     @Column(name = "photo")
     private String photo;
     private Date dateNaissance;
-    private int numTel;
-
 }
