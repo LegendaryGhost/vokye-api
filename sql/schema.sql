@@ -15,6 +15,11 @@ CREATE TABLE type_emp (
     pourcentage INT
 );
 
+CREATE TABLE genres (
+    id_genre SERIAL PRIMARY KEY,
+    nom_genre VARCHAR(10)
+);
+
 CREATE TABLE employee (
     id_employee SERIAL PRIMARY KEY,
     id_type_emp INT,
@@ -24,11 +29,13 @@ CREATE TABLE employee (
     email VARCHAR(50),
     photo VARCHAR(50),
     designation VARCHAR(20),
-    date_de_naissance date,
+    date_de_naissance DATE,
     num_tel INT,
-    date_entree date,
-    date_fin date,
-    FOREIGN KEY (id_type_emp) REFERENCES type_emp(id_type_emp)
+    id_genre INT,
+    date_entree DATE,
+    date_fin DATE,
+    FOREIGN KEY (id_type_emp) REFERENCES type_emp(id_type_emp),
+    FOREIGN KEY (id_genre) REFERENCES genres(id_genre)
 );
 
 

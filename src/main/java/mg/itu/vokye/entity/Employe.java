@@ -3,32 +3,37 @@ package mg.itu.vokye.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Date;
-
+import java.sql.Timestamp;
 
 @Data
 @Entity
+@Table(name = "employee")
 public class Employe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idEmploye;
+    @Column(name = "id_employee")
+    private int idEmployee;
+
     @ManyToOne
-    @JoinColumn(name = "id_type_employe")
+    @JoinColumn(name = "id_type_emp")
     private TypeEmploye typeEmploye;
+
+    @ManyToOne
+    @JoinColumn(name = "id_genre")
+    private Genre genre;
+
+    @Column(name = "nom")
     private String nom;
+
+    @Column(name = "prenom")
     private String prenom;
-    private String email;
-    private String motDePasse;
-    private Date dateEntree;
-    private Date dateFin;
-  
-    @Column(name = "date_de_naissance")
   
     private Date dateDeNaissance;
+  
     @Column(name = "num_tel")
     private int numTel;
-  
+
     @Column(name = "designation")
     private String designation;
 
@@ -46,5 +51,5 @@ public class Employe {
 
     @Column(name = "photo")
     private String photo;
-
+  
 }

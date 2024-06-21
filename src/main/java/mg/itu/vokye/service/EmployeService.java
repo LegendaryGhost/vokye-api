@@ -36,6 +36,7 @@ public class EmployeService {
         existingEmploye.setDateEntree(employe.getDateEntree());
         existingEmploye.setDateFin(employe.getDateFin());
         existingEmploye.setTypeEmploye(employe.getTypeEmploye());
+        existingEmploye.setGenre(employe.getGenre());
         existingEmploye.setMotDePasse(employe.getMotDePasse());
         existingEmploye.setEmail(employe.getEmail());
         existingEmploye.setPhoto(employe.getPhoto());
