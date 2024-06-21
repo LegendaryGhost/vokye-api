@@ -9,14 +9,18 @@ import lombok.Data;
 @Data
 @Entity
 public class TypeEmploye {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTypeEmploye;
     private String designation;
+    @Column(name = "cota")
+    private Double cota;
     private BigDecimal salaireBase;
     private Integer pourcentage;
     @Column(name = "nbre_vente")
     private int nbreVente;
     @Column(name = "chiffre_affaire")
     private Double chiffreAffaire;
+
 }

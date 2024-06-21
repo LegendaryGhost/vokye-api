@@ -15,6 +15,6 @@ public interface EmployeRepository extends JpaRepository<Employe, Long> {
             "AND e.mot_de_passe = crypt(:motDePasse, e.mot_de_passe)", nativeQuery = true)
     Employe existsByEmailAndMotDePasse(@Param("email") String email, @Param("motDePasse") String motDePasse);
 
-    @Query(value = "SELECT * FROM employee WHERE designation = :designation", nativeQuery = true)
-    List<Employe> findByDesignation(@Param("designation") String designation);
+    @Query("SELECT e FROM Employe e JOIN e.typeEmploye t WHERE t.designation = :designation")
+    List<Employe> findByTypeEmployeDesignation(@Param("designation") String designation);
 }

@@ -31,6 +31,7 @@ public class TypeEmployeService {
         existingTypeEmploye.setDesignation(typeEmploye.getDesignation());
         existingTypeEmploye.setSalaireBase(typeEmploye.getSalaireBase());
         existingTypeEmploye.setPourcentage(typeEmploye.getPourcentage());
+        existingTypeEmploye.setCota(typeEmploye.getCota());
         return repository.save(existingTypeEmploye);
     }
 
