@@ -316,4 +316,4 @@ FROM Vente v
          JOIN produit p ON v.id_produit = p.id_produit
          JOIN type_employe te ON e.id_type_employe = te.id_type_employe
 GROUP BY e.id_employe, v.date_vente, te.cota
-    );
+);

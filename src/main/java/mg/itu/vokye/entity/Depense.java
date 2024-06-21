@@ -14,15 +14,10 @@ import java.time.LocalDate;
 public class Depense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id_depense;
-
-    @ManyToOne()
-    @JoinColumn(name = "id_type_depense", nullable = false)
+    private Long idDepense;
+    @ManyToOne
+    @JoinColumn(name = "id_type_depense")
     private TypeDepense typeDepense;
-
-    double prix;
-
-    LocalDate date_depense;
-
-
+    private Double prix;
+    private Date dateDepense;
 }
