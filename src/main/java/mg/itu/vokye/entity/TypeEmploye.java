@@ -1,31 +1,26 @@
 package mg.itu.vokye.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "type_emp")
 public class TypeEmploye {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_type_emp")
-    private int idTypeEmp;
-
-    @Column(name = "designation")
+    private Long idTypeEmploye;
     private String designation;
-
-    @Column(name = "salaire_base")
-    private Double salaireBase;
-
-    @Column(name = "pourcentage")
-    private int pourcentage;
-
     @Column(name = "cota")
     private Double cota;
-    
+    private BigDecimal salaireBase;
+    private Integer pourcentage;
+    @Column(name = "nbre_vente")
+    private int nbreVente;
+    @Column(name = "chiffre_affaire")
+    private Double chiffreAffaire;
 
 }
-
-
