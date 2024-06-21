@@ -101,7 +101,6 @@ CREATE TABLE "public".produit
     CONSTRAINT produit_pkey PRIMARY KEY (id_produit)
 );
 
-
 CREATE TABLE "public".type_achat
 (
     id_type_achat   serial      NOT NULL,
@@ -309,7 +308,6 @@ ALTER TABLE "public".vente
 
 ALTER TABLE "public".vente
     ADD CONSTRAINT vente_id_point_vente_fkey FOREIGN KEY (id_point_vente) REFERENCES "public".point_vente (id_point_vente);
-
 
 -- view vente
 CREATE OR REPLACE VIEW recette_vente AS
