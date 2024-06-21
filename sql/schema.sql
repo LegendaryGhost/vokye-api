@@ -101,14 +101,6 @@ CREATE TABLE "public".produit
     CONSTRAINT produit_pkey PRIMARY KEY (id_produit)
 );
 
-CREATE TABLE "public".type_achat
-(
-    id_type_achat   serial      NOT NULL,
-    designation     varchar(50) NOT NULL,
-    id_type_depense integer DEFAULT nextval('type_depense_id_type_depense_seq1'::regclass),
-    CONSTRAINT pk_achats PRIMARY KEY (id_type_achat),
-    CONSTRAINT unq_type_achat_id_type_depense UNIQUE (id_type_depense)
-);
 
 CREATE TABLE "public".type_depense
 (
@@ -294,8 +286,6 @@ ALTER TABLE "public".ingredient_produit
 ALTER TABLE "public".point_vente
     ADD CONSTRAINT point_vente_id_chariot_fkey FOREIGN KEY (id_chariot) REFERENCES "public".chariot (id_chariot);
 
-ALTER TABLE "public".type_depense
-    ADD CONSTRAINT fk_type_depense_type_achat FOREIGN KEY (id_type_depense) REFERENCES "public".type_achat (id_type_depense);
 
 ALTER TABLE "public".utilitaire
     ADD CONSTRAINT utilitaire_id_unite_fkey FOREIGN KEY (id_unite) REFERENCES "public".unite (id_unite);
