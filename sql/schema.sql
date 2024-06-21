@@ -102,15 +102,6 @@ CREATE TABLE "public".produit
 );
 
 
-CREATE TABLE "public".type_achat
-(
-    id_type_achat   serial      NOT NULL,
-    designation     varchar(50) NOT NULL,
-    id_type_depense integer DEFAULT nextval('type_depense_id_type_depense_seq1'::regclass),
-    CONSTRAINT pk_achats PRIMARY KEY (id_type_achat),
-    CONSTRAINT unq_type_achat_id_type_depense UNIQUE (id_type_depense)
-);
-
 CREATE TABLE "public".type_depense
 (
     id_type_depense integer DEFAULT nextval('type_depense_id_type_depense_seq1'::regclass) NOT NULL,
@@ -295,8 +286,6 @@ ALTER TABLE "public".ingredient_produit
 ALTER TABLE "public".point_vente
     ADD CONSTRAINT point_vente_id_chariot_fkey FOREIGN KEY (id_chariot) REFERENCES "public".chariot (id_chariot);
 
-ALTER TABLE "public".type_depense
-    ADD CONSTRAINT fk_type_depense_type_achat FOREIGN KEY (id_type_depense) REFERENCES "public".type_achat (id_type_depense);
 
 ALTER TABLE "public".utilitaire
     ADD CONSTRAINT utilitaire_id_unite_fkey FOREIGN KEY (id_unite) REFERENCES "public".unite (id_unite);
@@ -309,7 +298,6 @@ ALTER TABLE "public".vente
 
 ALTER TABLE "public".vente
     ADD CONSTRAINT vente_id_point_vente_fkey FOREIGN KEY (id_point_vente) REFERENCES "public".point_vente (id_point_vente);
-
 
 -- view vente
 CREATE OR REPLACE VIEW recette_vente AS
@@ -328,4 +316,4 @@ FROM Vente v
          JOIN produit p ON v.id_produit = p.id_produit
          JOIN type_employe te ON e.id_type_employe = te.id_type_employe
 GROUP BY e.id_employe, v.date_vente, te.cota
-    );
+);
