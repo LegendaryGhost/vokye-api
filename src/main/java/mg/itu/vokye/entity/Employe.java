@@ -5,7 +5,6 @@ import lombok.Data;
 
 import java.sql.Timestamp;
 
-
 @Data
 @Entity
 @Table(name = "employee")
@@ -19,6 +18,10 @@ public class Employe {
     @ManyToOne
     @JoinColumn(name = "id_type_emp")
     private TypeEmploye typeEmploye;
+
+    @ManyToOne
+    @JoinColumn(name = "id_genre")
+    private Genre genre;
 
     @Column(name = "nom")
     private String nom;
@@ -49,7 +52,4 @@ public class Employe {
 
     @Column(name = "photo")
     private String photo;
-    
-
 }
-
