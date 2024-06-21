@@ -9,10 +9,9 @@ CREATE DATABASE vokye_api;
 -- type_employe
 CREATE TABLE type_emp (
     id_type_emp SERIAL PRIMARY KEY,
+    cota NUMERIC(10,2),
     designation VARCHAR(20),
     salaire_base NUMERIC(10, 2),
-    nbre_vente INT,
-    chiffre_affaire NUMERIC(16, 2),
     pourcentage INT
 );
 
@@ -25,13 +24,10 @@ CREATE TABLE employee (
     email VARCHAR(50),
     photo VARCHAR(50),
     designation VARCHAR(20),
-    date_de_naissance TIMESTAMP,
+    date_de_naissance date,
     num_tel INT,
-    nbre_vente INT,
-    chiffre_affaire NUMERIC(16, 2),
-    statut BOOLEAN,
-    date_entrer TIMESTAMP,
-    date_fin TIMESTAMP,
+    date_entree date,
+    date_fin date,
     FOREIGN KEY (id_type_emp) REFERENCES type_emp(id_type_emp)
 );
 

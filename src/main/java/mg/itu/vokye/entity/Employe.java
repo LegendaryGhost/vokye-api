@@ -5,10 +5,12 @@ import lombok.Data;
 
 import java.sql.Timestamp;
 
+
 @Data
 @Entity
 @Table(name = "employee")
 public class Employe {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_employee")
@@ -33,17 +35,8 @@ public class Employe {
     @Column(name = "designation")
     private String designation;
 
-    @Column(name = "nbre_vente")
-    private int numVente;
-
-    @Column(name = "chiffre_affaire")
-    private Double chiffreAffaires;
-
-    @Column(name = "statut")
-    private Boolean statut;
-
-    @Column(name = "date_entrer")
-    private Timestamp dateEntrer;
+    @Column(name = "date_entree")
+    private Timestamp dateEntree;
 
     @Column(name = "date_fin")
     private Timestamp dateFin;
@@ -56,4 +49,7 @@ public class Employe {
 
     @Column(name = "photo")
     private String photo;
+    
+
 }
+

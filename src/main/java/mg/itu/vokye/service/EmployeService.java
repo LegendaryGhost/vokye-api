@@ -31,9 +31,12 @@ public class EmployeService {
         Employe existingEmploye = repository.findById(id).orElseThrow();
         existingEmploye.setNom(employe.getNom());
         existingEmploye.setPrenom(employe.getPrenom());
-        existingEmploye.setDateEntrer(employe.getDateEntrer());
+        existingEmploye.setDateEntree(employe.getDateEntree());
         existingEmploye.setDateFin(employe.getDateFin());
         existingEmploye.setTypeEmploye(employe.getTypeEmploye());
+        existingEmploye.setMotDePasse(employe.getMotDePasse());
+        existingEmploye.setEmail(employe.getEmail());
+        existingEmploye.setPhoto(employe.getPhoto());
         return repository.save(existingEmploye);
     }
 
@@ -42,6 +45,6 @@ public class EmployeService {
     }
 
     public List<Employe> getEmployesByDesignation(String designation) {
-        return repository.findByDesignation(designation);
+        return repository.findByTypeEmployeDesignation(designation);
     }
 }

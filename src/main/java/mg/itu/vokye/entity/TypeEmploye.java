@@ -7,6 +7,7 @@ import lombok.Data;
 @Entity
 @Table(name = "type_emp")
 public class TypeEmploye {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_type_emp")
@@ -18,12 +19,13 @@ public class TypeEmploye {
     @Column(name = "salaire_base")
     private Double salaireBase;
 
-    @Column(name = "nbre_vente")
-    private int nbreVente;
-
-    @Column(name = "chiffre_affaire")
-    private Double chiffreAffaire;
-
     @Column(name = "pourcentage")
     private int pourcentage;
+
+    @Column(name = "cota")
+    private Double cota;
+    
+
 }
+
+

@@ -46,7 +46,7 @@ public class EmployeController {
         service.deleteEmploye(id);
     }
 
-    // Get employees by position
+    // Get employees by designation
     @GetMapping("/designation/{designation}")
     public List<Employe> getEmployesByDesignation(@PathVariable String designation) {
         return service.getEmployesByDesignation(designation);
