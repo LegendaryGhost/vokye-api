@@ -2,9 +2,10 @@ package mg.itu.vokye.service;
 
 import mg.itu.vokye.entity.TypeEmploye;
 import mg.itu.vokye.repository.TypeEmployeRepository;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 @Service
 public class TypeEmployeService {
@@ -18,8 +19,8 @@ public class TypeEmployeService {
         return repository.save(typeEmploye);
     }
 
-    public List<TypeEmploye> getAllTypeEmployes() {
-        return repository.findAll();
+    public Page<TypeEmploye> getAllTypeEmploye(int page, int size) {
+        return repository.findAll(PageRequest.of(page, size));
     }
 
     public TypeEmploye getTypeEmployeById(Long id) {
@@ -31,6 +32,7 @@ public class TypeEmployeService {
         existingTypeEmploye.setDesignation(typeEmploye.getDesignation());
         existingTypeEmploye.setSalaireBase(typeEmploye.getSalaireBase());
         existingTypeEmploye.setPourcentage(typeEmploye.getPourcentage());
+        existingTypeEmploye.setCota(typeEmploye.getCota());
         return repository.save(existingTypeEmploye);
     }
 

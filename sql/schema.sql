@@ -5,151 +5,247 @@ CREATE DATABASE vokye_api;
 \c vokye_api;
 
 -- Création des tables
+CREATE SCHEMA IF NOT EXISTS "public";
 
--- type_employe
-CREATE TABLE type_employe
+CREATE SEQUENCE "public".achat_ingredient_id_achat_ingredient_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".achat_ingredient_id_achat_ingredient_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".achat_utilitaire_id_achat_utilitaire_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".achat_utilitaire_id_achat_utilitaire_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".chariot_id_chariot_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".chariot_id_chariot_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".depense_id_depense_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".depense_id_depense_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".employe_id_employe_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".employe_id_employe_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".employe_id_genre_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".etat_id_etat_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".etat_id_etat_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".etat_utilitaire_id_etat_utilitaire_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".etat_utilitaire_id_etat_utilitaire_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".genres_id_genre_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".ingredient_id_ingredient_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".ingredient_id_ingredient_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".ingredient_produit_id_ingredient_produit_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".ingredient_produit_id_ingredient_produit_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".point_vente_id_point_vente_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".point_vente_id_point_vente_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".produit_id_produit_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".produit_id_produit_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".stock_ingredient_id_stock_ingredient_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".stock_ingredient_id_stock_ingredient_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".stock_utilitaire_id_stock_utilitaire_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".stock_utilitaire_id_stock_utilitaire_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".type_depense_id_type_depense_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".type_depense_id_type_depense_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".type_employe_id_type_employe_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".type_employe_id_type_employe_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".unite_id_unite_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".unite_id_unite_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".utilitaire_id_utilitaire_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".utilitaire_id_utilitaire_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".vente_id_vente_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".vente_id_vente_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE "public".etat_utilitaire
 (
-    id_type_employe SERIAL PRIMARY KEY,
-    designation     VARCHAR(20),
-    salaire_base    NUMERIC(10, 2),
-    pourcentage     INT
+    id_etat_utilitaire   integer DEFAULT nextval('etat_utilitaire_id_etat_utilitaire_seq1'::regclass) NOT NULL,
+    id_utilitaire        integer,
+    id_etat              integer,
+    date_etat_utilitaire date,
+    CONSTRAINT etat_utilitaire_pkey PRIMARY KEY (id_etat_utilitaire),
+    CONSTRAINT unq_etat_utilitaire_id_etat UNIQUE (id_etat)
 );
 
--- employe
-CREATE TABLE employe
+CREATE TABLE "public".produit
 (
-    id_employe      SERIAL PRIMARY KEY,
-    id_type_employe INT,
-    nom             VARCHAR(50),
-    prenom          VARCHAR(50),
-    email           VARCHAR(050),
-    mot_de_passe    VARCHAR(250),
-    date_entree     DATE,
-    date_fin        DATE,
-    FOREIGN KEY (id_type_employe) REFERENCES type_employe (id_type_employe)
+    id_produit integer DEFAULT nextval('produit_id_produit_seq1'::regclass) NOT NULL,
+    nom        varchar(50),
+    prix       numeric(10, 2),
+    CONSTRAINT produit_pkey PRIMARY KEY (id_produit)
 );
 
--- unite
-CREATE TABLE unite
+
+CREATE TABLE "public".type_achat
 (
-    id_unite  SERIAL PRIMARY KEY,
-    nom_unite VARCHAR(50)
+    id_type_achat   serial      NOT NULL,
+    designation     varchar(50) NOT NULL,
+    id_type_depense integer DEFAULT nextval('type_depense_id_type_depense_seq1'::regclass),
+    CONSTRAINT pk_achats PRIMARY KEY (id_type_achat),
+    CONSTRAINT unq_type_achat_id_type_depense UNIQUE (id_type_depense)
 );
 
--- utilitaire
-CREATE TABLE utilitaire
+CREATE TABLE "public".type_depense
 (
-    id_utilitaire SERIAL PRIMARY KEY,
-    nom           VARCHAR(50),
-    id_unite      INT,
-    FOREIGN KEY (id_unite) REFERENCES unite (id_unite)
+    id_type_depense integer DEFAULT nextval('type_depense_id_type_depense_seq1'::regclass) NOT NULL,
+    designation     varchar(50),
+    CONSTRAINT type_depense_pkey PRIMARY KEY (id_type_depense)
 );
 
--- ingredient
-CREATE TABLE ingredient
+CREATE TABLE "public".type_employe
 (
-    id_ingredient SERIAL PRIMARY KEY,
-    nom           VARCHAR(50),
-    id_unite      INT,
-    FOREIGN KEY (id_unite) REFERENCES unite (id_unite)
+    id_type_employe integer DEFAULT nextval('type_employe_id_type_employe_seq1'::regclass) NOT NULL,
+    cota            numeric(10, 2),
+    designation     varchar(20),
+    salaire_base    numeric(10, 2),
+    pourcentage     integer,
+    CONSTRAINT type_employe_pkey PRIMARY KEY (id_type_employe)
 );
 
--- stock_utilitaire
-CREATE TABLE stock_utilitaire
+CREATE TABLE "public".unite
 (
-    id_stock_utilitaire SERIAL PRIMARY KEY,
-    id_utilitaire       INT,
-    quantite            INT,
-    FOREIGN KEY (id_utilitaire) REFERENCES utilitaire (id_utilitaire)
+    id_unite  integer DEFAULT nextval('unite_id_unite_seq1'::regclass) NOT NULL,
+    nom_unite varchar(50),
+    CONSTRAINT unite_pkey PRIMARY KEY (id_unite)
 );
 
--- stock_ingredient
-CREATE TABLE stock_ingredient
+CREATE TABLE "public".utilitaire
 (
-    id_stock_ingredient SERIAL PRIMARY KEY,
-    id_ingredient       INT,
-    quantite            INT,
-    FOREIGN KEY (id_ingredient) REFERENCES ingredient (id_ingredient)
+    id_utilitaire integer DEFAULT nextval('utilitaire_id_utilitaire_seq1'::regclass) NOT NULL,
+    nom           varchar(50),
+    id_unite      integer,
+    stock         double precision                                                   NOT NULL,
+    CONSTRAINT utilitaire_pkey PRIMARY KEY (id_utilitaire)
 );
 
--- achat_ingredient
-CREATE TABLE achat_ingredient
+CREATE TABLE "public".achat_utilitaire
 (
-    id_achat_ingredient SERIAL PRIMARY KEY,
-    id_ingredient       INT,
-    prix                NUMERIC(10, 2),
-    quantite            INTEGER,
-    date_achat          DATE,
-    FOREIGN KEY (id_ingredient) REFERENCES ingredient (id_ingredient)
+    id_achat_utilitaire integer DEFAULT nextval('achat_utilitaire_id_achat_utilitaire_seq1'::regclass) NOT NULL,
+    id_utilitaire       integer,
+    prix_unitaire       numeric(10, 2),
+    quantite            integer,
+    date_achat          date,
+    id_depense          integer DEFAULT nextval('depense_id_depense_seq1'::regclass),
+    CONSTRAINT achat_utilitaire_pkey PRIMARY KEY (id_achat_utilitaire),
+    CONSTRAINT unq_achat_utilitaire_id_depense UNIQUE (id_depense)
 );
 
--- achat_utilitaire
-CREATE TABLE achat_utilitaire
+CREATE TABLE "public".employe
 (
-    id_achat_utilitaire SERIAL PRIMARY KEY,
-    id_utilitaire       INT,
-    prix                NUMERIC(10, 2),
-    quantite            INTEGER,
-    date_achat          DATE,
-    FOREIGN KEY (id_utilitaire) REFERENCES utilitaire (id_utilitaire)
+    id_employe      integer DEFAULT nextval('employe_id_employe_seq1'::regclass) NOT NULL,
+    id_type_employe integer,
+    nom             varchar(50),
+    prenom          varchar(50),
+    mot_de_passe    varchar(50),
+    date_entree     date,
+    date_fin        date,
+    id_genre        serial                                                       NOT NULL,
+    email           varchar(255)                                                 NOT NULL,
+    photo           varchar(255)                                                 NOT NULL,
+    date_naissance  date                                                         NOT NULL,
+    num_tel         varchar(14)                                                  NOT NULL,
+    CONSTRAINT employe_pkey PRIMARY KEY (id_employe),
+    CONSTRAINT unq_employe_id_genre UNIQUE (id_genre)
 );
 
--- type_depense
-CREATE TABLE type_depense
+CREATE TABLE "public".etat
 (
-    id_type_depense SERIAL PRIMARY KEY,
-    designation     VARCHAR(50)
+    id_etat integer DEFAULT nextval('etat_id_etat_seq1'::regclass) NOT NULL,
+    nom     varchar(50),
+    CONSTRAINT etat_pkey PRIMARY KEY (id_etat)
 );
 
--- depense
-CREATE TABLE depense
+CREATE TABLE "public".genres
 (
-    id_depense      SERIAL PRIMARY KEY,
-    id_type_depense INT,
-    prix            NUMERIC(10, 2),
-    date_depense    DATE,
-    FOREIGN KEY (id_type_depense) REFERENCES type_depense (id_type_depense)
+    id_genre  serial NOT NULL,
+    nom_genre varchar(10),
+    CONSTRAINT pk_genres PRIMARY KEY (id_genre)
 );
 
--- produit
-CREATE TABLE produit
+CREATE TABLE "public".ingredient
 (
-    id_produit SERIAL PRIMARY KEY,
-    nom        VARCHAR(50),
-    prix       NUMERIC(10, 2)
+    id_ingredient integer DEFAULT nextval('ingredient_id_ingredient_seq1'::regclass) NOT NULL,
+    nom           varchar(50),
+    id_unite      integer,
+    stock         double precision                                                   NOT NULL,
+    CONSTRAINT ingredient_pkey PRIMARY KEY (id_ingredient)
 );
 
--- ingredient_produit
-CREATE TABLE ingredient_produit
+CREATE TABLE "public".ingredient_produit
 (
-    id_ingredient_produit SERIAL PRIMARY KEY,
-    id_produit            INT,
-    id_ingredient         INT,
-    id_unite              INT,
-    quantite              INT,
-    FOREIGN KEY (id_produit) REFERENCES produit (id_produit)
+    id_ingredient_produit integer DEFAULT nextval('ingredient_produit_id_ingredient_produit_seq1'::regclass) NOT NULL,
+    id_produit            integer,
+    id_ingredient         integer,
+    id_unite              integer,
+    quantite              integer,
+    CONSTRAINT ingredient_produit_pkey PRIMARY KEY (id_ingredient_produit)
 );
 
--- chariot
-CREATE TABLE chariot
+CREATE TABLE "public".achat_ingredient
 (
-    id_chariot SERIAL PRIMARY KEY,
-    id_employe INT
+    id_achat_ingredient integer DEFAULT nextval('achat_ingredient_id_achat_ingredient_seq1'::regclass) NOT NULL,
+    id_ingredient       integer,
+    prix_unitaire       numeric(10, 2),
+    quantite            integer,
+    date_achat          date,
+    id_depense          integer DEFAULT nextval('depense_id_depense_seq1'::regclass),
+    CONSTRAINT achat_ingredient_pkey PRIMARY KEY (id_achat_ingredient),
+    CONSTRAINT unq_achat_ingredient_id_depense UNIQUE (id_depense)
 );
 
--- point_vente
-CREATE TABLE point_vente
+CREATE TABLE "public".chariot
 (
-    id_point_vente SERIAL PRIMARY KEY,
-    id_chariot     INT,
-    localisation   VARCHAR(200),
-    longitude      DOUBLE PRECISION,
-    latitude       DOUBLE PRECISION,
-    FOREIGN KEY (id_chariot) REFERENCES chariot (id_chariot)
+    id_chariot integer DEFAULT nextval('chariot_id_chariot_seq1'::regclass) NOT NULL,
+    id_employe integer,
+    CONSTRAINT chariot_pkey PRIMARY KEY (id_chariot)
 );
 
--- vente
-CREATE TABLE vente
+CREATE TABLE "public".depense
+(
+    id_depense      integer DEFAULT nextval('depense_id_depense_seq1'::regclass) NOT NULL,
+    id_type_depense integer,
+    prix            numeric(10, 2),
+    date_depense    date,
+    CONSTRAINT depense_pkey PRIMARY KEY (id_depense)
+);
+
+CREATE TABLE "public".point_vente
+(
+    id_point_vente integer DEFAULT nextval('point_vente_id_point_vente_seq1'::regclass) NOT NULL,
+    id_chariot     integer,
+    localisation   varchar(200),
+    longitude      double precision,
+    latitude       double precision,
+    CONSTRAINT point_vente_pkey PRIMARY KEY (id_point_vente)
+);
+
+CREATE TABLE "public".vente
 (
     id_vente       SERIAL PRIMARY KEY,
     id_point_vente INT,
@@ -198,9 +294,8 @@ CREATE OR REPLACE VIEW vue_employe_type AS
 SELECT e.id_employe,
        e.nom,
        e.prenom,
-       e.mot_de_passe,
        e.date_entree,
-       e.email,
+       e.mot_de_passe,
        e.date_fin,
        t.designation,
        t.salaire_base,

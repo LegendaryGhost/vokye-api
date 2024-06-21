@@ -2,6 +2,9 @@ package mg.itu.vokye.service;
 
 import mg.itu.vokye.entity.Employe;
 import mg.itu.vokye.repository.EmployeRepository;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +21,8 @@ public class EmployeService {
         return repository.save(employe);
     }
 
-    public List<Employe> getAllEmployes() {
-        return repository.findAll();
+    public Page<Employe> getAllEmploye(int page, int size) {
+        return repository.findAll(PageRequest.of(page, size));
     }
 
     public Employe getEmployeById(Long id) {
@@ -33,6 +36,10 @@ public class EmployeService {
         existingEmploye.setDateEntree(employe.getDateEntree());
         existingEmploye.setDateFin(employe.getDateFin());
         existingEmploye.setTypeEmploye(employe.getTypeEmploye());
+        existingEmploye.setGenre(employe.getGenre());
+        existingEmploye.setMotDePasse(employe.getMotDePasse());
+        existingEmploye.setEmail(employe.getEmail());
+        existingEmploye.setPhoto(employe.getPhoto());
         return repository.save(existingEmploye);
     }
 
@@ -42,5 +49,9 @@ public class EmployeService {
 
     public Employe checkEmploye(String email, String motDePasse) {
         return repository.existsByEmailAndMotDePasse(email, motDePasse);
+    }
+
+    public List<Employe> getEmployesByDesignation(String designation) {
+        return repository.findByDesignation(designation);
     }
 }

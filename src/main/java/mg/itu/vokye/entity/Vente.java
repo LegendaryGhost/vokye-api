@@ -1,35 +1,34 @@
 package mg.itu.vokye.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import mg.itu.vokye.dto.EmployeStatsDTO;
+
 import java.sql.Date;
+import java.time.LocalDate;
 
+@SqlResultSetMapping(name = "EmployeStatsDTOMapping", classes = @ConstructorResult(targetClass = EmployeStatsDTO.class, columns = {
+                @ColumnResult(name = "nom", type = String.class),
+                @ColumnResult(name = "prenom", type = String.class),
+                @ColumnResult(name = "recette", type = Double.class),
+                @ColumnResult(name = "validcota", type = Double.class),
+                @ColumnResult(name = "in_date", type = LocalDate.class)
+}))
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "vente")
 public class Vente {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_vente;
 
-    @ManyToOne
-    @JoinColumn(name = "id_point_vente")
-    private PointVente pointVente;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        Integer id_vente;
+        Integer id_point_vente;
+        Integer id_chariot;
+        Integer id_produit;
+        Integer quantite;
+        Date date_vente;
 
-    @ManyToOne
-    @JoinColumn(name = "id_chariot")
-    private Chariot chariot;
-
-    @ManyToOne
-    @JoinColumn(name = "id_produit")
-    private Produit produit;
-
-    private int quantite;
-    private Date date_vente;
-
-    // Getters and Setters
 }
