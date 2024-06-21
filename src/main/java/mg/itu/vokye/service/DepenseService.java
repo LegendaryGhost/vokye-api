@@ -18,7 +18,7 @@ public class DepenseService {
     VenteService venteService;
 
     public Depense create(Depense depense) {
-        if (depense.getIdDepense() == null) {
+        if (depense.getId_depense() == null) {
             return depenseRepository.save(depense);
         }
         return null;
@@ -29,7 +29,7 @@ public class DepenseService {
     }
 
     public String update(Depense depense) {
-        Optional<Depense> optionalDepense = depenseRepository.findById(depense.getIdDepense());
+        Optional<Depense> optionalDepense = depenseRepository.findById(depense.getId_depense());
         if (optionalDepense.isPresent()) {
             depenseRepository.save(depense);
             return "Succes update";

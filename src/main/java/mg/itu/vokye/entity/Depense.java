@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class Depense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idDepense;
+    private Integer id_depense;
     @ManyToOne
     @JoinColumn(name = "id_type_depense")
     private TypeDepense typeDepense;
