@@ -5,13 +5,11 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Utilitaire {
+public class Chariot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idUtilitaire;
-    private String nom;
+    private Long idChariot;
     @ManyToOne
-    @JoinColumn(name = "id_unite")
-    private Unite unite;
-    private Double stock;
+    @JoinColumn(name = "id_employe")
+    private Employe employe;
 }
