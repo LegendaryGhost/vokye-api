@@ -2,8 +2,9 @@ package mg.itu.vokye.controller;
 
 import mg.itu.vokye.entity.Employe;
 import mg.itu.vokye.service.EmployeService;
-import org.springframework.web.bind.annotation.*;
 
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
@@ -23,8 +24,8 @@ public class EmployeController {
 
     // Read All
     @GetMapping
-    public List<Employe> getAllEmployes() {
-        return service.getAllEmployes();
+    public Page<Employe> getAllEmploye(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return service.getAllEmploye(page, size);
     }
 
     // Find One
@@ -44,4 +45,16 @@ public class EmployeController {
     public void deleteEmploye(@PathVariable Long id) {
         service.deleteEmploye(id);
     }
+
+    @GetMapping("/checkEmploye")
+    public Employe checkEmploye(@RequestParam String email, @RequestParam String motDePasse) {
+        return service.checkEmploye(email, motDePasse);
+    }
+
+    // Get employees by designation
+    @GetMapping("/designation/{designation}")
+    public List<Employe> getEmployesByDesignation(@PathVariable String designation) {
+        return service.getEmployesByDesignation(designation);
+    }
+
 }

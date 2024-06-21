@@ -101,6 +101,7 @@ CREATE TABLE "public".produit
     CONSTRAINT produit_pkey PRIMARY KEY (id_produit)
 );
 
+
 CREATE TABLE "public".type_achat
 (
     id_type_achat   serial      NOT NULL,
