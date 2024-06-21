@@ -13,4 +13,5 @@ public class Ingredient {
     @ManyToOne
     @JoinColumn(name = "id_unite")
     private Unite unite;
+    private Double stock;
 }

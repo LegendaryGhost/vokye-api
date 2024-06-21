@@ -5,7 +5,6 @@ import mg.itu.vokye.service.EmployeService;
 
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/employe")
@@ -51,10 +50,5 @@ public class EmployeController {
         return service.checkEmploye(email, motDePasse);
     }
 
-    // Get employees by designation
-    @GetMapping("/designation/{designation}")
-    public List<Employe> getEmployesByDesignation(@PathVariable String designation) {
-        return service.getEmployesByDesignation(designation);
-    }
 
 }

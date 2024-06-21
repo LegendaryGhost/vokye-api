@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 
 @Data
@@ -18,10 +19,6 @@ public class Employe {
     private TypeEmploye typeEmploye;
     private String nom;
     private String prenom;
-    private String email;
-    private String motDePasse;
-    private Date dateEntree;
-    private Date dateFin;
   
     @Column(name = "date_de_naissance")
   
@@ -29,8 +26,9 @@ public class Employe {
     @Column(name = "num_tel")
     private int numTel;
   
-    @Column(name = "designation")
-    private String designation;
+    @ManyToOne
+    @JoinColumn(name = "id_genre")
+    private Genres genre;
 
     @Column(name = "date_entree")
     private Timestamp dateEntree;

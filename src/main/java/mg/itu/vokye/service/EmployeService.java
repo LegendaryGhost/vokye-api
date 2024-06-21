@@ -7,8 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class EmployeService {
     private final EmployeRepository repository;
@@ -50,7 +48,4 @@ public class EmployeService {
         return repository.existsByEmailAndMotDePasse(email, motDePasse);
     }
 
-    public List<Employe> getEmployesByDesignation(String designation) {
-        return repository.findByTypeEmployeDesignation(designation);
-    }
 }

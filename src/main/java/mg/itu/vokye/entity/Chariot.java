@@ -5,12 +5,11 @@ import lombok.Data;
 
 @Data
 @Entity
-public class StockIngredient {
+public class Chariot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idStockIngredient;
+    private Long idChariot;
     @ManyToOne
-    @JoinColumn(name = "id_ingredient")
-    private Ingredient ingredient;
-    private int quantite;
+    @JoinColumn(name = "id_employe")
+    private Employe employe;
 }

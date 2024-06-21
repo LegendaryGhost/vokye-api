@@ -13,8 +13,8 @@ public interface ProduitRepository extends JpaRepository<Produit, Long> {
                         "GROUP BY p.nom")
     Map<String, Double> findTotalBeneficeByProduit();
 
-    @Query("SELECT p.nom, SUM(a.prix) AS total_perte " +
-                       "FROM Produit p JOIN achat_ingredient a ON p.id_produit = a.id_ingredient " +
+    @Query("SELECT p.nom, SUM(a.prixUnitaire) AS total_perte " +
+                       "FROM Produit p JOIN AchatIngredient a ON p.id = a.ingredient.id " +
                        "GROUP BY p.nom")
     Map<String, Double> findTotalPerteByProduit();
 
