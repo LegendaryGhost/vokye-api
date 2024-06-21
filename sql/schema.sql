@@ -217,3 +217,25 @@ SELECT e.id_employe,
 FROM employe e
          JOIN
      type_employe t ON e.id_type_employe = t.id_type_employe;
+
+
+
+-- view vente
+CREATE OR REPLACE VIEW recette_vente AS
+(
+SELECT
+    SUM(p.prix*quantite) AS sum_vente,
+    v.date_vente AS date_vente,
+    e.id_employe,
+    e.id_type_employe,
+    e.nom,
+    e.prenom
+FROM Vente v
+         JOIN chariot c ON v.id_chariot = c.id_chariot
+         JOIN employe e ON c.id_employe = e.id_employe
+         JOIN produit p ON v.id_produit = p.id_produit
+GROUP BY e.id_employe, v.date_vente
+    );
+
+
+SELECT SUM() FROM recette_vente
