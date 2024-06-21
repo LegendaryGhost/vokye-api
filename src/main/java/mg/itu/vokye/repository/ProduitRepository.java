@@ -7,16 +7,19 @@ import java.util.List;
 
 public interface ProduitRepository extends JpaRepository<Produit, Long> {
 
-    @Query("SELECT p.nom AS nom, SUM(v.quantite * p.prix) AS totalBenefice " +
+    @Query(value = "SELECT p.nom AS nom, SUM(v.quantite * p.prix) AS totalBenefice " +
             "FROM produit p " +
             "JOIN vente v ON p.id_produit = v.id_produit " +
-            "GROUP BY p.nom ",nativeQuery = true)
+            "GROUP BY p.nom ", nativeQuery = true)
     List<Object[]> findTotalBeneficeByProduit();
 
-    @Query("SELECT p.nom, SUM(a.quantite * a.prixUnitaire) AS total_perte " +
-                       "FROM Produit p JOIN AchatIngredient a ON p.id_produit = a.ingredient.id " +
-                       "GROUP BY p.nom")
+
+    @Query(value = "SELECT p.nom AS nom, SUM(ai.quantite * ai.prix_unitaire) AS total_perte " +
+            "FROM produit p " +
+            "JOIN achat_ingredient ai ON p.id_produit = ai.id_ingredient " +
+            "GROUP BY p.nom ", nativeQuery = true)
     List<Object[]> findTotalPerteByProduit();
+
 
     @Query("SELECT nom FROM Produit")
     List<String> getNameProduit();
