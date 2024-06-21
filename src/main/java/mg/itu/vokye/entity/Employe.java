@@ -33,10 +33,10 @@ public class Employe {
     private String designation;
 
     @Column(name = "date_entree")
-    private Timestamp dateEntree;
+    private Date dateEntree;
 
     @Column(name = "date_fin")
-    private Timestamp dateFin;
+    private Date dateFin;
 
     @Column(name = "mot_de_passe")
     private String motDePasse;
