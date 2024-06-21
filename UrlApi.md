@@ -67,11 +67,15 @@
 
 ### Get Depense by Date
 - **Method:** `GET`
-- **URL:** `/api/depense/all/depense/{date}`
+- **URL:** `/api/depense/all/depense/2024-06-12`
 
 ### Get Total Depense
 - **Method:** `GET`
 - **URL:** `/api/depense/all/depense/`
+- ### Benefice par jour donne
+- **Method:** `GET`
+- **URL:** `/api/depense/benefice`
+- **ARG:** `date`
 
 ## VENTE (`/api/vente/`)
 
@@ -108,34 +112,19 @@
 ### Get Total Recette
 - **Method:** `GET`
 - **URL:** `/api/vente/all/recette/`
-
-### Get Recette Total by Employee
+- ### Get Total Recette in 2024-06-12
 - **Method:** `GET`
-- **URL:** `/api/vente/all/recette/{id_employee}`
-
-### Get Benefice by Employee (All Time)
+- **URL:** `/api/vente/all/recette/2024-06-12`
+- ### Get Prediction in date
 - **Method:** `GET`
-- **URL:** `/api/vente/benefice/{id}`
-
-### Get Benefice by Employee and Date
+- **URL:** `/api/vente/prediction/2024-06-12`
+## DASHBOARD (`/api/dashboard/`)
+### Count sale Today
 - **Method:** `GET`
-- **URL:** `/api/vente/benefice/{id}/{date}`
+- **URL:** `/api/dashboard/venteToday`
+- **No ARG**
+### Benefice
 
-### Get Perte by Employee (All Time)
-- **Method:** `GET`
-- **URL:** `/api/vente/perte/{id}`
-
-### Get Perte by Employee and Date
-- **Method:** `GET`
-- **URL:** `/api/vente/perte/{id}/{date}`
-
-### Get Recette by Employee (All Time)
-- **Method:** `GET`
-- **URL:** `/api/vente/recette/{id}`
-
-### Get Recette by Employee and Date
-- **Method:** `GET`
-- **URL:** `/api/vente/recette/{id}/{date}`
 ```
 
 Voici les URL a utilise pour recuperer et envoyer les fichier a l API vokye sachant que les insert update son envoyer sous forme de JSON.
