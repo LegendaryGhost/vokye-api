@@ -149,6 +149,7 @@ CREATE TABLE "public".achat_utilitaire
     id_utilitaire       integer,
     prix_unitaire       numeric(10, 2),
     quantite            integer,
+    date_achat          date,
     id_depense          integer DEFAULT nextval('depense_id_depense_seq1'::regclass),
     CONSTRAINT achat_utilitaire_pkey PRIMARY KEY (id_achat_utilitaire),
     CONSTRAINT unq_achat_utilitaire_id_depense UNIQUE (id_depense)
@@ -211,6 +212,7 @@ CREATE TABLE "public".achat_ingredient
     id_ingredient       integer,
     prix_unitaire       numeric(10, 2),
     quantite            integer,
+    date_achat          date,
     id_depense          integer DEFAULT nextval('depense_id_depense_seq1'::regclass),
     CONSTRAINT achat_ingredient_pkey PRIMARY KEY (id_achat_ingredient),
     CONSTRAINT unq_achat_ingredient_id_depense UNIQUE (id_depense)
@@ -306,7 +308,6 @@ ALTER TABLE "public".vente
 
 ALTER TABLE "public".vente
     ADD CONSTRAINT vente_id_point_vente_fkey FOREIGN KEY (id_point_vente) REFERENCES "public".point_vente (id_point_vente);
-
 
 
 -- view vente
