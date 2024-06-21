@@ -55,4 +55,12 @@ public class DepenseService {
        return  sumVente - sumDepense;
     }
 
+    public Double get_BeneficeMonth(Integer month,Integer year){
+        Double sumVente = venteService.getRecetteByMonth(month,year);
+        Double sumDepense = depenseRepository.;
+        return  sumVente - sumDepense;
+    }
+
+
+
 }

@@ -60,7 +60,7 @@ public class VenteController {
 
 
     @GetMapping("/all/recette")
-    public ResponseEntity<Double> getRecetteOrBeneficeOrPerteByEmpDateAll() {
+    public ResponseEntity<Double> getRecetteDateAll() {
         Double result = venteService.getRecetteAll(null);
         if (result == null){
             result = 0.0;
@@ -68,7 +68,7 @@ public class VenteController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @GetMapping("/all/recette/{date}")
-    public ResponseEntity<Double> getRecetteOrBeneficeOrPerteByEmpDateAllDate(
+    public ResponseEntity<Double> getRecetteDateAllInDate(
             @PathVariable(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         Double result = venteService.getRecetteAll(date);
         if (result == null){

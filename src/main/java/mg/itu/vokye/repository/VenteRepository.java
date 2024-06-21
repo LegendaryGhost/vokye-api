@@ -37,6 +37,7 @@ public interface VenteRepository extends JpaRepository<Vente, Integer> {
 
 
 
+
 //// BENEFICE //
 //    @Query(value = "SELECT SUM(sum_vente - cota )  AS sum_vente " +
 //            "FROM recette_vente "+
@@ -57,16 +58,23 @@ public interface VenteRepository extends JpaRepository<Vente, Integer> {
 //            nativeQuery = true)
 //    Double getPerte(@Param("employeeId") Integer employeeId, @Param("dateVente") LocalDate dateVente);
 //
+
+
+
+
 @Query(value = "SELECT sum(sum_vente) " +
         "FROM recette_vente " +
-        "WHERE Year(date_vente) = Year(cast(:dateVente as date)) " +
-        "AND Month(date_vente) = Month(cast(:dateVente as date))",
+        "WHERE extract('year',date_vente) = :year " +
+        "AND extract('month',date_vente) = :month",
         nativeQuery = true)
-Double getRecetteAllMensuel(@Param("dateVente") LocalDate dateVente);
+Double getRecetteAllMensuel(@Param("month") Integer month,@Param("year") Integer year);
 
-
-
-
+    @Query(value = "SELECT sum(sum_vente) " +
+            "FROM recette_vente " +
+            "WHERE (date_vente = :year) "+
+            "GROUP BY extract('Month',date_vente)",
+            nativeQuery = true)
+    Double getRecetteByMonthThisYear(@Param("year") Integer year);
 
     // nombre de vente
 @Query(value = "SELECT sum(nombre_vente) " +

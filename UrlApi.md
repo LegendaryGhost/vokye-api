@@ -72,6 +72,10 @@
 ### Get Total Depense
 - **Method:** `GET`
 - **URL:** `/api/depense/all/depense/`
+- ### Benefice par jour donne
+- **Method:** `GET`
+- **URL:** `/api/depense/benefice`
+- **ARG:** `date`
 
 ## VENTE (`/api/vente/`)
 
@@ -108,12 +112,18 @@
 ### Get Total Recette
 - **Method:** `GET`
 - **URL:** `/api/vente/all/recette/`
-- ### Get Total Recette Before
+- ### Get Total Recette in 2024-06-12
 - **Method:** `GET`
 - **URL:** `/api/vente/all/recette/2024-06-12`
-- ### Get Prediction on date
+- ### Get Prediction in date
 - **Method:** `GET`
 - **URL:** `/api/vente/prediction/2024-06-12`
+## DASHBOARD (`/api/dashboard/`)
+### Count sale Today
+- **Method:** `GET`
+- **URL:** `/api/dashboard/venteToday`
+- **No ARG**
+### Benefice
 
 ```
 

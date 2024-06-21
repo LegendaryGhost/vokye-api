@@ -13,4 +13,12 @@ public interface DepenseRepository extends JpaRepository<Depense,Integer> {
             "WHERE (cast(:dateDepense as date) IS NULL OR date_depense = cast(:dateDepense as date)) ",
             nativeQuery = true)
     Double getDepenseAll(@Param("dateDepense") LocalDate dateDepense);
+
+    @Query(value = "SELECT sum(prix) as sum " +
+            "FROM depense " +
+            "WHERE (extract('month',date_depense) = :month AND extract('year',date_depense) =" +
+            "" +
+            " extract('year',cast(:dateDepense as date))) ",
+            nativeQuery = true)
+    Double getDepenseByMonth(@Param("month") Integer month,@Param("year") Integer year);
 }

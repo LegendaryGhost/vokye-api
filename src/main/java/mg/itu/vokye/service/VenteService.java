@@ -74,37 +74,41 @@ public class VenteService {
         return venteRepository.getRecetteAll(dateVente);
     }
 
-    public Double getRecette(Integer idEmploye) {
-        return venteRepository.getRecette(idEmploye, null);
+    public Double getRecetteByMonth(Integer month,Integer year){
+        return venteRepository.getRecetteAllMensuel(month,year);
     }
 
-    public Double getRecetteByDate(Integer idEmploye, LocalDate dateVente) {
-        return venteRepository.getRecette(idEmploye, dateVente);
-    }
-
-    // benefice
-
-
-    public Double getBenefice(Integer idEmploye) {
-        return venteRepository.getBenefice(idEmploye, null
-        );
-    }
-
-    public Double getBeneficeByDate(Integer idEmploye, LocalDate dateVente) {
-        return venteRepository.getBenefice(idEmploye, dateVente
-        );
-    }
-
-    // perte
-
-    public Double getPerte(Integer idEmploye) {
-        return venteRepository.getPerte(idEmploye, null
-        );
-    }
-
-    public Double getPerteByDate(Integer idEmploye, LocalDate dateVente) {
-        return venteRepository.getPerte(idEmploye, dateVente);
-    }
+//    public Double getRecette(Integer idEmploye) {
+//        return venteRepository.getRecette(idEmploye, null);
+//    }
+//
+//    public Double getRecetteByDate(Integer idEmploye, LocalDate dateVente) {
+//        return venteRepository.getRecette(idEmploye, dateVente);
+//    }
+//
+//    // benefice
+//
+//
+//    public Double getBenefice(Integer idEmploye) {
+//        return venteRepository.getBenefice(idEmploye, null
+//        );
+//    }
+//
+//    public Double getBeneficeByDate(Integer idEmploye, LocalDate dateVente) {
+//        return venteRepository.getBenefice(idEmploye, dateVente
+//        );
+//    }
+//
+//    // perte
+//
+//    public Double getPerte(Integer idEmploye) {
+//        return venteRepository.getPerte(idEmploye, null
+//        );
+//    }
+//
+//    public Double getPerteByDate(Integer idEmploye, LocalDate dateVente) {
+//        return venteRepository.getPerte(idEmploye, dateVente);
+//    }
 
     // Employe statistique
     public List<EmployeStatsDTO> getStatsVenteEmp(Integer employeeId, LocalDate dateVente) {
