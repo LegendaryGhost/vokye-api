@@ -2,9 +2,10 @@ package mg.itu.vokye.service;
 
 import mg.itu.vokye.entity.StockIngredient;
 import mg.itu.vokye.repository.StockIngredientRepository;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 @Service
 public class StockIngredientService {
@@ -18,8 +19,8 @@ public class StockIngredientService {
         return repository.save(stockIngredient);
     }
 
-    public List<StockIngredient> getAllStockIngredient() {
-        return repository.findAll();
+    public Page<StockIngredient> getAllStockIngredient(int page, int size) {
+        return repository.findAll(PageRequest.of(page, size));
     }
 
     public StockIngredient getStockIngredientById(Long id) {

@@ -2,9 +2,10 @@ package mg.itu.vokye.service;
 
 import mg.itu.vokye.entity.EtatUtilitaire;
 import mg.itu.vokye.repository.EtatUtilitaireRepository;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 @Service
 public class EtatUtilitaireService {
@@ -18,8 +19,8 @@ public class EtatUtilitaireService {
         return repository.save(etatUtilitaire);
     }
 
-    public List<EtatUtilitaire> getAllEtatUtilitaire() {
-        return repository.findAll();
+    public Page<EtatUtilitaire> getAllEtatUtilitaire(int page, int size) {
+        return repository.findAll(PageRequest.of(page, size));
     }
 
     public EtatUtilitaire getEtatUtilitaireById(Long id) {

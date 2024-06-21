@@ -24,8 +24,8 @@ public class Employe {
     private Date dateFin;
   
     @Column(name = "date_de_naissance")
-    private Timestamp dateDeNaissance;
   
+    private Date dateDeNaissance;
     @Column(name = "num_tel")
     private int numTel;
   
@@ -48,4 +48,3 @@ public class Employe {
     private String photo;
 
 }
-
