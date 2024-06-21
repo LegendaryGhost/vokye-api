@@ -1,154 +1,192 @@
--- Insert data into type_emp
-INSERT INTO "public".type_employe (cota, designation, salaire_base, pourcentage)
-VALUES
-(1000.00, 'Manager', 1500000.00, 10),
-(800.00, 'Cuisinier', 1200000.00, 0),
-(600.00, 'Vendeur', 800000.00, 0);
+--type_employe
+INSERT INTO "public".type_employe (designation, salaire_base) VALUES ('Cuisinier', 2500.00);
+INSERT INTO "public".type_employe (designation, salaire_base) VALUES ('Livreur', 2000.00);
+INSERT INTO "public".type_employe (designation, salaire_base) VALUES ('Vendeur', 2200.00);
+INSERT INTO "public".type_employe (designation, salaire_base) VALUES ('Manager', 3500.00);
 
--- Insertion des données pour la table genres
-INSERT INTO "public".genres (nom_genre)
-VALUES
-('Masculin'),
-('Féminin');
+--genre
+INSERT INTO "public".genres (nom_genre) VALUES ('Masculin');
+INSERT INTO "public".genres (nom_genre) VALUES ('Féminin');
+INSERT INTO "public".genres (nom_genre) VALUES ('Autre');
 
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
+--unite
+INSERT INTO "public".unite (nom_unite) VALUES ('kg');
+INSERT INTO "public".unite (nom_unite) VALUES ('litre');
+INSERT INTO "public".unite (nom_unite) VALUES ('point');
 
--- Insérer des données de test pour la table employe avec des données malgaches
+--employe
 INSERT INTO "public".employe (id_type_employe, nom, prenom, mot_de_passe, date_entree, date_fin, id_genre, email, photo, date_naissance, num_tel)
-VALUES
-(1, 'Razafindrakoto', 'Mialy', crypt('mdp123', gen_salt('bf')), '2023-01-15', NULL, 1, 'mialy.razafindrakoto@example.mg', 'chemin/vers/photo.jpg', '1992-05-15', '0321122334'),
-(2, 'Rakotomalala', 'Haja', crypt('password456', gen_salt('bf')), '2022-11-20', '2023-06-30', 2, 'haja.rakotomalala@example.mg', 'chemin/vers/photo.jpg', '1988-08-20', '0334455667'),
-(1, 'Andrianaivo', 'Jean', crypt('securepass789', gen_salt('bf')), '2023-03-10', NULL, 1, 'jean.andrianaivo@example.mg', 'chemin/vers/photo.jpg', '1990-03-10', '0345566778'),
-(2, 'Razakavololona', 'Fitiavana', crypt('mypass123', gen_salt('bf')), '2023-02-05', NULL, 2, 'fitiavana.razakavololona@example.mg', 'chemin/vers/photo.jpg', '1995-07-25', '0333344556'),
-(1, 'Rasolofonirina', 'Hery', crypt('new456', gen_salt('bf')), '2022-12-30', NULL, 1, 'hery.rasolofonirina@example.mg', 'chemin/vers/photo.jpg', '1993-11-12', '0322233445'),
-(2, 'Rajaonarison', 'Tantely', crypt('password789', gen_salt('bf')), '2023-04-18', NULL, 2, 'tantely.rajaonarison@example.mg', 'chemin/vers/photo.jpg', '1991-09-08', '0345566778'),
-(1, 'Rakotondramanana', 'Andry', crypt('testpass123', gen_salt('bf')), '2023-05-20', NULL, 1, 'andry.rakotondramanana@example.mg', 'chemin/vers/photo.jpg', '1994-06-30', '0334433221'),
-(2, 'Ramaroson', 'Tiana', crypt('securepass456', gen_salt('bf')), '2022-10-15', '2023-08-31', 2, 'tiana.ramaroson@example.mg', 'chemin/vers/photo.jpg', '1987-04-15', '0321122334'),
-(1, 'Rabemananjara', 'Fanja', crypt('mypass789', gen_salt('bf')), '2023-01-05', NULL, 1, 'fanja.rabemananjara@example.mg', 'chemin/vers/photo.jpg', '1989-02-25', '0334455667'),
-(2, 'Randrianarisoa', 'Mamisoa', crypt('new789', gen_salt('bf')), '2022-11-12', NULL, 2, 'mamisoa.randrianarisoa@example.mg', 'chemin/vers/photo.jpg', '1996-03-20', '0345566778');
+VALUES (1, 'Doe', 'John', 'motdepasse123', '2023-01-15', NULL, 1, 'john.doe@example.com', 'john.jpg', '1990-05-15', '+261346788767');
+INSERT INTO "public".employe (id_type_employe, nom, prenom, mot_de_passe, date_entree, date_fin, id_genre, email, photo, date_naissance, num_tel)
+VALUES (2, 'Smith', 'Jane', 'password456', '2023-02-01', NULL, 2, 'jane.smith@example.com', 'jane.jpg', '1995-08-20', '+261346908767');
+INSERT INTO "public".employe (id_type_employe, nom, prenom, mot_de_passe, date_entree, date_fin, id_genre, email, photo, date_naissance, num_tel)
+VALUES (3, 'Williams', 'Michael', 'securepass', '2023-03-10', NULL, 1, 'michael.williams@example.com', 'michael.jpg', '1985-12-25', '+261346778667');
+INSERT INTO "public".employe (id_type_employe, nom, prenom, mot_de_passe, date_entree, date_fin, id_genre, email, photo, date_naissance, num_tel)
+VALUES (1, 'Brown', 'Emily', 'emilypass123', '2023-04-05', '2024-04-05', 2, 'emily.brown@example.com', 'emily.jpg', '1992-10-08', '+26134988767');
+INSERT INTO "public".employe (id_type_employe, nom, prenom, mot_de_passe, date_entree, date_fin, id_genre, email, photo, date_naissance, num_tel)
+VALUES (4, 'Johnson', 'David', 'davidpass', '2023-05-20', NULL, 1, 'david.johnson@example.com', 'david.jpg', '1988-07-15', '+261336788767');
+INSERT INTO "public".employe (id_type_employe, nom, prenom, mot_de_passe, date_entree, date_fin, id_genre, email, photo, date_naissance, num_tel)
+VALUES (2, 'Miller', 'Sarah', 'sarahpass456', '2023-06-15', NULL, 2, 'sarah.miller@example.com', 'sarah.jpg', '1997-03-18', '+261326788767');
+INSERT INTO "public".employe (id_type_employe, nom, prenom, mot_de_passe, date_entree, date_fin, id_genre, email, photo, date_naissance, num_tel)
+VALUES (1, 'Garcia', 'Luis', 'luispass789', '2023-07-10', '2024-04-05', 1, 'luis.garcia@example.com', 'luis.jpg', '1983-09-30', '+261346755767');
+INSERT INTO "public".employe (id_type_employe, nom, prenom, mot_de_passe, date_entree, date_fin, id_genre, email, photo, date_naissance, num_tel)
+VALUES (3, 'Martinez', 'Ana', 'anapass123', '2023-08-25', NULL, 2, 'ana.martinez@example.com', 'ana.jpg', '1994-01-12', '+2613467454767');
+INSERT INTO "public".employe (id_type_employe, nom, prenom, mot_de_passe, date_entree, date_fin, id_genre, email, photo, date_naissance, num_tel)
+VALUES (4, 'Lee', 'Christopher', 'chrispass', '2023-09-01', '2024-04-05', 1, 'christopher.lee@example.com', 'chris.jpg', '1991-06-05', '+261346448767');
+INSERT INTO "public".employe (id_type_employe, nom, prenom, mot_de_passe, date_entree, date_fin, id_genre, email, photo, date_naissance, num_tel)
+VALUES (2, 'Taylor', 'Emma', 'emma456pass', '2023-10-12', NULL, 2, 'emma.taylor@example.com', 'emma.jpg', '1989-04-22', '+261348978767');
 
--- Insert data into Unite
-INSERT INTO unite (nom_unite)
-VALUES ('kg'),
-       ('litre'),
-       ('piece');
+--utilitaire
+INSERT INTO "public".utilitaire (nom, id_unite, stock) VALUES ('Spatule', 3, 50.0);
+INSERT INTO "public".utilitaire (nom, id_unite, stock) VALUES ('Couteau de Chef', 3, 30.0);
+INSERT INTO "public".utilitaire (nom, id_unite, stock) VALUES ('Planche à Découper', 3, 20.0);
+INSERT INTO "public".utilitaire (nom, id_unite, stock) VALUES ('Fouet', 3, 15.0);
+INSERT INTO "public".utilitaire (nom, id_unite, stock) VALUES ('Cuillère à Soupe', 3, 60.0);
+INSERT INTO "public".utilitaire (nom, id_unite, stock) VALUES ('Pince de Cuisine', 3, 40.0);
+INSERT INTO "public".utilitaire (nom, id_unite, stock) VALUES ('Couteau à Pain', 3, 18.0);
+INSERT INTO "public".utilitaire (nom, id_unite, stock) VALUES ('Louche', 3, 35.0);
+INSERT INTO "public".utilitaire (nom, id_unite, stock) VALUES ('Gaz', 1, 50.0);
+INSERT INTO "public".utilitaire (nom, id_unite, stock) VALUES ('Charbon', 3, 30.0);
+INSERT INTO "public".utilitaire (nom, id_unite, stock) VALUES ('Huile de cuisson', 2, 25.5);
+INSERT INTO "public".utilitaire (nom, id_unite, stock) VALUES ('Papier aluminium', 3, 100.0);
 
--- Insert data into Utilitaire
-INSERT INTO "public".utilitaire (nom, id_unite, stock)
-VALUES
-('Couteaux', 3, 50.0),
-('Poêles', 3, 30.0),
-('Emballages alimentaires', 1, 200.0),
-('Assiettes', 3, 150.0),         
-('Casseroles', 3, 20.0),        
-('Huile d olive', 2, 10.5),      
-('Farine', 1, 25.0),             
-('Sacs poubelles', 3, 80.0);     
+--etat
+INSERT INTO "public".etat (nom) VALUES ('bon ');
+INSERT INTO "public".etat (nom) VALUES ('mauvais');
+INSERT INTO "public".etat (nom) VALUES ('moyen');
 
-INSERT INTO "public".etat (id_etat,nom)
-VALUES
-(1,'New'),
-(2,'Used'),
-(3,'Damaged');
+-- etat_utilitaire
+INSERT INTO "public".etat_utilitaire (id_utilitaire, id_etat, date_etat_utilitaire) VALUES (1, 1, '2024-01-01');
+INSERT INTO "public".etat_utilitaire (id_utilitaire, id_etat, date_etat_utilitaire) VALUES (2, 2, '2024-02-01');
+INSERT INTO "public".etat_utilitaire (id_utilitaire, id_etat, date_etat_utilitaire) VALUES (3, 3, '2024-03-01');
+INSERT INTO "public".etat_utilitaire (id_utilitaire, id_etat, date_etat_utilitaire) VALUES (4, 3, '2024-04-01');
+INSERT INTO "public".etat_utilitaire (id_utilitaire, id_etat, date_etat_utilitaire) VALUES (5, 2, '2024-05-01');
+INSERT INTO "public".etat_utilitaire (id_utilitaire, id_etat, date_etat_utilitaire) VALUES (6, 2, '2024-06-01');
+INSERT INTO "public".etat_utilitaire (id_utilitaire, id_etat, date_etat_utilitaire) VALUES (7, 1, '2024-07-01');
+INSERT INTO "public".etat_utilitaire (id_utilitaire, id_etat, date_etat_utilitaire) VALUES (8, 1, '2024-08-01');
+INSERT INTO "public".etat_utilitaire (id_utilitaire, id_etat, date_etat_utilitaire) VALUES (9, 2, '2024-09-01');
+INSERT INTO "public".etat_utilitaire (id_utilitaire, id_etat, date_etat_utilitaire) VALUES (10, 2, '2024-10-01');
 
--- Insérer des données de test pour la table etat_utilitaire
-INSERT INTO "public".etat_utilitaire (id_utilitaire, id_etat, date_etat_utilitaire)
-VALUES
-(1, 1, '2023-01-15'),
-(2, 2, '2023-02-20'),
-(3, 1, '2023-03-10'),
-(1, 2, '2023-04-05'),
-(2, 1, '2023-05-12');
+-- produit
+INSERT INTO "public".produit (nom, prix) VALUES ('Hamburger Classique', 4000);
+INSERT INTO "public".produit (nom, prix) VALUES ('Cheeseburger', 4000);
+INSERT INTO "public".produit (nom, prix) VALUES ('Double Cheeseburger', 4500);
+INSERT INTO "public".produit (nom, prix) VALUES ('Sandwich au Poulet', 3000);
+INSERT INTO "public".produit (nom, prix) VALUES ('Sandwich au Poisson', 3000);
+INSERT INTO "public".produit (nom, prix) VALUES ('Croquettes de Poulet 6 pcs', 2500);
+INSERT INTO "public".produit (nom, prix) VALUES ('Croquettes de Poulet 10 pcs', 4000);
+INSERT INTO "public".produit (nom, prix) VALUES ('Hamburger Végan', 4000);
+INSERT INTO "public".produit (nom, prix) VALUES ('Sandwich BLT', 3000);
 
--- Insérer des données de test pour la table produit
-INSERT INTO "public".produit (nom, prix)
-VALUES
-('Pizza Margherita', 12.99),
-('Burger Cheese', 9.50),
-('Salade César', 8.75),
-('Pâtes Carbonara', 11.25),
-('Tacos Mexicain', 10.99);
+--type_depense
+INSERT INTO "public".type_depense (designation) VALUES ('Fixe');
+INSERT INTO "public".type_depense (designation) VALUES ('Variable');
 
--- Insérer des données de test pour la table type_depense
-INSERT INTO "public".type_depense (designation)
-VALUES
-('variable'),
-('fixe');
+--depense
+-- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (1, 250.0, '2024-06-01');
+-- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (2, 150.5, '2024-06-02');
+-- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (1, 300.0, '2024-06-03');
+-- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (2, 200.0, '2024-06-04');
+-- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (1, 180.0, '2024-06-05');
+-- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (2, 220.0, '2024-06-06');
+-- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (1, 270.0, '2024-06-07');
+-- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (2, 190.0, '2024-06-08');
+-- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (1, 310.0, '2024-06-09');
+-- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (2, 180.0, '2024-06-10');
 
--- Insérer des données de test pour la table depense
-INSERT INTO "public".depense (id_type_depense, prix, date_depense)
-VALUES
-(1, 50.25, '2023-01-15'),
-(2, 35.60, '2023-02-20'),
-(1, 20.00, '2023-03-10'),
-(2, 45.75, '2023-04-05'),
-(1, 30.50, '2023-05-12');
-
--- Insérer des données de test pour la table achat_utilitaire
+--achat_utilitaire
 INSERT INTO "public".achat_utilitaire (id_utilitaire, prix_unitaire, quantite, date_achat, id_depense)
-VALUES
-(1, 25.50, 3, '2023-01-15', 1),
-(2, 15.75, 2, '2023-02-20', 2),
-(3, 10.00, 5, '2023-03-10', 3),
-(1, 30.25, 1, '2023-04-05', 4),
-(2, 20.00, 4, '2023-05-12', 5);
+VALUES (1, 2000, 2, '2024-06-01', 1);
+INSERT INTO "public".achat_utilitaire (id_utilitaire, prix_unitaire, quantite, date_achat, id_depense)
+VALUES (2, 3000, 3, '2024-06-02', 2);
+INSERT INTO "public".achat_utilitaire (id_utilitaire, prix_unitaire, quantite, date_achat, id_depense)
+VALUES (3, 2000, 1, '2024-06-03', 2);
+INSERT INTO "public".achat_utilitaire (id_utilitaire, prix_unitaire, quantite, date_achat, id_depense)
+VALUES (1, 2500, 1, '2024-06-04', 2);
+INSERT INTO "public".achat_utilitaire (id_utilitaire, prix_unitaire, quantite, date_achat, id_depense)
+VALUES (4, 10.0, 5, '2024-06-05', 2);
 
--- Insérer des données de test pour la table ingredient
-INSERT INTO "public".ingredient (nom, id_unite, stock)
-VALUES
-    ('Farine', 1, 10.5),
-    ('Sucre', 1, 20.0),
-    ('Beurre', 1, 15.75),
-    ('Sel', 1, 5.25),
-    ('Oeufs', 2, 30.0),
-    ('Chocolat', 1, 18.25),
-    ('Lait', 2, 25.5),
-    ('Levure', 1, 8.0);
--- Insérer des données de test pour la table ingredient_produit
-INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite)
-VALUES
-    (1, 1, 1, 2),
-    (1, 2, 1, 3),
-    (2, 3, 1, 1),
-    (2, 4, 1, 0.5),
-    (3, 5, 2, 4),
-    (3, 6, 1, 2),
-    (4, 7, 2, 3),
-    (4, 8, 1, 1.5);
+--ingredient
+INSERT INTO "public".ingredient (nom, id_unite, stock) VALUES ('Viande', 1, 500.0);
+INSERT INTO "public".ingredient (nom, id_unite, stock) VALUES ('Pain à Hamburger', 3, 200.0);
+INSERT INTO "public".ingredient (nom, id_unite, stock) VALUES ('Fromage', 2, 150.0);
+INSERT INTO "public".ingredient (nom, id_unite, stock) VALUES ('Poulet', 1, 300.0);
+INSERT INTO "public".ingredient (nom, id_unite, stock) VALUES ('Laitue', 2, 100.0);
+INSERT INTO "public".ingredient (nom, id_unite, stock) VALUES ('Poisson', 1, 200.0);
+INSERT INTO "public".ingredient (nom, id_unite, stock) VALUES ('Panure', 3, 250.0);
+INSERT INTO "public".ingredient (nom, id_unite, stock) VALUES ('Substitut de Viande Végétale', 1, 180.0);
+INSERT INTO "public".ingredient (nom, id_unite, stock) VALUES ('Bacon', 1, 150.0);
 
--- Insérer des données de test pour la table achat_ingredient
-INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense)
-VALUES
-    (1, 5.75, 2, '2023-06-15', 1),
-    (2, 3.50, 3, '2023-06-16', 2),
-    (3, 10.25, 1, '2023-06-17', 3),
-    (4, 2.50, 4, '2023-06-18', 4),
-    (5, 7.80, 2, '2023-06-19', 5);
+--ingredient_produit
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (1, 1, 1, 150);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (1, 2, 3, 1);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (1, 3, 2, 2);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (2, 1, 1, 120);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (2, 2, 3, 1);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (2, 3, 2, 1);    
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (3, 1, 1, 180);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (3, 2, 3, 1);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (3, 3, 2, 2);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (4, 4, 1, 150);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (4, 2, 3, 1);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (4, 5, 2, 1);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (5, 6, 1, 150);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (5, 2, 3, 1);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (5, 5, 2, 1);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (6, 4, 1, 100);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (6, 7, 3, 1);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (7, 4, 1, 160);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (7, 7, 3, 1);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (8, 8, 1, 200);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (8, 2, 3, 1);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (8, 3, 2, 1);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (9, 9, 1, 150);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (9, 2, 3, 1);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (9, 5, 2, 1);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (10, 4, 1, 100);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (10, 7, 3, 1);
+INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (10, 10, 3, 1);
+
+--achat_ingredient
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (1, 10.0, 2, '2024-06-01', 1);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (2, 8.5, 3, '2024-06-02', 2);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (3, 15.0, 1, '2024-06-03', 3);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (1, 9.0, 1, '2024-06-04', 4);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (4, 5.0, 5, '2024-06-05', 5);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (2, 9.0, 4, '2024-06-06', 6);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (3, 12.0, 2, '2024-06-07', 7);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (1, 8.0, 3, '2024-06-08', 8);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (4, 6.0, 6, '2024-06-09', 9);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (2, 10.0, 5, '2024-06-10', 10);
+
+--chariot
+INSERT INTO "public".chariot (id_employe) VALUES (2);
+INSERT INTO "public".chariot (id_employe) VALUES (6);
+INSERT INTO "public".chariot (id_employe) VALUES (10);
 
 
--- Insérer des données de test pour la table chariot
-INSERT INTO "public".chariot (id_employe)
-VALUES
-    (1),
-    (2),
-    (3),
-    (4),
-    (5);
+--point de vente
+INSERT INTO "public".point_vente (id_chariot, localisation, longitude, latitude) VALUES (1, 'Analakely, Antananarivo', 47.5252, -18.9146);
+INSERT INTO "public".point_vente (id_chariot, localisation, longitude, latitude) VALUES (2, 'Andravoahangy, Antananarivo', 47.5264, -18.9000);
+INSERT INTO "public".point_vente (id_chariot, localisation, longitude, latitude) VALUES (3, 'Anosy, Antananarivo', 47.5150, -18.9116);
+INSERT INTO "public".point_vente (id_chariot, localisation, longitude, latitude) VALUES (4, 'Isoraka, Antananarivo', 47.5233, -18.9103);
+INSERT INTO "public".point_vente (id_chariot, localisation, longitude, latitude) VALUES (1, '67 Ha, Antananarivo', 47.5235, -18.8953);
+INSERT INTO "public".point_vente (id_chariot, localisation, longitude, latitude) VALUES (2, 'Antaninarenina, Antananarivo', 47.5190, -18.9125);
+INSERT INTO "public".point_vente (id_chariot, localisation, longitude, latitude) VALUES (3, 'Tsaralalana, Antananarivo', 47.5267, -18.9074);
+INSERT INTO "public".point_vente (id_chariot, localisation, longitude, latitude) VALUES (4, 'Ankadifotsy, Antananarivo', 47.5277, -18.9065);
+INSERT INTO "public".point_vente (id_chariot, localisation, longitude, latitude) VALUES (1, 'Ambohijatovo, Antananarivo', 47.5185, -18.9110);
+INSERT INTO "public".point_vente (id_chariot, localisation, longitude, latitude) VALUES (2, 'Ambatonakanga, Antananarivo', 47.5180, -18.9150);
 
--- Insérer des données de test pour la table point_vente
-INSERT INTO "public".point_vente (id_chariot, localisation, longitude, latitude)
-VALUES
-    (1, 'Magasin A', 45.6789, -73.5678),
-    (2, 'Boutique B', 40.7128, -74.0060),
-    (3, 'Centre commercial C', 51.5074, -0.1278),
-    (4, 'Marché D', 48.8566, 2.3522),
-    (5, 'Supermarché E', 34.0522, -118.2437);
+--vente
+INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (1, 1, 1, 10, '2024-06-01');
+INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (2, 2, 2, 8, '2024-06-02');
+INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (3, 3, 3, 5, '2024-06-03');
+INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (4, 4, 4, 7, '2024-06-04');
+INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (1, 1, 5, 6, '2024-06-05');
+INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (2, 2, 6, 4, '2024-06-06');
+INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (3, 3, 7, 3, '2024-06-07');
+INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (4, 4, 8, 9, '2024-06-08');
+INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (1, 1, 9, 2, '2024-06-09');
+INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (2, 2, 10, 5, '2024-06-10');
 
--- Insérer des données de test pour la table vente
-INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente)
-VALUES
-    (1, 1, 1, 5, '2023-06-15'),
-    (2, 2, 3, 3, '2023-06-16'),
-    (3, 3, 2, 2, '2023-06-17'),
-    (4, 4, 5, 1, '2023-06-18'),
-    (5, 5, 4, 4, '2023-06-19');
+
