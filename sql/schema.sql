@@ -329,7 +329,3 @@ FROM Vente v
          JOIN type_employe te ON e.id_type_employe = te.id_type_employe
 GROUP BY e.id_employe, v.date_vente, te.cota
     );
-
-
-SELECT SUM()
-FROM recette_vente

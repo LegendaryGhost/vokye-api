@@ -18,8 +18,6 @@ public class DepenseService {
     @Autowired
     VenteService venteService;
 
-
-
     public Depense create(Depense depense) {
         if (depense.getId_depense() == null) {
             return depenseRepository.save(depense);
@@ -60,7 +58,5 @@ public class DepenseService {
         Double sumDepense = depenseRepository.getDepenseByMonth(month,year);
         return  sumVente - sumDepense;
     }
-
-
 
 }
