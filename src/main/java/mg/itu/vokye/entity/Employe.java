@@ -5,9 +5,11 @@ import lombok.Data;
 
 import java.sql.Date;
 
+
 @Data
 @Entity
 public class Employe {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEmploye;
@@ -20,18 +22,29 @@ public class Employe {
     private String motDePasse;
     private Date dateEntree;
     private Date dateFin;
+  
     @Column(name = "date_de_naissance")
+  
     private Date dateDeNaissance;
     @Column(name = "num_tel")
     private int numTel;
+  
     @Column(name = "designation")
     private String designation;
-    @Column(name = "nbre_vente")
-    private int numVente;
-    @Column(name = "chiffre_affaire")
-    private Double chiffreAffaires;
-    @Column(name = "statut")
-    private Boolean statut;
+
+    @Column(name = "date_entree")
+    private Timestamp dateEntree;
+
+    @Column(name = "date_fin")
+    private Timestamp dateFin;
+
+    @Column(name = "mot_de_passe")
+    private String motDePasse;
+
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "photo")
     private String photo;
+
 }

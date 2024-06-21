@@ -51,7 +51,7 @@ public class EmployeController {
         return service.checkEmploye(email, motDePasse);
     }
 
-    // Get employees by position
+    // Get employees by designation
     @GetMapping("/designation/{designation}")
     public List<Employe> getEmployesByDesignation(@PathVariable String designation) {
         return service.getEmployesByDesignation(designation);
