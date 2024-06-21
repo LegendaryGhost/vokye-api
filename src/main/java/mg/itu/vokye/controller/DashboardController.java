@@ -33,7 +33,7 @@ public class DashboardController {
 
     @GetMapping("/beneficeMonth")
     public ResponseEntity<Double> beneficeMonth(@RequestParam Integer month,Integer year){
-        Double benefice = depenseService.get_Benefice(date);
+        Double benefice = depenseService.get_BeneficeMonth(month,year);
         return  ResponseEntity.ok(benefice);
     }
 
