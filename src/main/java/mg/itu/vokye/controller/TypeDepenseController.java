@@ -2,7 +2,6 @@ package mg.itu.vokye.controller;
 
 import mg.itu.vokye.entity.TypeDepense;
 import mg.itu.vokye.service.TypeDepenseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +13,11 @@ import java.util.Optional;
 @RequestMapping("/api/typedepense")
 public class TypeDepenseController {
 
-    @Autowired
-    private TypeDepenseService typeDepenseService;
+    private final TypeDepenseService typeDepenseService;
+
+    public TypeDepenseController(TypeDepenseService typeDepenseService) {
+        this.typeDepenseService = typeDepenseService;
+    }
 
     // Create a new TypeDepense
     @PostMapping

@@ -1,6 +1,5 @@
 package mg.itu.vokye.service;
 
-
 import mg.itu.vokye.entity.TypeDepense;
 import mg.itu.vokye.repository.TypeDepenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;

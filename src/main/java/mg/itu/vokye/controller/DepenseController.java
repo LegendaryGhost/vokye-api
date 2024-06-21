@@ -17,6 +17,7 @@ import java.util.List;
 public class DepenseController {
     @Autowired
     private DepenseService depenseService;
+
     @PostMapping
     public ResponseEntity<Depense> create(@RequestBody Depense depense) {
         Depense depenseCreated = depenseService.create(depense);
@@ -36,30 +37,29 @@ public class DepenseController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Integer id){
-        String status =  depenseService.delete(id);
-        return new ResponseEntity<>(status,HttpStatus.OK);
+    public ResponseEntity<String> delete(@PathVariable Integer id) {
+        String status = depenseService.delete(id);
+        return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
     @GetMapping("/all/depense/{date}")
     public ResponseEntity<Double> getDepenseByDate(
             @PathVariable(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         Double result = depenseService.getSumDepenseBy(date);
-        if (result == null){
+        if (result == null) {
             result = 0.0;
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
     @GetMapping("/all/depense/")
     public ResponseEntity<Double> getDepenseAllTime() {
         Double result = depenseService.getSumDepenseBy(null);
-        if (result == null){
+        if (result == null) {
             result = 0.0;
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 
-
 }
-
