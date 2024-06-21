@@ -54,12 +54,12 @@ public class ProduitController {
     }
 
     @GetMapping("/somme-benefice")
-    public Map<String, Double> findTotalBeneficeByProduit() {
+    public List<Object[]> findTotalBeneficeByProduit() {
         return service.findTotalBeneficeByProduit();
     }
 
     @GetMapping("/somme-perte")
-    public Map<String, Double> findTotalPerteByProduit() {
+    public List<Object[]> findTotalPerteByProduit() {
         return service.findTotalBeneficeByProduit();
     }
 

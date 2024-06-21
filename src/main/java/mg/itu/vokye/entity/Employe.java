@@ -19,30 +19,15 @@ public class Employe {
     private TypeEmploye typeEmploye;
     private String nom;
     private String prenom;
-  
-    @Column(name = "date_de_naissance")
-  
-    private Date dateDeNaissance;
-    @Column(name = "num_tel")
-    private int numTel;
-  
+    private String motDePasse;
+    private Timestamp dateEntree;
+    private Timestamp dateFin;
     @ManyToOne
     @JoinColumn(name = "id_genre")
     private Genres genre;
-
-    @Column(name = "date_entree")
-    private Timestamp dateEntree;
-
-    @Column(name = "date_fin")
-    private Timestamp dateFin;
-
-    @Column(name = "mot_de_passe")
-    private String motDePasse;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "photo")
     private String photo;
+    private Date dateNaissance;
+    private int numTel;
 
 }
