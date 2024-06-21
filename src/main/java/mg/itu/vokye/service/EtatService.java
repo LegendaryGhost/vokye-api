@@ -2,9 +2,10 @@ package mg.itu.vokye.service;
 
 import mg.itu.vokye.entity.Etat;
 import mg.itu.vokye.repository.EtatRepository;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 @Service
 public class EtatService {
@@ -18,8 +19,8 @@ public class EtatService {
         return repository.save(etat);
     }
 
-    public List<Etat> getAllEtat() {
-        return repository.findAll();
+    public Page<Etat> getAllEtat(int page, int size) {
+        return repository.findAll(PageRequest.of(page, size));
     }
 
     public Etat getEtatById(Long id) {

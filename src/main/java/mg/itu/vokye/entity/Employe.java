@@ -28,10 +28,9 @@ public class Employe {
 
     @Column(name = "prenom")
     private String prenom;
-
-    @Column(name = "date_de_naissance")
-    private Timestamp dateDeNaissance;
-
+  
+    private Date dateDeNaissance;
+  
     @Column(name = "num_tel")
     private int numTel;
 
@@ -52,4 +51,5 @@ public class Employe {
 
     @Column(name = "photo")
     private String photo;
+  
 }

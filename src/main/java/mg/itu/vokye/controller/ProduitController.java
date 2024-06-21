@@ -2,6 +2,8 @@ package mg.itu.vokye.controller;
 
 import mg.itu.vokye.entity.Produit;
 import mg.itu.vokye.service.ProduitService;
+
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +26,8 @@ public class ProduitController {
 
     // Read All
     @GetMapping
-    public List<Produit> getAllProduit() {
-        return service.getAllProduit();
+    public Page<Produit> getAllProduit(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return service.getAllProduit(page, size);
     }
 
     // Find One

@@ -2,10 +2,9 @@ package mg.itu.vokye.controller;
 
 import mg.itu.vokye.entity.EtatUtilitaire;
 import mg.itu.vokye.service.EtatUtilitaireService;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/etat-utilitaire")
@@ -24,8 +23,8 @@ public class EtatUtilitaireController {
 
     // Read All
     @GetMapping
-    public List<EtatUtilitaire> getAllEtatUtilitaire() {
-        return service.getAllEtatUtilitaire();
+    public Page<EtatUtilitaire> getAllEtatUtilitaire(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return service.getAllEtatUtilitaire(page, size);
     }
 
     // Find One
