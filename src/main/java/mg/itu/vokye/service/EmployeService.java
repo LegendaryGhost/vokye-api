@@ -48,5 +48,4 @@ public class EmployeService {
     public Employe checkEmploye(String email, String motDePasse) {
         return repository.existsByEmailAndMotDePasse(email, motDePasse);
     }
-
 }

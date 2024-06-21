@@ -4,19 +4,21 @@ import mg.itu.vokye.entity.Employe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-@Repository
 public interface EmployeRepository extends JpaRepository<Employe, Long> {
 
-    @Query(value = "SELECT * " +
-            "FROM employe e " +
-            "WHERE e.email = :email " +
-            "AND e.mot_de_passe = crypt(:motDePasse, e.mot_de_passe)", nativeQuery = true)
-    Employe existsByEmailAndMotDePasse(@Param("email") String email, @Param("motDePasse") String motDePasse);
+        @Query(value = "SELECT e.* " +
+                        "FROM employe e " +
+                        "INNER JOIN type_employe te ON e.id_type_employe = te.id_type_employe " +
+                        "WHERE te.designation = 'Manager' " +
+                        "AND e.mot_de_passe = crypt(:motDePasse, e.mot_de_passe) " +
+                        "AND e.email = :email", nativeQuery = true)
+        Employe existsByEmailAndMotDePasse(@Param("email") String email, @Param("motDePasse") String motDePasse);
 
-    @Query(value = "SELECT * FROM employee WHERE designation = :designation", nativeQuery = true)
-    List<Employe> findByDesignation(@Param("designation") String designation);
+        // @SuppressWarnings("unchecked")
+        // @Query(value = "INSERT INTO employe VALUE " +
+        // "(default, :idEmploye, :nom, :prenom, :email, crypt(:motDePasse,
+        // gen_salt('bf')), :dateEntree, :dateFin)")
+        // Employe save(Employe e);
+
 }
