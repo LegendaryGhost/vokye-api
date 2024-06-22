@@ -60,7 +60,7 @@ public class ProduitController {
 
     @GetMapping("/somme-perte")
     public List<Object[]> findTotalPerteByProduit() {
-        return service.findTotalBeneficeByProduit();
+        return service.findTotalPerteByProduit();
     }
 
     @GetMapping("/classement-produit")

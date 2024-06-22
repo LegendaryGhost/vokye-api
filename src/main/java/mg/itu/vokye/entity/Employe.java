@@ -21,16 +21,15 @@ public class Employe {
 
     @Column(name = "nom")
     private String nom;
+    @Column(name = "prenom")
     private String prenom;
+    @Column(name = "email")
     private String email;
-
-    private Date dateDeNaissance;
+    @Column(name = "date_naissance")
+    private Date date_naissance ;
 
     @Column(name = "num_tel")
     private int numTel;
-
-    @Column(name = "designation")
-    private String designation;
 
     @Column(name = "date_entree")
     private Date dateEntree;
@@ -43,5 +42,4 @@ public class Employe {
 
     @Column(name = "photo")
     private String photo;
-    private Date dateNaissance;
 }

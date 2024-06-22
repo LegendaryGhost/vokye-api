@@ -234,7 +234,6 @@ CREATE TABLE "public".chariot
 CREATE TABLE "public".point_vente
 (
     id_point_vente integer DEFAULT nextval('point_vente_id_point_vente_seq1'::regclass) NOT NULL,
-    id_chariot     integer,
     localisation   varchar(200),
     longitude      double precision,
     latitude       double precision,
