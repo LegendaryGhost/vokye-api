@@ -297,9 +297,6 @@ ALTER TABLE "public".ingredient_produit
 ALTER TABLE "public".ingredient_produit
     ADD CONSTRAINT fk_ingredient_produit_ingredient FOREIGN KEY (id_ingredient) REFERENCES "public".ingredient (id_ingredient);
 
-ALTER TABLE "public".point_vente
-    ADD CONSTRAINT point_vente_id_chariot_fkey FOREIGN KEY (id_chariot) REFERENCES "public".chariot (id_chariot);
-
 
 ALTER TABLE "public".utilitaire
     ADD CONSTRAINT utilitaire_id_unite_fkey FOREIGN KEY (id_unite) REFERENCES "public".unite (id_unite);

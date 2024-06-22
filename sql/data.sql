@@ -138,11 +138,11 @@ VALUES
 -- Insérer des données de test pour la table point_vente
 INSERT INTO "public".point_vente (id_chariot, localisation, longitude, latitude)
 VALUES
-    (1, 'Magasin A', 45.6789, -73.5678),
-    (2, 'Boutique B', 40.7128, -74.0060),
-    (3, 'Centre commercial C', 51.5074, -0.1278),
-    (4, 'Marché D', 48.8566, 2.3522),
-    (5, 'Supermarché E', 34.0522, -118.2437);
+    ('Magasin A', 45.6789, -73.5678),
+    ('Boutique B', 40.7128, -74.0060),
+    ('Centre commercial C', 51.5074, -0.1278),
+    ('Marché D', 48.8566, 2.3522),
+    ('Supermarché E', 34.0522, -118.2437);
 
 -- Insérer des données de test pour la table vente
 INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente)
