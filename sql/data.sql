@@ -83,16 +83,16 @@ INSERT INTO "public".type_depense (designation) VALUES ('Fixe');
 INSERT INTO "public".type_depense (designation) VALUES ('Variable');
 
 --depense
--- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (1, 250.0, '2024-06-01');
--- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (2, 150.5, '2024-06-02');
--- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (1, 300.0, '2024-06-03');
--- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (2, 200.0, '2024-06-04');
--- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (1, 180.0, '2024-06-05');
--- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (2, 220.0, '2024-06-06');
--- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (1, 270.0, '2024-06-07');
--- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (2, 190.0, '2024-06-08');
--- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (1, 310.0, '2024-06-09');
--- INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (2, 180.0, '2024-06-10');
+INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (1, 30000.0, '2024-06-01');
+INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (2, 25000.5, '2024-06-02');
+INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (1, 30000.0, '2024-06-03');
+INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (2, 20000.0, '2024-06-04');
+INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (1, 18000.0, '2024-06-05');
+INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (2, 22000.0, '2024-06-06');
+INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (1, 27000.0, '2024-06-07');
+INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (2, 19000.0, '2024-06-08');
+INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (1, 31000.0, '2024-06-09');
+INSERT INTO "public".depense (id_type_depense, prix, date_depense) VALUES (2, 18000.0, '2024-06-10');
 
 --achat_utilitaire
 INSERT INTO "public".achat_utilitaire (id_utilitaire, prix_unitaire, quantite, date_achat, id_depense)
@@ -143,21 +143,18 @@ INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, qu
 INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (9, 9, 1, 150);
 INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (9, 2, 3, 1);
 INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (9, 5, 2, 1);
-INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (10, 4, 1, 100);
-INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (10, 7, 3, 1);
-INSERT INTO "public".ingredient_produit (id_produit, id_ingredient, id_unite, quantite) VALUES (10, 10, 3, 1);
 
---achat_ingredient
-INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (1, 10.0, 2, '2024-06-01', 1);
-INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (2, 8.5, 3, '2024-06-02', 2);
-INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (3, 15.0, 1, '2024-06-03', 3);
-INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (1, 9.0, 1, '2024-06-04', 4);
-INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (4, 5.0, 5, '2024-06-05', 5);
-INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (2, 9.0, 4, '2024-06-06', 6);
-INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (3, 12.0, 2, '2024-06-07', 7);
-INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (1, 8.0, 3, '2024-06-08', 8);
-INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (4, 6.0, 6, '2024-06-09', 9);
-INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (2, 10.0, 5, '2024-06-10', 10);
+-- --achat_ingredient
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (1, 100.0, 2, '2024-06-01', 1);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (2, 2000.5, 3, '2024-06-02', 2);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (3, 2000.0, 1, '2024-06-03', 3);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (1, 2500.0, 1, '2024-06-04', 4);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (4, 2500.0, 5, '2024-06-05', 5);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (2, 3000.0, 4, '2024-06-06', 6);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (3, 4000.0, 2, '2024-06-07', 7);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (1, 3500.0, 3, '2024-06-08', 8);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (4, 2000.0, 6, '2024-06-09', 9);
+INSERT INTO "public".achat_ingredient (id_ingredient, prix_unitaire, quantite, date_achat, id_depense) VALUES (2, 1500.0, 5, '2024-06-10', 10);
 
 --chariot
 INSERT INTO "public".chariot (id_employe) VALUES (2);
@@ -181,11 +178,9 @@ INSERT INTO "public".point_vente (id_chariot, localisation, longitude, latitude)
 INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (1, 1, 1, 10, '2024-06-01');
 INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (2, 2, 2, 8, '2024-06-02');
 INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (3, 3, 3, 5, '2024-06-03');
-INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (4, 4, 4, 7, '2024-06-04');
 INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (1, 1, 5, 6, '2024-06-05');
 INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (2, 2, 6, 4, '2024-06-06');
 INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (3, 3, 7, 3, '2024-06-07');
-INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (4, 4, 8, 9, '2024-06-08');
 INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (1, 1, 9, 2, '2024-06-09');
 INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente) VALUES (2, 2, 10, 5, '2024-06-10');
 
