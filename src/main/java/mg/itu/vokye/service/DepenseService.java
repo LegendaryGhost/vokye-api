@@ -5,7 +5,7 @@ import mg.itu.vokye.repository.DepenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,12 +42,12 @@ public class DepenseService {
         return "deleted succes";
     }
 
-    public Double getSumDepenseBy(LocalDate dateDepense) {
+    public Double getSumDepenseBy(Date dateDepense) {
 
         return depenseRepository.getDepenseAll(dateDepense);
     }
 
-    public Double get_Benefice(LocalDate date) {
+    public Double get_Benefice(Date date) {
         Double sumVente = venteService.getRecetteAll(date);
         Double sumDepense = getSumDepenseBy(date);
         return sumVente - sumDepense;

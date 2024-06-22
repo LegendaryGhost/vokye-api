@@ -5,14 +5,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public interface DepenseRepository extends JpaRepository<Depense,Integer> {
         @Query(value = "SELECT COALESCE(sum(prix), 0) as sum " +
                 "FROM depense " +
                 "WHERE (:dateDepense IS NULL OR date_depense = cast(:dateDepense as date))",
                 nativeQuery = true)
-        Double getDepenseAll(@Param("dateDepense") LocalDate dateDepense);
+        Double getDepenseAll(@Param("dateDepense") Date dateDepense);
 
 
         @Query(value = "SELECT COALESCE(sum(prix), 0) as sum " +

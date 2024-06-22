@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -70,7 +70,7 @@ public class VenteService {
 
 // Recette benefice et perte //
 
-    public Double getRecetteAll(LocalDate dateVente) {
+    public Double getRecetteAll(Date dateVente) {
         return venteRepository.getRecetteAll(dateVente);
     }
 
@@ -111,7 +111,7 @@ public class VenteService {
 //    }
 
     // Employe statistique
-    public List<EmployeStatsDTO> getStatsVenteEmp(Integer employeeId, LocalDate dateVente) {
+    public List<EmployeStatsDTO> getStatsVenteEmp(Integer employeeId, Date dateVente) {
         String sql = "SELECT nom, prenom, SUM(sum_vente) AS recette, SUM(sum_vente - cota) AS validcota, " +
                 "CAST(? AS DATE) AS in_date,nombre_vente " +
                 "FROM recette_vente " +
@@ -130,7 +130,7 @@ public class VenteService {
         ));
     }
 
-    public Double getCountVente(LocalDate date){
+    public Double getCountVente(Date date){
         Double count =  venteRepository.getCountVente(date);
         return Objects.requireNonNullElse(count, 0.0);
     }
