@@ -5,14 +5,11 @@ import lombok.Data;
 
 @Data
 @Entity
-public class PointVente {
+public class Chariot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPointVente;
-    
-    private String localisation;
-    
-    private Double longitude;
-
-    private Double latitude;
+    private Long idChariot;
+    @ManyToOne
+    @JoinColumn(name = "id_employe")
+    private Employe employe;
 }
