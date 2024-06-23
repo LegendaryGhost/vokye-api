@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.sql.Date;
 
 @RestController
 @RequestMapping("/api/dashboard")
@@ -21,12 +22,12 @@ public class DashboardController {
 
     @GetMapping("/venteToday")
     public ResponseEntity<Double> venteNow(){
-        LocalDate today = LocalDate.now();
+        Date today = Date.valueOf(LocalDate.now());
         return ResponseEntity.ok(venteService.getCountVente(today));
     }
 
     @GetMapping("/benefice")
-    public ResponseEntity<Double> benefice(@RequestParam LocalDate date){
+    public ResponseEntity<Double> benefice(@RequestParam Date date){
         Double benefice = depenseService.get_Benefice(date);
         return  ResponseEntity.ok(benefice);
     }
