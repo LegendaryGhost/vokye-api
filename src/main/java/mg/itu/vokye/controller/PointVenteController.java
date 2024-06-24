@@ -3,7 +3,7 @@ package mg.itu.vokye.controller;
 import mg.itu.vokye.entity.PointVente;
 import mg.itu.vokye.service.PointVenteService;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.data.domain.Page;
 import java.util.List;
 
 @RestController
@@ -23,8 +23,8 @@ public class PointVenteController {
 
     // Read All
     @GetMapping
-    public List<PointVente> getAllPointVentes() {
-        return service.getAllPointVentes();
+    public Page<PointVente> getAllPointVentes(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return service.getAllPointVente(page, size);
     }
 
     // Find One

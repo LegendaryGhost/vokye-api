@@ -2,9 +2,10 @@ package mg.itu.vokye.service;
 
 import mg.itu.vokye.entity.PointVente;
 import mg.itu.vokye.repository.PointVenteRepository;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 @Service
 public class PointVenteService {
@@ -18,8 +19,8 @@ public class PointVenteService {
         return repository.save(pointVente);
     }
 
-    public List<PointVente> getAllPointVentes() {
-        return repository.findAll();
+    public Page<PointVente> getAllPointVente(int page, int size) {
+        return repository.findAll(PageRequest.of(page, size));
     }
 
     public PointVente getPointVenteById(Long id) {
