@@ -9,8 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -45,7 +44,7 @@ public class DepenseController {
 
     @GetMapping("/all/depense/{date}")
     public ResponseEntity<Double> getDepenseByDate(
-            @PathVariable(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+            @PathVariable(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
         Double result = depenseService.getSumDepenseBy(date);
         if (result == null) {
             result = 0.0;
@@ -53,7 +52,7 @@ public class DepenseController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/all/depense/")
+    @GetMapping("/all/depense")
     public ResponseEntity<Double> getDepenseAllTime() {
         Double result = depenseService.getSumDepenseBy(null);
         if (result == null) {

@@ -1,15 +1,12 @@
 package mg.itu.vokye.repository;
 
-import jakarta.persistence.SqlResultSetMapping;
-import mg.itu.vokye.dto.EmployeStatsDTO;
 import mg.itu.vokye.entity.Vente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.sql.Date;
 
 @Repository
 public interface VenteRepository extends JpaRepository<Vente, Integer> {
@@ -26,14 +23,16 @@ public interface VenteRepository extends JpaRepository<Vente, Integer> {
             "FROM recette_vente " +
             "WHERE (cast(:dateVente as date) IS NULL OR date_vente = cast(:dateVente as date)) ",
             nativeQuery = true)
-    Double getRecetteAll(@Param("dateVente") LocalDate dateVente);
+    Double getRecetteAll(@Param("dateVente") Date dateVente);
 
 
     @Query(value = "SELECT sum(sum_vente) " +
             "FROM recette_vente " +
-            "WHERE date_vente > cast(:dateVente as date) AND date_vente < cast(:dateVente as date) ",
+            "WHERE date_vente > :dateVenteMin AND date_vente < :dateVenteMax ",
             nativeQuery = true)
-    Double getRecetteInervalDate(@Param("dateVente") LocalDate dateVenteMin, @Param("dateVente") LocalDate dateVenteMax);
+    Double getRecetteInervalDate(@Param("dateVente") Date dateVenteMin,@Param("dateVente") Date dateVenteMax);
+
+
 
 
 //// BENEFICE //
@@ -58,26 +57,31 @@ public interface VenteRepository extends JpaRepository<Vente, Integer> {
 //
 
 
-    @Query(value = "SELECT COALESCE(sum(sum_vente), 0)" +
-            "FROM recette_vente " +
-            "WHERE extract(YEAR FROM date_vente) = :year " +
-            "AND extract( Month FROM date_vente) = :month",
-            nativeQuery = true)
-    Double getRecetteAllMensuel(@Param("month") Integer month, @Param("year") Integer year);
+
+
+@Query(value = "SELECT COALESCE(sum(sum_vente), 0)" +
+        "FROM recette_vente " +
+        "WHERE extract(YEAR FROM date_vente) = :year " +
+        "AND extract( Month FROM date_vente) = :month",
+        nativeQuery = true)
+Double getRecetteAllMensuel(@Param("month") Integer month,@Param("year") Integer year);
 
     @Query(value = "SELECT COALESCE(sum(sum_vente), 0) " +
             "FROM recette_vente " +
-            "WHERE (date_vente = :year) " +
+            "WHERE (date_vente = :year) "+
             "GROUP BY extract(Month FROM date_vente)",
             nativeQuery = true)
     Double getRecetteByMonthThisYear(@Param("year") Integer year);
 
     // nombre de vente
-    @Query(value = "SELECT sum(nombre_vente) " +
-            "FROM recette_vente " +
-            "WHERE (cast(:dateVente as date) IS NULL OR date_vente = cast(:dateVente as date))",
-            nativeQuery = true)
-    Double getCountVente(@Param("dateVente") LocalDate dateVente);
+@Query(value = "SELECT sum(nombre_vente) " +
+        "FROM recette_vente "+
+        "WHERE (cast(:dateVente as date) IS NULL OR date_vente = cast(:dateVente as date))",
+        nativeQuery = true)
+Double getCountVente(@Param("dateVente") Date dateVente);
+
+
+
 
 
 }

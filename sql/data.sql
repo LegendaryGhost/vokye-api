@@ -136,7 +136,7 @@ VALUES
     (5);
 
 -- Insérer des données de test pour la table point_vente
-INSERT INTO "public".point_vente (id_chariot, localisation, longitude, latitude)
+INSERT INTO "public".point_vente (localisation, longitude, latitude)
 VALUES
     ('Magasin A', 45.6789, -73.5678),
     ('Boutique B', 40.7128, -74.0060),
