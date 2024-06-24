@@ -3,6 +3,7 @@ package mg.itu.vokye.controller;
 import mg.itu.vokye.entity.Depense;
 import mg.itu.vokye.service.DepenseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.util.List;
+
 
 @Controller
 @RequestMapping("/api/depense")
@@ -24,10 +25,11 @@ public class DepenseController {
         return new ResponseEntity<>(depenseCreated, HttpStatus.CREATED);
     }
 
-    @GetMapping("read")
-    public ResponseEntity<List<Depense>> read() {
-        List<Depense> depenses = depenseService.read();
-        return new ResponseEntity<>(depenses, HttpStatus.OK);
+    @GetMapping("/read") // Ensure the path matches your intended endpoint
+    public ResponseEntity<Page<Depense>> read(@RequestParam(defaultValue = "0") int page,
+                                              @RequestParam(defaultValue = "10") int size) {
+        Page<Depense> depensePage = depenseService.readDepense(page, size);
+        return new ResponseEntity<>(depensePage, HttpStatus.OK);
     }
 
     @PutMapping("")

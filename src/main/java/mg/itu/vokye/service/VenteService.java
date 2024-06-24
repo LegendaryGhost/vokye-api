@@ -6,6 +6,8 @@ import mg.itu.vokye.dto.EmployeStatsDTO;
 import mg.itu.vokye.entity.Vente;
 import mg.itu.vokye.repository.VenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +37,8 @@ public class VenteService {
         return venteRepository.save(vente);
     }
 
-    public List<Vente> read() {
-        return venteRepository.findAll();
+    public Page<Vente> read(int page, int size) {
+        return venteRepository.findAll(PageRequest.of(page, size));
     }
 
     public String update(Vente vente) {

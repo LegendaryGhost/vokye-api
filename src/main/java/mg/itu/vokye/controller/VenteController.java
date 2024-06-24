@@ -7,6 +7,7 @@ import mg.itu.vokye.entity.Vente;
 import mg.itu.vokye.service.VentePredictionService;
 import mg.itu.vokye.service.VenteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +26,9 @@ public class VenteController {
     private VentePredictionService ventePredictionService;
 
     @GetMapping("read")
-    public ResponseEntity<List<Vente>> getAllVentes() {
-        List<Vente> ventes = venteService.read();
-        return new ResponseEntity<>(ventes, HttpStatus.OK);
+    public Page<Vente> getAllVentes(@RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "10") int size) {
+        return venteService.read(page, size);
     }
 
     @GetMapping("get/{id}")

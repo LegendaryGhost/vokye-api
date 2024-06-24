@@ -30,9 +30,15 @@ public class Vente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id_vente;
-    Integer id_point_vente;
-    Integer id_chariot;
-    Integer id_produit;
+    @ManyToOne
+    @JoinColumn(name = "id_point_vente")
+    PointVente pointVente;
+    @ManyToOne
+    @JoinColumn(name = "id_chariot")
+    Chariot chariot;
+    @ManyToOne
+    @JoinColumn(name = "id_produit")
+    Produit produit;
     Integer quantite;
     Date date_vente;
 
