@@ -7,12 +7,13 @@ import mg.itu.vokye.entity.Vente;
 import mg.itu.vokye.service.VentePredictionService;
 import mg.itu.vokye.service.VenteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +26,9 @@ public class VenteController {
     private VentePredictionService ventePredictionService;
 
     @GetMapping("read")
-    public ResponseEntity<List<Vente>> getAllVentes() {
-        List<Vente> ventes = venteService.read();
-        return new ResponseEntity<>(ventes, HttpStatus.OK);
+    public Page<Vente> getAllVentes(@RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "10") int size) {
+        return venteService.read(page, size);
     }
 
     @GetMapping("get/{id}")
@@ -69,7 +70,7 @@ public class VenteController {
     }
     @GetMapping("/all/recette/{date}")
     public ResponseEntity<Double> getRecetteDateAllInDate(
-            @PathVariable(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+            @PathVariable(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
         Double result = venteService.getRecetteAll(date);
         if (result == null){
             result = 0.0;
@@ -112,7 +113,7 @@ public class VenteController {
     /// Prediction de chiffre d affaire a une date donne
 
     @GetMapping("/prediction/{date}")
-    public ResponseEntity<Double> predictVente(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public ResponseEntity<Double> predictVente(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
         double prediction = ventePredictionService.predictChiffreAffaireIn(date);
         return ResponseEntity.ok(prediction);
     }
@@ -120,7 +121,7 @@ public class VenteController {
     @GetMapping("/stats/employe")
     public List<EmployeStatsDTO> getStatEmployeBydate(
             @RequestParam Integer employeeId,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateVente) {
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dateVente) {
         return venteService.getStatsVenteEmp(employeeId, dateVente);
     }
 
