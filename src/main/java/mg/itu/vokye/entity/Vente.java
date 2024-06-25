@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import mg.itu.vokye.dto.EmployeStatsDTO;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 @SqlResultSetMapping(
         name = "EmployeStatsDTOMapping",
@@ -18,7 +17,7 @@ import java.time.LocalDate;
                         @ColumnResult(name = "prenom", type = String.class),
                         @ColumnResult(name = "recette", type = Double.class),
                         @ColumnResult(name = "validcota", type = Double.class),
-                        @ColumnResult(name = "in_date", type = LocalDate.class)
+                        @ColumnResult(name = "in_date", type = Date.class)
                 }
         )
 )
@@ -31,9 +30,15 @@ public class Vente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id_vente;
-    Integer id_point_vente;
-    Integer id_chariot;
-    Integer id_produit;
+    @ManyToOne
+    @JoinColumn(name = "id_point_vente")
+    PointVente pointVente;
+    @ManyToOne
+    @JoinColumn(name = "id_chariot")
+    Chariot chariot;
+    @ManyToOne
+    @JoinColumn(name = "id_produit")
+    Produit produit;
     Integer quantite;
     Date date_vente;
 

@@ -3,9 +3,11 @@ package mg.itu.vokye.service;
 import mg.itu.vokye.entity.Depense;
 import mg.itu.vokye.repository.DepenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,8 +26,15 @@ public class DepenseService {
         return null;
     }
 
-    public List<Depense> read() {
-        return depenseRepository.findAll();
+
+    public Page<Depense> readDepense(int page, int size) {
+        if (page < 0) {
+            page = 0;
+        }
+        if (size <= 0) {
+            size = 10;
+        }
+        return depenseRepository.findAll(PageRequest.of(page, size));
     }
 
     public String update(Depense depense) {
@@ -42,12 +51,12 @@ public class DepenseService {
         return "deleted succes";
     }
 
-    public Double getSumDepenseBy(LocalDate dateDepense) {
+    public Double getSumDepenseBy(Date dateDepense) {
 
         return depenseRepository.getDepenseAll(dateDepense);
     }
 
-    public Double get_Benefice(LocalDate date) {
+    public Double get_Benefice(Date date) {
         Double sumVente = venteService.getRecetteAll(date);
         Double sumDepense = getSumDepenseBy(date);
         return sumVente - sumDepense;
