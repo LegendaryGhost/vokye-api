@@ -25,16 +25,16 @@ public class DepenseController {
         return new ResponseEntity<>(depenseCreated, HttpStatus.CREATED);
     }
 
-    @GetMapping("/read") // Ensure the path matches your intended endpoint
+    @GetMapping("") // Ensure the path matches your intended endpoint
     public ResponseEntity<Page<Depense>> read(@RequestParam(defaultValue = "0") int page,
                                               @RequestParam(defaultValue = "10") int size) {
         Page<Depense> depensePage = depenseService.readDepense(page, size);
         return new ResponseEntity<>(depensePage, HttpStatus.OK);
     }
 
-    @PutMapping("")
-    public ResponseEntity<String> update(@RequestBody Depense depense) {
-        String status = depenseService.update(depense);
+    @PutMapping("/{id}")
+    public ResponseEntity<Depense> update(@PathVariable Integer id,@RequestBody Depense depense) {
+        Depense status = depenseService.update(id,depense);
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
