@@ -38,6 +38,12 @@ public class VenteService {
     }
 
     public Page<Vente> read(int page, int size) {
+        if (page < 0) {
+            page = 0;
+        }
+        if (size <= 0) {
+            size = 10;
+        }
         return venteRepository.findAll(PageRequest.of(page, size));
     }
 

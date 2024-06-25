@@ -28,6 +28,12 @@ public class DepenseService {
 
 
     public Page<Depense> readDepense(int page, int size) {
+        if (page < 0) {
+            page = 0;
+        }
+        if (size <= 0) {
+            size = 10;
+        }
         return depenseRepository.findAll(PageRequest.of(page, size));
     }
 
