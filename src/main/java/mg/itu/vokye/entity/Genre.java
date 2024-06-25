@@ -5,14 +5,13 @@ import lombok.Data;
 
 @Data
 @Entity
-public class PointVente {
+@Table(name = "genres")
+public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPointVente;
-    
-    private String localisation;
-    
-    private Double longitude;
+    @Column(name = "id_genre")
+    private int idGenre;
 
-    private Double latitude;
+    @Column(name = "nom_genre")
+    private String nomGenre;
 }
