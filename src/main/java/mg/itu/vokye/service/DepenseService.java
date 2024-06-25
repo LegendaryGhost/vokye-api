@@ -3,6 +3,8 @@ package mg.itu.vokye.service;
 import mg.itu.vokye.entity.Depense;
 import mg.itu.vokye.repository.DepenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -24,8 +26,15 @@ public class DepenseService {
         return null;
     }
 
-    public List<Depense> read() {
-        return depenseRepository.findAll();
+
+    public Page<Depense> readDepense(int page, int size) {
+        if (page < 0) {
+            page = 0;
+        }
+        if (size <= 0) {
+            size = 10;
+        }
+        return depenseRepository.findAll(PageRequest.of(page, size));
     }
 
     public String update(Depense depense) {

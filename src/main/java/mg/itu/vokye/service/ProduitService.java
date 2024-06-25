@@ -25,6 +25,7 @@ public class ProduitService {
     }
 
     public Page<Produit> getAllProduit(int page, int size) {
+        
         return repository.findAll(PageRequest.of(page, size));
     }
 

@@ -59,17 +59,17 @@ public interface VenteRepository extends JpaRepository<Vente, Integer> {
 
 
 
-@Query(value = "SELECT sum(sum_vente) " +
+@Query(value = "SELECT COALESCE(sum(sum_vente), 0)" +
         "FROM recette_vente " +
-        "WHERE extract('year',date_vente) = :year " +
-        "AND extract('month',date_vente) = :month",
+        "WHERE extract(YEAR FROM date_vente) = :year " +
+        "AND extract( Month FROM date_vente) = :month",
         nativeQuery = true)
 Double getRecetteAllMensuel(@Param("month") Integer month,@Param("year") Integer year);
 
-    @Query(value = "SELECT sum(sum_vente) " +
+    @Query(value = "SELECT COALESCE(sum(sum_vente), 0) " +
             "FROM recette_vente " +
             "WHERE (date_vente = :year) "+
-            "GROUP BY extract('Month',date_vente)",
+            "GROUP BY extract(Month FROM date_vente)",
             nativeQuery = true)
     Double getRecetteByMonthThisYear(@Param("year") Integer year);
 
