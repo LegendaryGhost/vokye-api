@@ -5,7 +5,11 @@ import mg.itu.vokye.entity.Employe;
 import mg.itu.vokye.service.EmployeService;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.Date;
 import java.util.List;
 
 
@@ -57,6 +61,11 @@ public class EmployeController {
     @GetMapping("/{id}/stats")
     public EmployeDTO getEmployeStats(@PathVariable Long id) {
         return service.getEmployeStatsById(id);
+    }
+    @GetMapping("/stats/{annee}")
+    public ResponseEntity<List<EmployeDTO>> getEmployeStats(@PathVariable Integer annee) {
+        List<EmployeDTO> result = service.getEmployeStatsByDate(annee);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     // Get employees by designation
