@@ -78,8 +78,8 @@ public class VenteService {
         return "deleted succes";
     }
 
-    public Optional<Vente> getVenteById(Integer idVente) {
-        return venteRepository.findById(idVente);
+    public Vente getVenteById(Integer idVente) {
+        return venteRepository.findById(idVente).orElseThrow();
     }
 
 // Recette benefice et perte //
