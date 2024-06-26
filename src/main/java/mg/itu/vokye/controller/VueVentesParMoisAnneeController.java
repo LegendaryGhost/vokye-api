@@ -21,7 +21,7 @@ public class VueVentesParMoisAnneeController {
     }
 
     @GetMapping("/top/{id}")
-    public List<VueVentesParMoisAnnee> getTopVenteMoisById(@PathVariable Long id) {
-        return service.getTopVenteMoisById(id);
+    public VueVentesParMoisAnnee getTopVenteMoisById(@PathVariable Long id) {
+        return service.getTopVenteMoisById(id).get(0);
     }
 }
