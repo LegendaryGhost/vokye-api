@@ -67,8 +67,14 @@ public class VenteController {
     }
     @GetMapping("/all/recette/{date}")
     public ResponseEntity<Double> getRecetteDateAllInDate(
-            @PathVariable(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
-        Double result = venteService.getRecetteAll(date);
+            @PathVariable(required = false) String date) {
+        Date parsedDate = null;
+        try {
+            parsedDate = Date.valueOf(date);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Double result = venteService.getRecetteAll(parsedDate);
         if (result == null){
             result = 0.0;
         }

@@ -46,8 +46,14 @@ public class DepenseController {
 
     @GetMapping("/all/depense/{date}")
     public ResponseEntity<Double> getDepenseByDate(
-            @PathVariable(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
-        Double result = depenseService.getSumDepenseBy(date);
+            @PathVariable(required = false) String date) {
+        Date parsedDate = null;
+        try {
+            parsedDate = Date.valueOf(date);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Double result = depenseService.getSumDepenseBy(parsedDate);
         if (result == null) {
             result = 0.0;
         }

@@ -362,6 +362,21 @@ FROM employe e
      vue_chiffre_affaire c ON e.id_employe = c.id_employe
 GROUP BY e.id_employe, e.nom, e.prenom, e.photo;
 
+CREATE OR REPLACE VIEW employe_performanceByYear AS
+SELECT e.id_employe,
+       e.nom,
+       e.prenom,
+       e.photo                 AS photo_de_profil,
+       MAX(v.quantite)         AS meilleur_quantite_vente,
+       MAX(c.chiffre_affaires) AS meilleur_chiffre_d_affaires,
+       v.date_vente
+FROM employe e
+         LEFT JOIN
+     vente v ON e.id_employe = v.id_chariot
+         LEFT JOIN
+     vue_chiffre_affaire c ON e.id_employe = c.id_employe
+GROUP BY e.id_employe, e.nom, e.prenom, e.photo,v.date_vente;
+
 CREATE OR REPLACE VIEW recette_vente AS
 (
 SELECT SUM(p.prix * quantite) AS sum_vente,
