@@ -25,13 +25,13 @@ public class VenteController {
     @Autowired
     private VentePredictionService ventePredictionService;
 
-    @GetMapping("read")
+    @GetMapping("")
     public Page<Vente> getAllVentes(@RequestParam(defaultValue = "0") int page,
                                      @RequestParam(defaultValue = "10") int size) {
         return venteService.read(page, size);
     }
 
-    @GetMapping("get/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Vente> getVenteById(@PathVariable Integer id) {
         Optional<Vente> vente = venteService.getVenteById(id);
         return vente.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -44,9 +44,9 @@ public class VenteController {
         Vente venteCreated = venteService.create(vente);
         return new ResponseEntity<>(venteCreated, HttpStatus.CREATED);
     }
-    @PutMapping
-    public ResponseEntity<Vente> updateVente(@RequestBody Vente vente) {
-        Vente venteCreated = venteService.create(vente);
+    @PutMapping("/{id}")
+    public ResponseEntity<Vente> updateVente(@PathVariable Integer id,@RequestBody Vente vente) {
+        Vente venteCreated = venteService.update(id,vente);
         return new ResponseEntity<>(venteCreated, HttpStatus.CREATED);
     }
 

@@ -37,13 +37,24 @@ public class DepenseService {
         return depenseRepository.findAll(PageRequest.of(page, size));
     }
 
-    public String update(Depense depense) {
-        Optional<Depense> optionalDepense = depenseRepository.findById(depense.getId_depense());
-        if (optionalDepense.isPresent()) {
-            depenseRepository.save(depense);
-            return "Succes update";
+    public Depense update(Integer id, Depense depenseDetails) {
+        Depense existingDepense = depenseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Dépense non trouvée avec l'ID: " + id));
+
+        // Mise à jour des champs de l'entité existante
+        if (depenseDetails.getTypeDepense() != null) {
+            existingDepense.setTypeDepense(depenseDetails.getTypeDepense());
         }
-        return "update failed";
+
+        if (depenseDetails.getPrix() != null) {
+            existingDepense.setPrix(depenseDetails.getPrix());
+        }
+
+        if (depenseDetails.getDateDepense() != null) {
+            existingDepense.setDateDepense(depenseDetails.getDateDepense());
+        }
+
+        return depenseRepository.save(existingDepense);
     }
 
     public String delete(Integer id) {
