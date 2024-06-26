@@ -8,8 +8,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DepenseService {
@@ -50,8 +48,8 @@ public class DepenseService {
             existingDepense.setPrix(depenseDetails.getPrix());
         }
 
-        if (depenseDetails.getDateDepense() != null) {
-            existingDepense.setDateDepense(depenseDetails.getDateDepense());
+        if (depenseDetails.getDate_depense() != null) {
+            existingDepense.setDate_depense(depenseDetails.getDate_depense());
         }
 
         return depenseRepository.save(existingDepense);

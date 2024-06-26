@@ -31,7 +31,7 @@ public class ChariotService {
 
     // Update
     public Chariot updateChariot(Chariot chariotDetails) {
-        Chariot chariot = chariotRepository.findById(chariotDetails.getIdChariot()).orElseThrow(() -> new RuntimeException("Chariot not found"));
+        Chariot chariot = chariotRepository.findById(chariotDetails.getId_chariot()).orElseThrow(() -> new RuntimeException("Chariot not found"));
 
         chariot.setEmploye(chariotDetails.getEmploye());
         // Update other fields if there are any

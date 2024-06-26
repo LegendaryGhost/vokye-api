@@ -34,7 +34,7 @@ public class TypeDepenseService {
     }
 
     public TypeDepense update(TypeDepense typeDepense) {
-        Optional<TypeDepense> optionalTypeDepense = typeDepenseRepository.findById(typeDepense.getId_type_depense());
+        Optional<TypeDepense> optionalTypeDepense = typeDepenseRepository.findById(Math.toIntExact(typeDepense.getId_type_depense()));
         if (optionalTypeDepense.isPresent()) {
             return typeDepenseRepository.save(typeDepense);
         }
