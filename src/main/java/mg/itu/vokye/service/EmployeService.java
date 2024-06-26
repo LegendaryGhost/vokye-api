@@ -86,14 +86,14 @@ public class EmployeService {
             }
         });
     }
-    public List<EmployeDTO> getEmployeStatsByDate(Date date) {
+    public List<EmployeDTO> getEmployeStatsByDate(Integer year) {
         String sql = "SELECT e.nom, e.prenom, e.photo_de_profil, " +
                 "e.meilleur_quantite_vente AS meilleurQuantiteVente, " +
                 "e.meilleur_chiffre_d_affaires AS meilleurChiffreAffaires " +
                 "FROM employe_performanceByYear e " +
-                "WHERE extract(year from e.date_vente) = extract(year from cast(? as date))";
+                "WHERE extract(year from e.date_vente) = ?";
 
-        return jdbcTemplate.query(sql, new Object[]{date}, new RowMapper<EmployeDTO>() {
+        return jdbcTemplate.query(sql, new Object[]{year}, new RowMapper<EmployeDTO>() {
             @Override
             public EmployeDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new EmployeDTO(

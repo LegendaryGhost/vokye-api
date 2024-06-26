@@ -62,15 +62,9 @@ public class EmployeController {
     public EmployeDTO getEmployeStats(@PathVariable Long id) {
         return service.getEmployeStatsById(id);
     }
-    @GetMapping("/stats/{date}")
-    public ResponseEntity<List<EmployeDTO>> getEmployeStats(@PathVariable(required = false) String date) {
-        Date parsedDate = null;
-        try {
-            parsedDate = Date.valueOf(date);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        List<EmployeDTO> result = service.getEmployeStatsByDate(parsedDate);
+    @GetMapping("/stats/{annee}")
+    public ResponseEntity<List<EmployeDTO>> getEmployeStats(@PathVariable Integer annee) {
+        List<EmployeDTO> result = service.getEmployeStatsByDate(annee);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
