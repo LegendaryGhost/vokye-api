@@ -8,8 +8,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DepenseService {
@@ -37,13 +35,24 @@ public class DepenseService {
         return depenseRepository.findAll(PageRequest.of(page, size));
     }
 
-    public String update(Depense depense) {
-        Optional<Depense> optionalDepense = depenseRepository.findById(depense.getId_depense());
-        if (optionalDepense.isPresent()) {
-            depenseRepository.save(depense);
-            return "Succes update";
+    public Depense update(Integer id, Depense depenseDetails) {
+        Depense existingDepense = depenseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Dépense non trouvée avec l'ID: " + id));
+
+        // Mise à jour des champs de l'entité existante
+        if (depenseDetails.getTypeDepense() != null) {
+            existingDepense.setTypeDepense(depenseDetails.getTypeDepense());
         }
-        return "update failed";
+
+        if (depenseDetails.getPrix() != null) {
+            existingDepense.setPrix(depenseDetails.getPrix());
+        }
+
+        if (depenseDetails.getDate_depense() != null) {
+            existingDepense.setDate_depense(depenseDetails.getDate_depense());
+        }
+
+        return depenseRepository.save(existingDepense);
     }
 
     public String delete(Integer id) {
@@ -57,10 +66,11 @@ public class DepenseService {
     }
 
     public Double get_Benefice(Date date) {
-        Double sumVente = venteService.getRecetteAll(date);
-        Double sumDepense = getSumDepenseBy(date);
+        Double sumVente = venteService.getRecetteAll(date) != null ? venteService.getRecetteAll(date) : 0;
+        Double sumDepense = getSumDepenseBy(date) != null ? getSumDepenseBy(date) : 0;
         return sumVente - sumDepense;
     }
+
 
     public Double get_BeneficeMonth(Integer month, Integer year) {
         Double sumVente = venteService.getRecetteByMonth(month, year);

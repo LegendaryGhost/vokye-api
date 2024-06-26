@@ -47,24 +47,30 @@ public class VenteService {
         return venteRepository.findAll(PageRequest.of(page, size));
     }
 
-    public String update(Vente vente) {
-        // Vérifie si la vente existe déjà
-        Optional<Vente> optionalExistingVente = venteRepository.findById(vente.getId_vente());
+    public Vente update(Integer id, Vente venteDetails) {
+        Vente existingVente = venteRepository.findById(id).orElseThrow(() -> new RuntimeException("Vente non trouvée avec l'ID: " + id));
 
-        if (optionalExistingVente.isPresent()) {
-            Vente existingVente = optionalExistingVente.get();
-
-            // Vérifie si la quantité à mettre à jour est valide
-            if (vente.getQuantite() != null && vente.getQuantite() > 0) {
-                existingVente.setQuantite(vente.getQuantite());
-                venteRepository.save(existingVente);
-                return "Mise à jour réussie";
-            } else {
-                throw new IllegalArgumentException("La quantité de vente doit être spécifiée et être supérieure à zéro");
-            }
+        // Mise à jour des champs de la vente existante
+        if (venteDetails.getQuantite() != null && venteDetails.getQuantite() > 0) {
+            existingVente.setQuantite(venteDetails.getQuantite());
         } else {
-            throw new RuntimeException("Vente non trouvée avec l'ID: " + vente.getId_vente());
+            throw new IllegalArgumentException("La quantité de vente doit être spécifiée et être supérieure à zéro");
         }
+
+        if (venteDetails.getProduit() != null) {
+            existingVente.setProduit(venteDetails.getProduit());
+        }
+        if (venteDetails.getChariot() != null) {
+            existingVente.setChariot(venteDetails.getChariot());
+        }
+        if (venteDetails.getDate_vente() != null) {
+            existingVente.setDate_vente(venteDetails.getDate_vente());
+        }
+        if (venteDetails.getPointVente() != null) {
+            existingVente.setPointVente(venteDetails.getPointVente());
+        }
+
+        return venteRepository.save(existingVente);
     }
 
     public String delete(Integer idVente) {
@@ -72,8 +78,8 @@ public class VenteService {
         return "deleted succes";
     }
 
-    public Optional<Vente> getVenteById(Integer idVente) {
-        return venteRepository.findById(idVente);
+    public Vente getVenteById(Integer idVente) {
+        return venteRepository.findById(idVente).orElseThrow();
     }
 
 // Recette benefice et perte //

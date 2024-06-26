@@ -1,23 +1,35 @@
 package mg.itu.vokye.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "depense")
 public class Depense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_depense;
+    private Long id_depense;
+
     @ManyToOne
     @JoinColumn(name = "id_type_depense")
     private TypeDepense typeDepense;
-    private Double prix;
-    private Date dateDepense;
+
+    private BigDecimal prix;
+    private Date date_depense;
+
+    // Getters and Setters
 }

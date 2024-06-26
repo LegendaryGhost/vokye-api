@@ -1,5 +1,6 @@
 package mg.itu.vokye.repository;
 
+import mg.itu.vokye.dto.EmployeDTO;
 import mg.itu.vokye.entity.Employe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,5 +21,15 @@ public interface EmployeRepository extends JpaRepository<Employe, Long> {
         // "(default, :idEmploye, :nom, :prenom, :email, crypt(:motDePasse,
         // gen_salt('bf')), :dateEntree, :dateFin)")
         // Employe save(Employe e);
+
+        @Query(value = "SELECT e.nom, e.prenom, e.photo_de_profil, " +
+                "e.meilleur_quantite_vente AS meilleurQuantiteVente, " +
+                "e.meilleur_chiffre_d_affaires AS meilleurChiffreAffaires " +
+                "FROM employe_performance e " +
+                "WHERE e.id_employe = :idEmploye", nativeQuery = true)
+        EmployeDTO findEmployeStatsById(@Param("idEmploye") Long idEmploye);
+
+
+ 
 
 }
