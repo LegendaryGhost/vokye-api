@@ -1,5 +1,6 @@
 package mg.itu.vokye.service;
 
+import lombok.Data;
 import mg.itu.vokye.dto.EmployeDTO;
 import mg.itu.vokye.dto.EmployeStatsDTO;
 import mg.itu.vokye.entity.Employe;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -72,6 +74,26 @@ public class EmployeService {
                 "WHERE e.id_employe = ?";
 
         return jdbcTemplate.queryForObject(sql, new Object[]{idEmploye}, new RowMapper<EmployeDTO>() {
+            @Override
+            public EmployeDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new EmployeDTO(
+                        rs.getString("nom"),
+                        rs.getString("prenom"),
+                        rs.getInt("meilleurQuantiteVente"),
+                        rs.getDouble("meilleurChiffreAffaires"),
+                        rs.getString("photo_de_profil")
+                );
+            }
+        });
+    }
+    public List<EmployeDTO> getEmployeStatsByDate(Date date) {
+        String sql = "SELECT e.nom, e.prenom, e.photo_de_profil, " +
+                "e.meilleur_quantite_vente AS meilleurQuantiteVente, " +
+                "e.meilleur_chiffre_d_affaires AS meilleurChiffreAffaires " +
+                "FROM employe_performanceByYear e " +
+                "WHERE extract(year from e.date_vente) = extract(year from cast(? as date))";
+
+        return jdbcTemplate.query(sql, new Object[]{date}, new RowMapper<EmployeDTO>() {
             @Override
             public EmployeDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new EmployeDTO(
