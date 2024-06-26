@@ -20,7 +20,12 @@ public class PointVente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_point_vente;
+<<<<<<< Updated upstream
     
+=======
+
+
+>>>>>>> Stashed changes
     private String localisation;
     private double longitude;
     private double latitude;
