@@ -2,6 +2,8 @@ package mg.itu.vokye.controller;
 
 import mg.itu.vokye.entity.TypeDepense;
 import mg.itu.vokye.service.TypeDepenseService;
+
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,14 +30,17 @@ public class TypeDepenseController {
 
     // Read all TypeDepenses
     @GetMapping("")
-    public ResponseEntity<List<TypeDepense>> getAllTypeDepenses() {
-        List<TypeDepense> typeDepenses = typeDepenseService.read();
+    public ResponseEntity<Page<TypeDepense>> getAll(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size
+    ) {
+        Page<TypeDepense> typeDepenses = typeDepenseService.read(page, size);
         return ResponseEntity.ok(typeDepenses);
     }
 
     // Read one TypeDepense by ID
     @GetMapping("/{id}")
-    public ResponseEntity<TypeDepense> getTypeDepenseById(@PathVariable Integer id) {
+    public ResponseEntity<TypeDepense> getById(@PathVariable Integer id) {
         Optional<TypeDepense> typeDepense = typeDepenseService.getById(id);
         return typeDepense.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }

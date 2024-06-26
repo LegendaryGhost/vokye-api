@@ -3,9 +3,10 @@ package mg.itu.vokye.service;
 import mg.itu.vokye.entity.TypeDepense;
 import mg.itu.vokye.repository.TypeDepenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 
@@ -18,8 +19,14 @@ public class TypeDepenseService {
         return typeDepenseRepository.save(typeDepense);
     }
 
-    public List<TypeDepense> read() {
-        return typeDepenseRepository.findAll();
+    public Page<TypeDepense> read(int page, int size) {
+        if (page < 0) {
+            page = 0;
+        }
+        if (size <= 0) {
+            size = 10;
+        }
+        return typeDepenseRepository.findAll(PageRequest.of(page, size));
     }
 
     public Optional<TypeDepense> getById(Integer id) {
