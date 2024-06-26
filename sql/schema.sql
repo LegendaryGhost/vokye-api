@@ -328,3 +328,41 @@ FROM Vente v
          JOIN type_employe te ON e.id_type_employe = te.id_type_employe
 GROUP BY e.id_employe, v.date_vente, te.cota
     );
+
+--view recherche somme poinvente
+CREATE OR REPLACE VIEW vue_somme_ventes_point_vente AS
+SELECT ROW_NUMBER() OVER () AS numero_ligne,
+    pv.id_point_vente,
+    pv.localisation,
+    v.date_vente,
+    SUM(v.quantite * p.prix) AS total_ventes
+FROM
+    point_vente pv
+        JOIN
+    vente v ON pv.id_point_vente = v.id_point_vente
+        JOIN
+    Produit p ON v.id_produit = p.id_produit
+GROUP BY
+    pv.id_point_vente,
+    pv.localisation,
+    v.date_vente;
+
+--view recherche somme poinvente par date
+CREATE VIEW vue_ventes_par_mois_annee AS
+SELECT ROW_NUMBER() OVER () AS numero_ligne,
+    id_point_vente,
+    localisation,
+    EXTRACT(YEAR FROM date_vente) AS annee,
+    EXTRACT(MONTH FROM date_vente) AS mois,
+    SUM(total_ventes) AS total_ventes_mois
+FROM
+    vue_somme_ventes_point_vente
+GROUP BY
+    id_point_vente,
+    localisation,
+    annee,
+    mois
+ORDER BY
+    annee,
+    mois,
+    id_point_vente;
