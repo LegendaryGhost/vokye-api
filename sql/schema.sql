@@ -321,6 +321,25 @@ GROUP BY pv.id_point_vente,
          v.date_vente;
 
 -- view employe
+
+CREATE OR REPLACE VIEW vue_employe_type AS
+SELECT e.id_employe,
+       e.nom,
+       e.prenom,
+       e.date_entree,
+       e.mot_de_passe,
+       e.date_fin,
+       t.designation,
+       t.salaire_base,
+       t.pourcentage
+FROM employe e
+         JOIN
+     type_employe t ON e.id_type_employe = t.id_type_employe;
+
+
+CREATE OR REPLACE VIEW vue_chiffre_affaire AS
+SELECT SUM(v.quantite*p.prix) FROM vente v JOIN produit p ON v.id_produit = p.id_produit ;
+
 CREATE OR REPLACE VIEW employe_performance AS
 SELECT 
     e.id_employe,
@@ -338,20 +357,20 @@ LEFT JOIN
 GROUP BY 
     e.id_employe, e.nom, e.prenom, e.photo;
 
-CREATE OR REPLACE VIEW vue_employe_type AS
-SELECT e.id_employe,
-       e.nom,
-       e.prenom,
-       e.date_entree,
-       e.mot_de_passe,
-       e.date_fin,
-       t.designation,
-       t.salaire_base,
-       t.pourcentage
-FROM employe e
-         JOIN
-     type_employe t ON e.id_type_employe = t.id_type_employe;
-
-
-CREATE OR REPLACE VIEW vue_chiffre_affaire AS 
-SELECT SUM(v.quantite*p.prix) FROM vente v JOIN produit p ON v.id_produit = p.id_produit ; 
+CREATE OR REPLACE VIEW recette_vente AS
+(
+SELECT SUM(p.prix * quantite) AS sum_vente,
+       v.date_vente           AS date_vente,
+       e.id_employe,
+       e.id_type_employe,
+       e.nom                  as nom,
+       e.prenom               as prenom,
+       te.cota,
+       SUM(v.quantite)        AS nombre_vente
+FROM Vente v
+         JOIN chariot c ON v.id_chariot = c.id_chariot
+         JOIN employe e ON c.id_employe = e.id_employe
+         JOIN produit p ON v.id_produit = p.id_produit
+         JOIN type_employe te ON e.id_type_employe = te.id_type_employe
+GROUP BY e.id_employe, v.date_vente, te.cota
+    );
