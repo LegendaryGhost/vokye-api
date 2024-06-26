@@ -26,4 +26,12 @@ public class VueGestionService {
     public Double getSumBeneficesByAnnee(Integer annee) {
         return repository.sumBeneficesByAnnee(annee);
     }
+
+    public Double getSumDepenses() {
+        return repository.sumDepenses();
+    }
+
+    public Double getSumBenefices() {
+        return repository.sumBenefices();
+    }
 }

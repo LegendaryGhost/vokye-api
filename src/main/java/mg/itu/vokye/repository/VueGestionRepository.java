@@ -10,6 +10,11 @@ import java.util.List;
 @Repository
 public interface VueGestionRepository extends JpaRepository<VueGestion, Long> {
 
+    @Query("SELECT SUM(v.totalDepensesMois) FROM VueGestion v")
+    Double sumDepenses();
+
+    @Query("SELECT SUM(v.beneficeMois) FROM VueGestion v")
+    Double sumBenefices();
     @Query("SELECT SUM(v.totalDepensesMois) FROM VueGestion v WHERE v.annee = :annee")
     Double sumDepensesByAnnee(Integer annee);
 

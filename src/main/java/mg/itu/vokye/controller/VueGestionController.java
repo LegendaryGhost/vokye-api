@@ -30,4 +30,14 @@ public class VueGestionController {
     public Double getSumBeneficesByYear(@PathVariable Integer annee) {
         return service.getSumBeneficesByAnnee(annee);
     }
+
+    @GetMapping("/sum-depenses-total")
+    public Double getSumDepenses() {
+        return service.getSumDepenses();
+    }
+
+    @GetMapping("/sum-benefices-total")
+    public Double getSumBenefices() {
+        return service.getSumBenefices();
+    }
 }
