@@ -290,6 +290,24 @@ GROUP BY pv.id_point_vente,
          pv.localisation,
          v.date_vente;
 
+-- view employe
+CREATE OR REPLACE VIEW employe_performance AS
+SELECT 
+    e.id_employe,
+    e.nom,
+    e.prenom,
+    e.photo AS photo_de_profil,
+    MAX(v.nb_ventes_mensuel) AS meilleur_nombre_de_ventes_mensuel,
+    MAX(c.chiffre_affaires) AS meilleur_chiffre_d_affaires
+FROM 
+    employe e
+LEFT JOIN 
+    ventes v ON e.id_employe = v.id_employe
+LEFT JOIN 
+    chiffre_affaires c ON e.id_employe = c.id_employe
+GROUP BY 
+    e.id_employe, e.nom, e.prenom, e.photo;
+
 CREATE OR REPLACE VIEW vue_employe_type AS
 SELECT e.id_employe,
        e.nom,
