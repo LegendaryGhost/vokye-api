@@ -1,6 +1,6 @@
 package mg.itu.vokye.entity;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -17,6 +17,6 @@ public class EtatUtilitaire {
     @ManyToOne
     @JoinColumn(name = "id_etat")
     private Etat etat;
-    private Date dateEtatUtilitaire;
+    private LocalDate dateEtatUtilitaire;
 
 }

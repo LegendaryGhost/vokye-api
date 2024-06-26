@@ -6,12 +6,10 @@ import mg.itu.vokye.dto.EmployeStatsDTO;
 import mg.itu.vokye.entity.Vente;
 import mg.itu.vokye.repository.VenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -37,40 +35,28 @@ public class VenteService {
         return venteRepository.save(vente);
     }
 
-    public Page<Vente> read(int page, int size) {
-        if (page < 0) {
-            page = 0;
-        }
-        if (size <= 0) {
-            size = 10;
-        }
-        return venteRepository.findAll(PageRequest.of(page, size));
+    public List<Vente> read() {
+        return venteRepository.findAll();
     }
 
-    public Vente update(Integer id, Vente venteDetails) {
-        Vente existingVente = venteRepository.findById(id).orElseThrow(() -> new RuntimeException("Vente non trouvée avec l'ID: " + id));
+    public String update(Vente vente) {
+        // Vérifie si la vente existe déjà
+        Optional<Vente> optionalExistingVente = venteRepository.findById(vente.getId_vente());
 
-        // Mise à jour des champs de la vente existante
-        if (venteDetails.getQuantite() != null && venteDetails.getQuantite() > 0) {
-            existingVente.setQuantite(venteDetails.getQuantite());
+        if (optionalExistingVente.isPresent()) {
+            Vente existingVente = optionalExistingVente.get();
+
+            // Vérifie si la quantité à mettre à jour est valide
+            if (vente.getQuantite() != null && vente.getQuantite() > 0) {
+                existingVente.setQuantite(vente.getQuantite());
+                venteRepository.save(existingVente);
+                return "Mise à jour réussie";
+            } else {
+                throw new IllegalArgumentException("La quantité de vente doit être spécifiée et être supérieure à zéro");
+            }
         } else {
-            throw new IllegalArgumentException("La quantité de vente doit être spécifiée et être supérieure à zéro");
+            throw new RuntimeException("Vente non trouvée avec l'ID: " + vente.getId_vente());
         }
-
-        if (venteDetails.getProduit() != null) {
-            existingVente.setProduit(venteDetails.getProduit());
-        }
-        if (venteDetails.getChariot() != null) {
-            existingVente.setChariot(venteDetails.getChariot());
-        }
-        if (venteDetails.getDate_vente() != null) {
-            existingVente.setDate_vente(venteDetails.getDate_vente());
-        }
-        if (venteDetails.getPointVente() != null) {
-            existingVente.setPointVente(venteDetails.getPointVente());
-        }
-
-        return venteRepository.save(existingVente);
     }
 
     public String delete(Integer idVente) {
@@ -84,7 +70,7 @@ public class VenteService {
 
 // Recette benefice et perte //
 
-    public Double getRecetteAll(Date dateVente) {
+    public Double getRecetteAll(LocalDate dateVente) {
         return venteRepository.getRecetteAll(dateVente);
     }
 
@@ -125,7 +111,7 @@ public class VenteService {
 //    }
 
     // Employe statistique
-    public List<EmployeStatsDTO> getStatsVenteEmp(Integer employeeId, Date dateVente) {
+    public List<EmployeStatsDTO> getStatsVenteEmp(Integer employeeId, LocalDate dateVente) {
         String sql = "SELECT nom, prenom, SUM(sum_vente) AS recette, SUM(sum_vente - cota) AS validcota, " +
                 "CAST(? AS DATE) AS in_date,nombre_vente " +
                 "FROM recette_vente " +
@@ -144,7 +130,7 @@ public class VenteService {
         ));
     }
 
-    public Double getCountVente(Date date){
+    public Double getCountVente(LocalDate date){
         Double count =  venteRepository.getCountVente(date);
         return Objects.requireNonNullElse(count, 0.0);
     }

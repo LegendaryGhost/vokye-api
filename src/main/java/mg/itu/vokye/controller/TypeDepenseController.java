@@ -2,8 +2,6 @@ package mg.itu.vokye.controller;
 
 import mg.itu.vokye.entity.TypeDepense;
 import mg.itu.vokye.service.TypeDepenseService;
-
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,27 +27,28 @@ public class TypeDepenseController {
     }
 
     // Read all TypeDepenses
-    @GetMapping("")
-    public ResponseEntity<Page<TypeDepense>> getAll(
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "10") int size
-    ) {
-        Page<TypeDepense> typeDepenses = typeDepenseService.read(page, size);
+    @GetMapping("read")
+    public ResponseEntity<List<TypeDepense>> getAllTypeDepenses() {
+        List<TypeDepense> typeDepenses = typeDepenseService.read();
         return ResponseEntity.ok(typeDepenses);
     }
 
     // Read one TypeDepense by ID
     @GetMapping("/{id}")
-    public ResponseEntity<TypeDepense> getById(@PathVariable Integer id) {
+    public ResponseEntity<TypeDepense> getTypeDepenseById(@PathVariable Integer id) {
         Optional<TypeDepense> typeDepense = typeDepenseService.getById(id);
         return typeDepense.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // Update a TypeDepense by ID
-    @PutMapping("/{id}")
-    public ResponseEntity<TypeDepense> updateTypeDepense(@PathVariable Integer id, @RequestBody TypeDepense typeDepense) {
-        TypeDepense td = typeDepenseService.update(id, typeDepense);
-        return new ResponseEntity<>(td, HttpStatus.OK);
+    @PutMapping("")
+    public ResponseEntity<TypeDepense> updateTypeDepense(@RequestBody TypeDepense typeDepense) {
+        TypeDepense updatedTypeDepense = typeDepenseService.update(typeDepense);
+        if (updatedTypeDepense != null) {
+            return ResponseEntity.ok(updatedTypeDepense);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // Delete a TypeDepense by ID

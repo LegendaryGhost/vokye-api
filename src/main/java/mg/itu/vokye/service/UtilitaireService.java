@@ -31,7 +31,6 @@ public class UtilitaireService {
         Utilitaire existingUtilitaire = repository.findById(id).orElseThrow();
         existingUtilitaire.setNom(utilitaire.getNom());
         existingUtilitaire.setUnite(utilitaire.getUnite());
-        existingUtilitaire.setStock(utilitaire.getStock());
         return repository.save(existingUtilitaire);
     }
 
