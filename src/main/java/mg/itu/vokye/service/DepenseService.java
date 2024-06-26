@@ -50,8 +50,8 @@ public class DepenseService {
             existingDepense.setPrix(depenseDetails.getPrix());
         }
 
-        if (depenseDetails.getDateDepense() != null) {
-            existingDepense.setDateDepense(depenseDetails.getDateDepense());
+        if (depenseDetails.getDate_depense() != null) {
+            existingDepense.setDate_depense(depenseDetails.getDate_depense());
         }
 
         return depenseRepository.save(existingDepense);
