@@ -16,7 +16,8 @@ public interface ProduitRepository extends JpaRepository<Produit, Long> {
 
     @Query(value = "SELECT p.nom AS nom, SUM(ai.quantite * ai.prix_unitaire) AS total_perte " +
             "FROM produit p " +
-            "JOIN achat_ingredient ai ON p.id_produit = ai.id_ingredient " +
+            "JOIN ingredient_produit ip ON p.id_produit = ip.id_produit " +
+            "JOIN achat_ingredient ai ON ip.id_ingredient = ai.id_ingredient " +
             "GROUP BY p.nom ", nativeQuery = true)
     List<Object[]> findTotalPerteByProduit();
 
