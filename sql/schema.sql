@@ -362,21 +362,6 @@ FROM employe e
      vue_chiffre_affaire c ON e.id_employe = c.id_employe
 GROUP BY e.id_employe, e.nom, e.prenom, e.photo;
 
-CREATE OR REPLACE VIEW employe_performanceByYear AS
-SELECT e.id_employe,
-       e.nom,
-       e.prenom,
-       e.photo                 AS photo_de_profil,
-       MAX(v.quantite)         AS meilleur_quantite_vente,
-       MAX(c.chiffre_affaires) AS meilleur_chiffre_d_affaires,
-       v.date_vente
-FROM employe e
-         LEFT JOIN
-     vente v ON e.id_employe = v.id_chariot
-         LEFT JOIN
-     vue_chiffre_affaire c ON e.id_employe = c.id_employe
-GROUP BY e.id_employe, e.nom, e.prenom, e.photo,v.date_vente;
-
 CREATE OR REPLACE VIEW recette_vente AS
 (
 SELECT SUM(p.prix * quantite) AS sum_vente,
@@ -397,7 +382,7 @@ GROUP BY e.id_employe, v.date_vente, te.cota
 --view recherche somme poinvente par date
 CREATE VIEW vue_ventes_par_mois_annee AS
 SELECT ROW_NUMBER() OVER ()           AS numero_ligne,
-       id_point_vente,
+        id_point_vente,
        localisation,
        EXTRACT(YEAR FROM date_vente)  AS annee,
        EXTRACT(MONTH FROM date_vente) AS mois,
@@ -410,3 +395,51 @@ GROUP BY id_point_vente,
 ORDER BY annee,
          mois,
          id_point_vente;
+
+--view depenses
+CREATE OR REPLACE VIEW vue_depenses_par_mois_annee AS
+SELECT
+    EXTRACT(YEAR FROM date_depense) AS annee,
+    EXTRACT(MONTH FROM date_depense) AS mois,
+    SUM(prix) AS total_depenses_mois
+FROM
+    depense
+GROUP BY
+    annee,
+    mois
+ORDER BY
+    annee,
+    mois;
+
+--view cA
+CREATE OR REPLACE VIEW vue_ventes_par_mois_annee2 AS
+SELECT
+    EXTRACT(YEAR FROM date_vente) AS annee,
+    EXTRACT(MONTH FROM date_vente) AS mois,
+    SUM(total_ventes) AS total_ventes_mois
+FROM
+    vue_somme_ventes_point_vente
+GROUP BY
+    annee,
+    mois
+ORDER BY
+    annee,
+    mois;
+
+--view gestion
+CREATE OR REPLACE VIEW vue_gestion AS
+SELECT ROW_NUMBER() OVER ()           AS numero_ligne,
+        COALESCE(v.annee, d.annee) AS annee,
+       COALESCE(v.mois, d.mois) AS mois,
+       COALESCE(v.total_ventes_mois, 0) AS total_ventes_mois,
+       COALESCE(d.total_depenses_mois, 0) AS total_depenses_mois,
+       COALESCE(v.total_ventes_mois, 0) - COALESCE(d.total_depenses_mois, 0) AS benefice_mois
+FROM
+    vue_ventes_par_mois_annee2 v
+        FULL OUTER JOIN
+    vue_depenses_par_mois_annee d
+    ON
+                v.annee = d.annee AND v.mois = d.mois
+ORDER BY
+    annee,
+    mois;
