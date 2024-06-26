@@ -34,6 +34,13 @@ public class TypeDepenseService {
         return null;
     }
 
+    public TypeDepense update(Integer id, TypeDepense typeDepense) {
+        TypeDepense existingTd = typeDepenseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Type Dépense non trouvée avec l'ID: " + id));
+        existingTd.setDesignation(typeDepense.getDesignation());
+        return typeDepenseRepository.save(existingTd);
+    }
+
     public void delete(Integer idTypeDepense) {
         typeDepenseRepository.deleteById(idTypeDepense);
     }

@@ -27,7 +27,7 @@ public class TypeDepenseController {
     }
 
     // Read all TypeDepenses
-    @GetMapping("read")
+    @GetMapping("")
     public ResponseEntity<List<TypeDepense>> getAllTypeDepenses() {
         List<TypeDepense> typeDepenses = typeDepenseService.read();
         return ResponseEntity.ok(typeDepenses);
@@ -41,14 +41,10 @@ public class TypeDepenseController {
     }
 
     // Update a TypeDepense by ID
-    @PutMapping("")
-    public ResponseEntity<TypeDepense> updateTypeDepense(@RequestBody TypeDepense typeDepense) {
-        TypeDepense updatedTypeDepense = typeDepenseService.update(typeDepense);
-        if (updatedTypeDepense != null) {
-            return ResponseEntity.ok(updatedTypeDepense);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @PutMapping("/{id}")
+    public ResponseEntity<TypeDepense> updateTypeDepense(@PathVariable Integer id, @RequestBody TypeDepense typeDepense) {
+        TypeDepense td = typeDepenseService.update(id, typeDepense);
+        return new ResponseEntity<>(td, HttpStatus.OK);
     }
 
     // Delete a TypeDepense by ID
