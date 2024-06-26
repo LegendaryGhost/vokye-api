@@ -23,11 +23,11 @@ public interface EmployeRepository extends JpaRepository<Employe, Long> {
         // Employe save(Employe e);
 
         @Query(value = "SELECT e.nom, e.prenom, e.photo_de_profil, " +
-                   "e.meilleur_quantite_vente AS meilleurQuantiteVente, " + 
-                   "e.meilleur_chiffre_d_affaires AS meilleurChiffreAffaires " +
-                   "FROM employe_performance e " +
-                   "WHERE e.id_employe = :idEmploye", nativeQuery = true)
-EmployeDTO findEmployeStatsById(@Param("idEmploye") Long idEmploye);
+                "e.meilleur_quantite_vente AS meilleurQuantiteVente, " +
+                "e.meilleur_chiffre_d_affaires AS meilleurChiffreAffaires " +
+                "FROM employe_performance e " +
+                "WHERE e.id_employe = :idEmploye", nativeQuery = true)
+        EmployeDTO findEmployeStatsById(@Param("idEmploye") Long idEmploye);
 
 
  

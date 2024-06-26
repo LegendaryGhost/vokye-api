@@ -54,7 +54,7 @@ public class EmployeController {
         return service.checkEmploye(email, motDePasse);
     }
 
-    @GetMapping("/employe/{id}/stats")
+    @GetMapping("/{id}/stats")
     public EmployeDTO getEmployeStats(@PathVariable Long id) {
         return service.getEmployeStatsById(id);
     }
