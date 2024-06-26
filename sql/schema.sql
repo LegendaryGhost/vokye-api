@@ -1,4 +1,5 @@
--- Création de la base de données
+-- Création de la base de données\
+DROP database IF EXISTS vokye_api;
 CREATE DATABASE vokye_api;
 
 -- Connexion à la base de données
@@ -153,14 +154,6 @@ CREATE TABLE "public".employe
     
     CONSTRAINT employe_pkey PRIMARY KEY (id_employe),
     CONSTRAINT fk_employe_id_genre FOREIGN KEY (id_genre) REFERENCES "public".genres(id_genre)  -- Ajout de la contrainte de clé étrangère
-);
-
-CREATE TABLE IF NOT EXISTS chiffre_affaires
-(
-    id_chiffre_affaires serial PRIMARY KEY,
-    id_employe integer,
-    chiffre_affaires numeric(10, 2),
-    FOREIGN KEY (id_employe) REFERENCES employe(id_employe)
 );
 
 
@@ -329,6 +322,17 @@ GROUP BY pv.id_point_vente,
          pv.localisation,
          v.date_vente;
 
+CREATE OR REPLACE VIEW vue_chiffre_affaire AS 
+SELECT 
+    v.id_chariot AS id_employe, 
+    SUM(v.quantite * p.prix) AS chiffre_affaires
+FROM 
+    vente v 
+JOIN 
+    produit p ON v.id_produit = p.id_produit 
+GROUP BY 
+    v.id_chariot;
+
 -- view employe
 
 DROP VIEW IF EXISTS employe_performance;
@@ -345,7 +349,7 @@ FROM
 LEFT JOIN
     vente v ON e.id_employe = v.id_chariot
 LEFT JOIN
-    chiffre_affaires c ON e.id_employe = c.id_employe
+    vue_chiffre_affaire c ON e.id_employe = c.id_employe
 GROUP BY
     e.id_employe, e.nom, e.prenom, e.photo;
 
@@ -365,5 +369,5 @@ FROM employe e
      type_employe t ON e.id_type_employe = t.id_type_employe;
 
 
-CREATE OR REPLACE VIEW vue_chiffre_affaire AS 
-SELECT SUM(v.quantite*p.prix) FROM vente v JOIN produit p ON v.id_produit = p.id_produit ; 
+
+
