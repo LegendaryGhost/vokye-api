@@ -155,6 +155,15 @@ CREATE TABLE "public".employe
     CONSTRAINT fk_employe_id_genre FOREIGN KEY (id_genre) REFERENCES "public".genres(id_genre)  -- Ajout de la contrainte de clé étrangère
 );
 
+CREATE TABLE IF NOT EXISTS chiffre_affaires
+(
+    id_chiffre_affaires serial PRIMARY KEY,
+    id_employe integer,
+    chiffre_affaires numeric(10, 2),
+    FOREIGN KEY (id_employe) REFERENCES employe(id_employe)
+);
+
+
 CREATE TABLE "public".unite
 (
     id_unite  integer DEFAULT nextval('unite_id_unite_seq1'::regclass) NOT NULL,
@@ -321,22 +330,25 @@ GROUP BY pv.id_point_vente,
          v.date_vente;
 
 -- view employe
+
+DROP VIEW IF EXISTS employe_performance;
 CREATE OR REPLACE VIEW employe_performance AS
-SELECT 
+SELECT
     e.id_employe,
     e.nom,
     e.prenom,
     e.photo AS photo_de_profil,
-    MAX(v.nb_ventes_mensuel) AS meilleur_nombre_de_ventes_mensuel,
+    MAX(v.quantite) AS meilleur_quantite_vente,
     MAX(c.chiffre_affaires) AS meilleur_chiffre_d_affaires
-FROM 
+FROM
     employe e
-LEFT JOIN 
-    ventes v ON e.id_employe = v.id_employe
-LEFT JOIN 
+LEFT JOIN
+    vente v ON e.id_employe = v.id_chariot
+LEFT JOIN
     chiffre_affaires c ON e.id_employe = c.id_employe
-GROUP BY 
+GROUP BY
     e.id_employe, e.nom, e.prenom, e.photo;
+
 
 CREATE OR REPLACE VIEW vue_employe_type AS
 SELECT e.id_employe,
