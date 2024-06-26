@@ -1,6 +1,7 @@
 package mg.itu.vokye.controller;
 
 import mg.itu.vokye.dto.EmployeDTO;
+import mg.itu.vokye.dto.EmployeSatChartDTO;
 import mg.itu.vokye.entity.Employe;
 import mg.itu.vokye.service.EmployeService;
 
@@ -62,9 +63,9 @@ public class EmployeController {
     public EmployeDTO getEmployeStats(@PathVariable Long id) {
         return service.getEmployeStatsById(id);
     }
-    @GetMapping("/stats/{annee}")
-    public ResponseEntity<List<EmployeDTO>> getEmployeStats(@PathVariable Integer annee) {
-        List<EmployeDTO> result = service.getEmployeStatsByDate(annee);
+    @GetMapping("/{id}/stats/{annee}")
+    public ResponseEntity<List<EmployeSatChartDTO>> getEmployeStats(@PathVariable Long id, @PathVariable Integer annee) {
+        List<EmployeSatChartDTO> result = service.getEmployeStatsByDate(id,annee);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
