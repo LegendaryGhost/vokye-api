@@ -1,4 +1,5 @@
--- Création de la base de données
+-- Création de la base de données\
+DROP database IF EXISTS vokye_api;
 CREATE DATABASE vokye_api;
 
 -- Connexion à la base de données
@@ -101,7 +102,6 @@ CREATE TABLE "public".produit
     CONSTRAINT produit_pkey PRIMARY KEY (id_produit)
 );
 
-
 CREATE TABLE "public".type_achat
 (
     id_type_achat   serial      NOT NULL,
@@ -178,32 +178,6 @@ CREATE TABLE "public".etat
     CONSTRAINT etat_pkey PRIMARY KEY (id_etat)
 );
 
-
-CREATE TABLE "public".etat_utilitaire
-(
-    id_etat_utilitaire   integer DEFAULT nextval('etat_utilitaire_id_etat_utilitaire_seq1'::regclass) NOT NULL,
-    id_utilitaire        integer,
-    id_etat              integer,
-    date_etat_utilitaire date,
-    CONSTRAINT etat_utilitaire_pkey PRIMARY KEY (id_etat_utilitaire)
-);
-
-CREATE TABLE "public".produit
-(
-    id_produit integer DEFAULT nextval('produit_id_produit_seq1'::regclass) NOT NULL,
-    nom        varchar(50),
-    prix       numeric(10, 2),
-    CONSTRAINT produit_pkey PRIMARY KEY (id_produit)
-);
-
-
-CREATE TABLE "public".type_depense
-(
-    id_type_depense integer DEFAULT nextval('type_depense_id_type_depense_seq1'::regclass) NOT NULL,
-    designation     varchar(50),
-    CONSTRAINT type_depense_pkey PRIMARY KEY (id_type_depense)
-);
-
 CREATE TABLE "public".depense
 (
     id_depense      integer DEFAULT nextval('depense_id_depense_seq1'::regclass) NOT NULL,
@@ -212,7 +186,6 @@ CREATE TABLE "public".depense
     date_depense    date,
     CONSTRAINT depense_pkey PRIMARY KEY (id_depense)
 );
-
 
 CREATE TABLE "public".achat_utilitaire
 (
@@ -264,8 +237,6 @@ CREATE TABLE "public".chariot
     CONSTRAINT chariot_pkey PRIMARY KEY (id_chariot)
 );
 
-
-
 CREATE TABLE "public".point_vente
 (
     id_point_vente integer DEFAULT nextval('point_vente_id_point_vente_seq1'::regclass) NOT NULL,
@@ -288,21 +259,6 @@ CREATE TABLE "public".vente
     FOREIGN KEY (id_point_vente) REFERENCES point_vente (id_point_vente)
 );
 
--- etat
-CREATE TABLE etat
-(
-    id_etat SERIAL PRIMARY KEY,
-    nom     VARCHAR(50)
-);
-
--- etat_utilitaire
-CREATE TABLE etat_utilitaire
-(
-    id_etat_utilitaire   SERIAL PRIMARY KEY,
-    id_utilitaire        INTEGER,
-    id_etat              INTEGER,
-    date_etat_utilitaire DATE
-);
 
 -- Vues
 
@@ -320,23 +276,37 @@ GROUP BY pv.id_point_vente,
          pv.localisation,
          v.date_vente;
 
--- view employe
-CREATE OR REPLACE VIEW employe_performance AS
+CREATE OR REPLACE VIEW vue_chiffre_affaire AS 
 SELECT 
+    v.id_chariot AS id_employe, 
+    SUM(v.quantite * p.prix) AS chiffre_affaires
+FROM 
+    vente v 
+JOIN 
+    produit p ON v.id_produit = p.id_produit 
+GROUP BY 
+    v.id_chariot;
+
+-- view employe
+
+DROP VIEW IF EXISTS employe_performance;
+CREATE OR REPLACE VIEW employe_performance AS
+SELECT
     e.id_employe,
     e.nom,
     e.prenom,
     e.photo AS photo_de_profil,
-    MAX(v.nb_ventes_mensuel) AS meilleur_nombre_de_ventes_mensuel,
+    MAX(v.quantite) AS meilleur_quantite_vente,
     MAX(c.chiffre_affaires) AS meilleur_chiffre_d_affaires
-FROM 
+FROM
     employe e
-LEFT JOIN 
-    ventes v ON e.id_employe = v.id_employe
-LEFT JOIN 
-    chiffre_affaires c ON e.id_employe = c.id_employe
-GROUP BY 
+LEFT JOIN
+    vente v ON e.id_employe = v.id_chariot
+LEFT JOIN
+    vue_chiffre_affaire c ON e.id_employe = c.id_employe
+GROUP BY
     e.id_employe, e.nom, e.prenom, e.photo;
+
 
 CREATE OR REPLACE VIEW vue_employe_type AS
 SELECT e.id_employe,
@@ -353,5 +323,5 @@ FROM employe e
      type_employe t ON e.id_type_employe = t.id_type_employe;
 
 
-CREATE OR REPLACE VIEW vue_chiffre_affaire AS 
-SELECT SUM(v.quantite*p.prix) FROM vente v JOIN produit p ON v.id_produit = p.id_produit ; 
+
+

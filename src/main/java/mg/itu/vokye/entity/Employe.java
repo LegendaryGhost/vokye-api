@@ -16,7 +16,7 @@ import java.sql.Date;
                         @ColumnResult(name = "nom", type = String.class),
                         @ColumnResult(name = "prenom", type = String.class),
                         @ColumnResult(name = "photo_de_profil", type = String.class),
-                        @ColumnResult(name = "meilleurNombreVenteMensuel", type = Integer.class),
+                        @ColumnResult(name = "meilleurQuantiteVente", type = Integer.class),  
                         @ColumnResult(name = "meilleurChiffreAffaires", type = Double.class)
                 }
         )
