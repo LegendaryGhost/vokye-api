@@ -20,11 +20,7 @@ public class PointVente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_point_vente;
-
-    @ManyToOne
-    @JoinColumn(name = "id_chariot")
-    private Chariot chariot;
-
+    
     private String localisation;
     private double longitude;
     private double latitude;
