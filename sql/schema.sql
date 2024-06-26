@@ -144,15 +144,15 @@ CREATE TABLE "public".employe
     mot_de_passe    varchar(100),
     date_entree     date,
     date_fin        date,
-    id_genre        integer,  -- Modification de la colonne id_genre en tant qu'integer
-    
-    email           varchar(255) NOT NULL,
-    photo           varchar(255) NOT NULL,
-    date_naissance  date NOT NULL,
-    num_tel         varchar(14) NOT NULL,
-    
+    id_genre        integer,                                                                    -- Modification de la colonne id_genre en tant qu'integer
+
+    email           varchar(255)                                                 NOT NULL,
+    photo           varchar(255)                                                 NOT NULL,
+    date_naissance  date                                                         NOT NULL,
+    num_tel         varchar(14)                                                  NOT NULL,
+
     CONSTRAINT employe_pkey PRIMARY KEY (id_employe),
-    CONSTRAINT fk_employe_id_genre FOREIGN KEY (id_genre) REFERENCES "public".genres(id_genre)  -- Ajout de la contrainte de clé étrangère
+    CONSTRAINT fk_employe_id_genre FOREIGN KEY (id_genre) REFERENCES "public".genres (id_genre) -- Ajout de la contrainte de clé étrangère
 );
 
 CREATE TABLE "public".unite
@@ -337,25 +337,30 @@ FROM employe e
      type_employe t ON e.id_type_employe = t.id_type_employe;
 
 
-CREATE OR REPLACE VIEW vue_chiffre_affaire AS
-SELECT SUM(v.quantite*p.prix) FROM vente v JOIN produit p ON v.id_produit = p.id_produit ;
 
+CREATE OR REPLACE VIEW vue_chiffre_affaire AS
+SELECT v.id_chariot             AS id_employe,
+       SUM(v.quantite * p.prix) AS chiffre_affaires
+FROM vente v
+         JOIN
+     produit p ON v.id_produit = p.id_produit
+GROUP BY v.id_chariot;
+
+
+DROP VIEW IF EXISTS employe_performance;
 CREATE OR REPLACE VIEW employe_performance AS
-SELECT 
-    e.id_employe,
-    e.nom,
-    e.prenom,
-    e.photo AS photo_de_profil,
-    MAX(v.nb_ventes_mensuel) AS meilleur_nombre_de_ventes_mensuel,
-    MAX(c.chiffre_affaires) AS meilleur_chiffre_d_affaires
-FROM 
-    employe e
-LEFT JOIN 
-    ventes v ON e.id_employe = v.id_employe
-LEFT JOIN 
-    chiffre_affaires c ON e.id_employe = c.id_employe
-GROUP BY 
-    e.id_employe, e.nom, e.prenom, e.photo;
+SELECT e.id_employe,
+       e.nom,
+       e.prenom,
+       e.photo                 AS photo_de_profil,
+       MAX(v.quantite)         AS meilleur_quantite_vente,
+       MAX(c.chiffre_affaires) AS meilleur_chiffre_d_affaires
+FROM employe e
+         LEFT JOIN
+     vente v ON e.id_employe = v.id_chariot
+         LEFT JOIN
+     vue_chiffre_affaire c ON e.id_employe = c.id_employe
+GROUP BY e.id_employe, e.nom, e.prenom, e.photo;
 
 CREATE OR REPLACE VIEW recette_vente AS
 (
@@ -374,3 +379,19 @@ FROM Vente v
          JOIN type_employe te ON e.id_type_employe = te.id_type_employe
 GROUP BY e.id_employe, v.date_vente, te.cota
     );
+--view recherche somme poinvente par date
+CREATE VIEW vue_ventes_par_mois_annee AS
+SELECT ROW_NUMBER() OVER ()           AS numero_ligne,
+       id_point_vente,
+       localisation,
+       EXTRACT(YEAR FROM date_vente)  AS annee,
+       EXTRACT(MONTH FROM date_vente) AS mois,
+       SUM(total_ventes)              AS total_ventes_mois
+FROM vue_somme_ventes_point_vente
+GROUP BY id_point_vente,
+         localisation,
+         annee,
+         mois
+ORDER BY annee,
+         mois,
+         id_point_vente;

@@ -1,5 +1,6 @@
 package mg.itu.vokye.controller;
 
+import mg.itu.vokye.dto.EmployeDTO;
 import mg.itu.vokye.entity.Employe;
 import mg.itu.vokye.service.EmployeService;
 
@@ -51,6 +52,11 @@ public class EmployeController {
     @GetMapping("/checkEmploye")
     public Employe checkEmploye(@RequestParam String email, @RequestParam String motDePasse) {
         return service.checkEmploye(email, motDePasse);
+    }
+
+    @GetMapping("/{id}/stats")
+    public EmployeDTO getEmployeStats(@PathVariable Long id) {
+        return service.getEmployeStatsById(id);
     }
 
     // Get employees by designation

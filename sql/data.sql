@@ -52,6 +52,7 @@ VALUES
 (3,'Damaged');
 
 -- Insérer des données de test pour la table etat_utilitaire
+ALTER TABLE "public".etat_utilitaire DROP CONSTRAINT unq_etat_utilitaire_id_etat;
 INSERT INTO "public".etat_utilitaire (id_utilitaire, id_etat, date_etat_utilitaire)
 VALUES
 (1, 1, '2023-01-15'),
