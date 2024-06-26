@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,7 @@ public class VentePredictionService {
     private JdbcTemplate jdbcTemplate;
 
     // prediction
-    public double predictChiffreAffaireIn(LocalDate date) {
+    public double predictChiffreAffaireIn(Date date) {
         String sql = "SELECT DATE(date_vente) AS jour, SUM(vente.quantite * produit.prix) AS recette_journaliere " +
                 "FROM vente " +
                 "JOIN produit ON vente.id_produit = produit.id_produit " +
@@ -29,13 +30,13 @@ public class VentePredictionService {
         }
 
         double sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
-        LocalDate today = LocalDate.now();
+        Date today = Date.valueOf(LocalDate.now());
 
         for (Map<String, Object> row : results) {
-            LocalDate venteDate = LocalDate.parse(row.get("jour").toString());
+            Date venteDate = Date.valueOf(row.get("jour").toString());
             double recetteJournaliere = ((Number) row.get("recette_journaliere")).doubleValue();
 
-            long days = venteDate.toEpochDay() - today.toEpochDay();
+            long days = venteDate.toLocalDate().toEpochDay() - today.toLocalDate().toEpochDay();
 
             sumX += days;
             sumY += recetteJournaliere;
@@ -46,7 +47,7 @@ public class VentePredictionService {
         double slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
         double intercept = (sumY - slope * sumX) / n;
 
-        long targetDays = date.toEpochDay() - today.toEpochDay();
+        long targetDays = date.toLocalDate().toEpochDay() - today.toLocalDate().toEpochDay();
         return slope * targetDays + intercept;
     }
 }

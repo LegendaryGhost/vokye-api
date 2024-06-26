@@ -1,13 +1,12 @@
 package mg.itu.vokye.service;
 
+import mg.itu.vokye.dto.EmployeDTO;
 import mg.itu.vokye.entity.Employe;
 import mg.itu.vokye.repository.EmployeRepository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class EmployeService {
@@ -51,7 +50,7 @@ public class EmployeService {
         return repository.existsByEmailAndMotDePasse(email, motDePasse);
     }
 
-    public List<Employe> getEmployesByDesignation(String designation) {
-        return repository.findByDesignation(designation);
+    public EmployeDTO getEmployeStatsById(Long idEmploye) {
+        return repository.findEmployeStatsById(idEmploye);
     }
 }
