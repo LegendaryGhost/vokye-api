@@ -22,13 +22,11 @@ public interface EmployeRepository extends JpaRepository<Employe, Long> {
         // gen_salt('bf')), :dateEntree, :dateFin)")
         // Employe save(Employe e);
 
-        @Query("SELECT new mg.itu.vokye.dto.EmployeDTO(e.nom, e.prenom, MAX(v.nb_ventes_mensuel) AS meilleurNombreVenteMensuel, " +
-           "SUM(v.quantite * p.prix) AS meilleurChiffreAffaires, e.photo AS photo_de_profil) " +
-           "FROM employe_performance e " +
-           "JOIN ventes v ON e.idEmploye = v.idEmploye " +
-           "JOIN produit p ON v.idProduit = p.idProduit " +
-           "WHERE e.idEmploye = :idEmploye " +
-           "GROUP BY e.idEmploye, e.nom, e.prenom, e.photo")
+        @Query(value = "SELECT e.nom, e.prenom, e.photo_de_profil, " +
+                   "e.meilleur_nombre_de_ventes_mensuel AS meilleurNombreVenteMensuel, " +
+                   "e.meilleur_chiffre_d_affaires AS meilleurChiffreAffaires " +
+                   "FROM employe_performance e " +
+                   "WHERE e.id_employe = :idEmploye", nativeQuery = true)
     EmployeDTO findEmployeStatsById(@Param("idEmploye") Long idEmploye);
 
  
