@@ -128,6 +128,33 @@ CREATE TABLE "public".type_employe
     CONSTRAINT type_employe_pkey PRIMARY KEY (id_type_employe)
 );
 
+CREATE TABLE "public".genres
+(
+    id_genre  serial NOT NULL,
+    nom_genre varchar(10),
+    CONSTRAINT pk_genres PRIMARY KEY (id_genre)
+);
+
+CREATE TABLE "public".employe
+(
+    id_employe      integer DEFAULT nextval('employe_id_employe_seq1'::regclass) NOT NULL,
+    id_type_employe integer,
+    nom             varchar(50),
+    prenom          varchar(50),
+    mot_de_passe    varchar(100),
+    date_entree     date,
+    date_fin        date,
+    id_genre        integer,  -- Modification de la colonne id_genre en tant qu'integer
+    
+    email           varchar(255) NOT NULL,
+    photo           varchar(255) NOT NULL,
+    date_naissance  date NOT NULL,
+    num_tel         varchar(14) NOT NULL,
+    
+    CONSTRAINT employe_pkey PRIMARY KEY (id_employe),
+    CONSTRAINT fk_employe_id_genre FOREIGN KEY (id_genre) REFERENCES "public".genres(id_genre)  -- Ajout de la contrainte de clé étrangère
+);
+
 CREATE TABLE "public".unite
 (
     id_unite  integer DEFAULT nextval('unite_id_unite_seq1'::regclass) NOT NULL,
@@ -144,36 +171,6 @@ CREATE TABLE "public".utilitaire
     CONSTRAINT utilitaire_pkey PRIMARY KEY (id_utilitaire)
 );
 
-CREATE TABLE "public".achat_utilitaire
-(
-    id_achat_utilitaire integer DEFAULT nextval('achat_utilitaire_id_achat_utilitaire_seq1'::regclass) NOT NULL,
-    id_utilitaire       integer,
-    prix_unitaire       numeric(10, 2),
-    quantite            integer,
-    date_achat          date,
-    id_depense          integer DEFAULT nextval('depense_id_depense_seq1'::regclass),
-    CONSTRAINT achat_utilitaire_pkey PRIMARY KEY (id_achat_utilitaire),
-    CONSTRAINT unq_achat_utilitaire_id_depense UNIQUE (id_depense)
-);
-
-CREATE TABLE "public".employe
-(
-    id_employe      integer DEFAULT nextval('employe_id_employe_seq1'::regclass) NOT NULL,
-    id_type_employe integer,
-    nom             varchar(50),
-    prenom          varchar(50),
-    mot_de_passe    varchar(50),
-    date_entree     date,
-    date_fin        date,
-    id_genre        serial                                                       NOT NULL,
-    email           varchar(255)                                                 NOT NULL,
-    photo           varchar(255)                                                 NOT NULL,
-    date_naissance  date                                                         NOT NULL,
-    num_tel         varchar(14)                                                  NOT NULL,
-    CONSTRAINT employe_pkey PRIMARY KEY (id_employe),
-    CONSTRAINT unq_employe_id_genre UNIQUE (id_genre)
-);
-
 CREATE TABLE "public".etat
 (
     id_etat integer DEFAULT nextval('etat_id_etat_seq1'::regclass) NOT NULL,
@@ -181,11 +178,52 @@ CREATE TABLE "public".etat
     CONSTRAINT etat_pkey PRIMARY KEY (id_etat)
 );
 
-CREATE TABLE "public".genres
+
+CREATE TABLE "public".etat_utilitaire
 (
-    id_genre  serial NOT NULL,
-    nom_genre varchar(10),
-    CONSTRAINT pk_genres PRIMARY KEY (id_genre)
+    id_etat_utilitaire   integer DEFAULT nextval('etat_utilitaire_id_etat_utilitaire_seq1'::regclass) NOT NULL,
+    id_utilitaire        integer,
+    id_etat              integer,
+    date_etat_utilitaire date,
+    CONSTRAINT etat_utilitaire_pkey PRIMARY KEY (id_etat_utilitaire)
+);
+
+CREATE TABLE "public".produit
+(
+    id_produit integer DEFAULT nextval('produit_id_produit_seq1'::regclass) NOT NULL,
+    nom        varchar(50),
+    prix       numeric(10, 2),
+    CONSTRAINT produit_pkey PRIMARY KEY (id_produit)
+);
+
+
+CREATE TABLE "public".type_depense
+(
+    id_type_depense integer DEFAULT nextval('type_depense_id_type_depense_seq1'::regclass) NOT NULL,
+    designation     varchar(50),
+    CONSTRAINT type_depense_pkey PRIMARY KEY (id_type_depense)
+);
+
+CREATE TABLE "public".depense
+(
+    id_depense      integer DEFAULT nextval('depense_id_depense_seq1'::regclass) NOT NULL,
+    id_type_depense integer,
+    prix            numeric(10, 2),
+    date_depense    date,
+    CONSTRAINT depense_pkey PRIMARY KEY (id_depense)
+);
+
+
+CREATE TABLE "public".achat_utilitaire
+(
+    id_achat_utilitaire integer DEFAULT nextval('achat_utilitaire_id_achat_utilitaire_seq1'::regclass) NOT NULL,
+    id_utilitaire       integer,
+    prix_unitaire       numeric(10, 2),
+    quantite            integer,
+    date_achat          date,
+    id_depense          integer,
+    CONSTRAINT achat_utilitaire_pkey PRIMARY KEY (id_achat_utilitaire),
+    CONSTRAINT unq_id_depense UNIQUE (id_depense)
 );
 
 CREATE TABLE "public".ingredient
@@ -214,7 +252,7 @@ CREATE TABLE "public".achat_ingredient
     prix_unitaire       numeric(10, 2),
     quantite            integer,
     date_achat          date,
-    id_depense          integer DEFAULT nextval('depense_id_depense_seq1'::regclass),
+    id_depense          integer,
     CONSTRAINT achat_ingredient_pkey PRIMARY KEY (id_achat_ingredient),
     CONSTRAINT unq_achat_ingredient_id_depense UNIQUE (id_depense)
 );
@@ -226,19 +264,11 @@ CREATE TABLE "public".chariot
     CONSTRAINT chariot_pkey PRIMARY KEY (id_chariot)
 );
 
-CREATE TABLE "public".depense
-(
-    id_depense      integer DEFAULT nextval('depense_id_depense_seq1'::regclass) NOT NULL,
-    id_type_depense integer,
-    prix            numeric(10, 2),
-    date_depense    date,
-    CONSTRAINT depense_pkey PRIMARY KEY (id_depense)
-);
+
 
 CREATE TABLE "public".point_vente
 (
     id_point_vente integer DEFAULT nextval('point_vente_id_point_vente_seq1'::regclass) NOT NULL,
-    id_chariot     integer,
     localisation   varchar(200),
     longitude      double precision,
     latitude       double precision,

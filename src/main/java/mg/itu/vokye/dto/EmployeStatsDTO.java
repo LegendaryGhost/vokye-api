@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 @Data
 @AllArgsConstructor
@@ -15,7 +15,7 @@ public class EmployeStatsDTO {
     String prenom;
     Double recette;
     Double validcota;
-    LocalDate in_date;
+    Date in_date;
     Integer nombre_vente;
 
 }
