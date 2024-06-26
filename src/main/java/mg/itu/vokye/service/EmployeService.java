@@ -1,5 +1,6 @@
 package mg.itu.vokye.service;
 
+import mg.itu.vokye.dto.EmployeDTO;
 import mg.itu.vokye.entity.Employe;
 import mg.itu.vokye.repository.EmployeRepository;
 
@@ -47,5 +48,9 @@ public class EmployeService {
 
     public Employe checkEmploye(String email, String motDePasse) {
         return repository.existsByEmailAndMotDePasse(email, motDePasse);
+    }
+
+    public EmployeDTO getEmployeStatsById(Long idEmploye) {
+        return repository.findEmployeStatsById(idEmploye);
     }
 }

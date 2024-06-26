@@ -1,18 +1,27 @@
 package mg.itu.vokye.entity;
 
-import jakarta.persistence.*;
-import lombok.Data;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
-@Data
 @Entity
+@Table(name = "point_vente")
 public class PointVente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPointVente;
-    
-    private String localisation;
-    
-    private Double longitude;
+    private Long id_point_vente;
 
-    private Double latitude;
+    @ManyToOne
+    @JoinColumn(name = "id_chariot")
+    private Chariot chariot;
+
+    private String localisation;
+    private double longitude;
+    private double latitude;
+
+    // Getters and Setters
 }
