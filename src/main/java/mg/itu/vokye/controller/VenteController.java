@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -108,9 +110,15 @@ public class VenteController {
     /// Prediction de chiffre d affaire a une date donne
 
     @GetMapping("/prediction/{date}")
-    public ResponseEntity<Double> predictVente(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
-        double prediction = ventePredictionService.predictChiffreAffaireIn(date);
-        return ResponseEntity.ok(prediction);
+    public ResponseEntity<Double> predictVente(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String date) {
+        try {
+            LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
+            Date sqlDate = Date.valueOf(localDate);
+            double prediction = ventePredictionService.predictChiffreAffaireIn(sqlDate);
+            return ResponseEntity.ok(prediction);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
     //Statistique employe
     @GetMapping("/stats/employe")
