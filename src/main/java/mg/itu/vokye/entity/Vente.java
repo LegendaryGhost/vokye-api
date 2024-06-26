@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import mg.itu.vokye.dto.EmployeStatsDTO;
 
 import java.sql.Date;
+import java.time.LocalDate;
+
 
 @SqlResultSetMapping(
         name = "EmployeStatsDTOMapping",
@@ -26,6 +28,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @Entity
 public class Vente {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

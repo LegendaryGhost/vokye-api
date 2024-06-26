@@ -52,6 +52,7 @@ VALUES
 (3,'Damaged');
 
 -- Insérer des données de test pour la table etat_utilitaire
+ALTER TABLE "public".etat_utilitaire DROP CONSTRAINT unq_etat_utilitaire_id_etat;
 INSERT INTO "public".etat_utilitaire (id_utilitaire, id_etat, date_etat_utilitaire)
 VALUES
 (1, 1, '2023-01-15'),
@@ -138,11 +139,25 @@ VALUES
 -- Insérer des données de test pour la table point_vente
 INSERT INTO "public".point_vente (localisation, longitude, latitude)
 VALUES
-    ('Magasin A', 45.6789, -73.5678),
-    ('Boutique B', 40.7128, -74.0060),
-    ('Centre commercial C', 51.5074, -0.1278),
-    ('Marché D', 48.8566, 2.3522),
-    ('Supermarché E', 34.0522, -118.2437);
+    ('Analakely', 47.5221, -18.9144),
+    ('Andavamamba', 47.5277, -18.9079),
+    ('Anosy', 47.5197, -18.9064),
+    ('Isotry', 47.5205, -18.9035),
+    ('Ampefiloha', 47.5224, -18.9123),
+    ('Anosibe', 47.5000, -18.9200),
+    ('Andravoahangy', 47.5235, -18.9070),
+    ('67 Ha', 47.5360, -18.9050),
+    ('Ampasanimalo', 47.5150, -18.9200),
+    ('Antaninarenina', 47.5265, -18.9135),
+    ('Ambanidia', 47.5170, -18.9230),
+    ('Ambatomainty', 47.5350, -18.9180),
+    ('Ankadifotsy', 47.5335, -18.9065),
+    ('Ankadimbahoaka', 47.5475, -18.9205),
+    ('Ambatomitsangana', 47.5295, -18.9090),
+    ('Ampandrana', 47.5305, -18.9050),
+    ('Ankadilalana', 47.5195, -18.9120),
+    ('Ankadivato', 47.5160, -18.9100),
+    ('Soarano', 47.5280, -18.9030);
 
 -- Insérer des données de test pour la table vente
 INSERT INTO "public".vente (id_point_vente, id_chariot, id_produit, quantite, date_vente)

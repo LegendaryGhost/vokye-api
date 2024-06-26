@@ -1,18 +1,25 @@
 package mg.itu.vokye.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name = "type_depense")
+@AllArgsConstructor
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Entity
 public class TypeDepense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_type_depense;
+    private Long id_type_depense;
 
     private String designation;
+
+    // Getters and Setters
 }

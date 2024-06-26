@@ -1,7 +1,5 @@
 package mg.itu.vokye.controller;
 
-
-
 import mg.itu.vokye.dto.EmployeStatsDTO;
 import mg.itu.vokye.entity.Vente;
 import mg.itu.vokye.service.VentePredictionService;
@@ -14,8 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/vente")
@@ -25,17 +24,15 @@ public class VenteController {
     @Autowired
     private VentePredictionService ventePredictionService;
 
-    @GetMapping("read")
+    @GetMapping("")
     public Page<Vente> getAllVentes(@RequestParam(defaultValue = "0") int page,
                                      @RequestParam(defaultValue = "10") int size) {
         return venteService.read(page, size);
     }
 
-    @GetMapping("get/{id}")
-    public ResponseEntity<Vente> getVenteById(@PathVariable Integer id) {
-        Optional<Vente> vente = venteService.getVenteById(id);
-        return vente.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    @GetMapping("/{id}")
+    public Vente getVenteById(@PathVariable Integer id) {
+        return venteService.getVenteById(id);
     }
 
 
@@ -44,9 +41,9 @@ public class VenteController {
         Vente venteCreated = venteService.create(vente);
         return new ResponseEntity<>(venteCreated, HttpStatus.CREATED);
     }
-    @PutMapping
-    public ResponseEntity<Vente> updateVente(@RequestBody Vente vente) {
-        Vente venteCreated = venteService.create(vente);
+    @PutMapping("/{id}")
+    public ResponseEntity<Vente> updateVente(@PathVariable Integer id,@RequestBody Vente vente) {
+        Vente venteCreated = venteService.update(id,vente);
         return new ResponseEntity<>(venteCreated, HttpStatus.CREATED);
     }
 
@@ -113,9 +110,15 @@ public class VenteController {
     /// Prediction de chiffre d affaire a une date donne
 
     @GetMapping("/prediction/{date}")
-    public ResponseEntity<Double> predictVente(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
-        double prediction = ventePredictionService.predictChiffreAffaireIn(date);
-        return ResponseEntity.ok(prediction);
+    public ResponseEntity<Double> predictVente(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String date) {
+        try {
+            LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
+            Date sqlDate = Date.valueOf(localDate);
+            double prediction = ventePredictionService.predictChiffreAffaireIn(sqlDate);
+            return ResponseEntity.ok(prediction);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
     //Statistique employe
     @GetMapping("/stats/employe")
