@@ -102,7 +102,6 @@ CREATE TABLE "public".produit
     CONSTRAINT produit_pkey PRIMARY KEY (id_produit)
 );
 
-
 CREATE TABLE "public".type_achat
 (
     id_type_achat   serial      NOT NULL,
@@ -156,7 +155,6 @@ CREATE TABLE "public".employe
     CONSTRAINT fk_employe_id_genre FOREIGN KEY (id_genre) REFERENCES "public".genres(id_genre)  -- Ajout de la contrainte de clé étrangère
 );
 
-
 CREATE TABLE "public".unite
 (
     id_unite  integer DEFAULT nextval('unite_id_unite_seq1'::regclass) NOT NULL,
@@ -180,32 +178,6 @@ CREATE TABLE "public".etat
     CONSTRAINT etat_pkey PRIMARY KEY (id_etat)
 );
 
-
-CREATE TABLE "public".etat_utilitaire
-(
-    id_etat_utilitaire   integer DEFAULT nextval('etat_utilitaire_id_etat_utilitaire_seq1'::regclass) NOT NULL,
-    id_utilitaire        integer,
-    id_etat              integer,
-    date_etat_utilitaire date,
-    CONSTRAINT etat_utilitaire_pkey PRIMARY KEY (id_etat_utilitaire)
-);
-
-CREATE TABLE "public".produit
-(
-    id_produit integer DEFAULT nextval('produit_id_produit_seq1'::regclass) NOT NULL,
-    nom        varchar(50),
-    prix       numeric(10, 2),
-    CONSTRAINT produit_pkey PRIMARY KEY (id_produit)
-);
-
-
-CREATE TABLE "public".type_depense
-(
-    id_type_depense integer DEFAULT nextval('type_depense_id_type_depense_seq1'::regclass) NOT NULL,
-    designation     varchar(50),
-    CONSTRAINT type_depense_pkey PRIMARY KEY (id_type_depense)
-);
-
 CREATE TABLE "public".depense
 (
     id_depense      integer DEFAULT nextval('depense_id_depense_seq1'::regclass) NOT NULL,
@@ -214,7 +186,6 @@ CREATE TABLE "public".depense
     date_depense    date,
     CONSTRAINT depense_pkey PRIMARY KEY (id_depense)
 );
-
 
 CREATE TABLE "public".achat_utilitaire
 (
@@ -266,8 +237,6 @@ CREATE TABLE "public".chariot
     CONSTRAINT chariot_pkey PRIMARY KEY (id_chariot)
 );
 
-
-
 CREATE TABLE "public".point_vente
 (
     id_point_vente integer DEFAULT nextval('point_vente_id_point_vente_seq1'::regclass) NOT NULL,
@@ -290,21 +259,6 @@ CREATE TABLE "public".vente
     FOREIGN KEY (id_point_vente) REFERENCES point_vente (id_point_vente)
 );
 
--- etat
-CREATE TABLE etat
-(
-    id_etat SERIAL PRIMARY KEY,
-    nom     VARCHAR(50)
-);
-
--- etat_utilitaire
-CREATE TABLE etat_utilitaire
-(
-    id_etat_utilitaire   SERIAL PRIMARY KEY,
-    id_utilitaire        INTEGER,
-    id_etat              INTEGER,
-    date_etat_utilitaire DATE
-);
 
 -- Vues
 
