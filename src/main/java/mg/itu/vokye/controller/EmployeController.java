@@ -54,9 +54,9 @@ public class EmployeController {
     }
 
     // Get employees by designation
-    @GetMapping("/designation/{designation}")
-    public List<Employe> getEmployesByDesignation(@PathVariable String designation) {
-        return service.getEmployesByDesignation(designation);
-    }
+//    @GetMapping("/designation/{designation}")
+//    public List<Employe> getEmployesByDesignation(@PathVariable String designation) {
+//        return service.getEmployesByDesignation(designation);
+//    }
 
 }
