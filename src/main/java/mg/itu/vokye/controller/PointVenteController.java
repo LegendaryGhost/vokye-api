@@ -47,7 +47,7 @@ public class PointVenteController {
     }
 
     @GetMapping("/vsp")
-    public List<GestionDTO> getStatPointVente(@RequestParam(defaultValue = "1") int page,
+    public Page<GestionDTO> getStatPointVente(@RequestParam(defaultValue = "1") int page,
                                               @RequestParam(defaultValue = "10") int size) {
         return service.getStatsVentePoint(page, size);
     }
