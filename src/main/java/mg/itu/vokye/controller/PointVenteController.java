@@ -46,7 +46,7 @@ public class PointVenteController {
         service.deletePointVente(id);
     }
 
-    @GetMapping("/statsPointVente")
+    @GetMapping("/vsp")
     public List<GestionDTO> getStatPointVente(@RequestParam(defaultValue = "1") int page,
                                               @RequestParam(defaultValue = "10") int size) {
         return service.getStatsVentePoint(page, size);
