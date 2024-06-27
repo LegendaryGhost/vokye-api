@@ -47,8 +47,8 @@ public class PointVenteController {
     }
 
     @GetMapping("/statsPointVente")
-    public List<GestionDTO> getStatPointVente() {
-        return service.getStatsVentePoint();
+    public List<GestionDTO> getStatPointVente(@RequestParam(defaultValue = "1") int page,
+                                              @RequestParam(defaultValue = "10") int size) {
+        return service.getStatsVentePoint(page, size);
     }
-
 }

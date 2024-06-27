@@ -46,11 +46,14 @@ public class PointVenteService {
     public void deletePointVente(Long id) {
         repository.deleteById(id);
     }
-    public List<GestionDTO> getStatsVentePoint() {
+    public List<GestionDTO> getStatsVentePoint(int page, int size) {
         String sql = "SELECT id_point_vente, localisation, longitude, latitude, date_vente, total_ventes " +
-                "FROM v_sale_point";
+                "FROM v_sale_point " +
+                "LIMIT ? OFFSET ?";
 
-        return jdbcTemplate.query(sql, (rs, rowNum) -> new GestionDTO(
+        int offset = (page - 1) * size;
+
+        return jdbcTemplate.query(sql, new Object[]{size, offset}, (rs, rowNum) -> new GestionDTO(
                 rs.getLong("id_point_vente"),
                 rs.getString("localisation"),
                 rs.getDouble("longitude"),
@@ -59,6 +62,7 @@ public class PointVenteService {
                 rs.getDouble("total_ventes")
         ));
     }
+
 
 
 }
