@@ -20,14 +20,13 @@ public class ChariotController {
 
     @GetMapping
     public ResponseEntity<Page<Chariot>> getAllChariot(@RequestParam(defaultValue = "0") int page,
-                                                       @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "10") int size) {
         return ResponseEntity.ok(chariotService.getAllChariot(page, size));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Page<Chariot>> getAllChariotById(@RequestParam(defaultValue = "0") int page,
-                                                           @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(chariotService.getAllChariot(page, size));
+    public Chariot getAllChariotById(@PathVariable Long id) {
+        return chariotService.getChariotById(id);
     }
 
     @PutMapping("")
