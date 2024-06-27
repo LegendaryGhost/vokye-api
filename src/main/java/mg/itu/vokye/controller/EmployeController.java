@@ -1,11 +1,16 @@
 package mg.itu.vokye.controller;
 
 import mg.itu.vokye.dto.EmployeDTO;
+import mg.itu.vokye.dto.EmployeSatChartDTO;
 import mg.itu.vokye.entity.Employe;
 import mg.itu.vokye.service.EmployeService;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.Date;
 import java.util.List;
 
 
@@ -54,9 +59,14 @@ public class EmployeController {
         return service.checkEmploye(email, motDePasse);
     }
 
-    @GetMapping("/employe/{id}/stats")
+    @GetMapping("/{id}/stats")
     public EmployeDTO getEmployeStats(@PathVariable Long id) {
         return service.getEmployeStatsById(id);
+    }
+    @GetMapping("/{id}/stats/{annee}")
+    public ResponseEntity<List<EmployeSatChartDTO>> getEmployeStats(@PathVariable Long id, @PathVariable Integer annee) {
+        List<EmployeSatChartDTO> result = service.getEmployeStatsByDate(id,annee);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     // Get employees by designation

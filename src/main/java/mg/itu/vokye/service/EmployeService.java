@@ -1,15 +1,28 @@
 package mg.itu.vokye.service;
 
+import lombok.Data;
 import mg.itu.vokye.dto.EmployeDTO;
+import mg.itu.vokye.dto.EmployeSatChartDTO;
+import mg.itu.vokye.dto.EmployeStatsDTO;
 import mg.itu.vokye.entity.Employe;
 import mg.itu.vokye.repository.EmployeRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
+
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 @Service
 public class EmployeService {
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
     private final EmployeRepository repository;
 
     public EmployeService(EmployeRepository repository) {
@@ -50,7 +63,52 @@ public class EmployeService {
         return repository.existsByEmailAndMotDePasse(email, motDePasse);
     }
 
+//    public EmployeDTO getEmployeStatsById(Long idEmploye) {
+//        return repository.findEmployeStatsById(idEmploye);
+//    }
+
     public EmployeDTO getEmployeStatsById(Long idEmploye) {
-        return repository.findEmployeStatsById(idEmploye);
+        String sql = "SELECT e.nom, e.prenom, e.photo_de_profil, " +
+                "e.meilleur_quantite_vente AS meilleurQuantiteVente, " +
+                "e.meilleur_chiffre_d_affaires AS meilleurChiffreAffaires " +
+                "FROM employe_performance e " +
+                "WHERE e.id_employe = ?";
+
+        return jdbcTemplate.queryForObject(sql, new Object[]{idEmploye}, new RowMapper<EmployeDTO>() {
+            @Override
+            public EmployeDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new EmployeDTO(
+                        rs.getString("nom"),
+                        rs.getString("prenom"),
+                        rs.getInt("meilleurQuantiteVente"),
+                        rs.getDouble("meilleurChiffreAffaires"),
+                        rs.getString("photo_de_profil")
+                );
+            }
+        });
     }
+    public List<EmployeSatChartDTO> getEmployeStatsByDate(Long idEmploye, Integer year) {
+        String sql = "SELECT e.nom, e.prenom, e.photo_de_profil, " +
+                "e.meilleur_quantite_vente AS meilleurQuantiteVente, " +
+                "e.meilleur_chiffre_d_affaires AS meilleurChiffreAffaires, " +
+                "e.date_vente AS date " +
+                "FROM employe_performanceByYear e " +
+                "WHERE extract(year from e.date_vente) = ? " +
+                "AND e.id_employe = ?";
+
+        return jdbcTemplate.query(sql, new Object[]{year, idEmploye}, new RowMapper<EmployeSatChartDTO>() {
+            @Override
+            public EmployeSatChartDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new EmployeSatChartDTO(
+                        rs.getString("nom"),
+                        rs.getString("prenom"),
+                        rs.getInt("meilleurQuantiteVente"),
+                        rs.getDouble("meilleurChiffreAffaires"),
+                        rs.getString("photo_de_profil"),
+                        rs.getDate("date")
+                );
+            }
+        });
+    }
+
 }

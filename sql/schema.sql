@@ -1,5 +1,4 @@
--- Création de la base de données\
-DROP database IF EXISTS vokye_api;
+-- Création de la base de données
 CREATE DATABASE vokye_api;
 
 -- Connexion à la base de données
@@ -102,6 +101,7 @@ CREATE TABLE "public".produit
     CONSTRAINT produit_pkey PRIMARY KEY (id_produit)
 );
 
+
 CREATE TABLE "public".type_achat
 (
     id_type_achat   serial      NOT NULL,
@@ -144,15 +144,15 @@ CREATE TABLE "public".employe
     mot_de_passe    varchar(100),
     date_entree     date,
     date_fin        date,
-    id_genre        integer,  -- Modification de la colonne id_genre en tant qu'integer
-    
-    email           varchar(255) NOT NULL,
-    photo           varchar(255) NOT NULL,
-    date_naissance  date NOT NULL,
-    num_tel         varchar(14) NOT NULL,
-    
+    id_genre        integer,                                                                    -- Modification de la colonne id_genre en tant qu'integer
+
+    email           varchar(255)                                                 NOT NULL,
+    photo           varchar(255)                                                 NOT NULL,
+    date_naissance  date                                                         NOT NULL,
+    num_tel         varchar(14)                                                  NOT NULL,
+
     CONSTRAINT employe_pkey PRIMARY KEY (id_employe),
-    CONSTRAINT fk_employe_id_genre FOREIGN KEY (id_genre) REFERENCES "public".genres(id_genre)  -- Ajout de la contrainte de clé étrangère
+    CONSTRAINT fk_employe_id_genre FOREIGN KEY (id_genre) REFERENCES "public".genres (id_genre) -- Ajout de la contrainte de clé étrangère
 );
 
 CREATE TABLE "public".unite
@@ -178,6 +178,32 @@ CREATE TABLE "public".etat
     CONSTRAINT etat_pkey PRIMARY KEY (id_etat)
 );
 
+
+CREATE TABLE "public".etat_utilitaire
+(
+    id_etat_utilitaire   integer DEFAULT nextval('etat_utilitaire_id_etat_utilitaire_seq1'::regclass) NOT NULL,
+    id_utilitaire        integer,
+    id_etat              integer,
+    date_etat_utilitaire date,
+    CONSTRAINT etat_utilitaire_pkey PRIMARY KEY (id_etat_utilitaire)
+);
+
+CREATE TABLE "public".produit
+(
+    id_produit integer DEFAULT nextval('produit_id_produit_seq1'::regclass) NOT NULL,
+    nom        varchar(50),
+    prix       numeric(10, 2),
+    CONSTRAINT produit_pkey PRIMARY KEY (id_produit)
+);
+
+
+CREATE TABLE "public".type_depense
+(
+    id_type_depense integer DEFAULT nextval('type_depense_id_type_depense_seq1'::regclass) NOT NULL,
+    designation     varchar(50),
+    CONSTRAINT type_depense_pkey PRIMARY KEY (id_type_depense)
+);
+
 CREATE TABLE "public".depense
 (
     id_depense      integer DEFAULT nextval('depense_id_depense_seq1'::regclass) NOT NULL,
@@ -186,6 +212,7 @@ CREATE TABLE "public".depense
     date_depense    date,
     CONSTRAINT depense_pkey PRIMARY KEY (id_depense)
 );
+
 
 CREATE TABLE "public".achat_utilitaire
 (
@@ -237,6 +264,8 @@ CREATE TABLE "public".chariot
     CONSTRAINT chariot_pkey PRIMARY KEY (id_chariot)
 );
 
+
+
 CREATE TABLE "public".point_vente
 (
     id_point_vente integer DEFAULT nextval('point_vente_id_point_vente_seq1'::regclass) NOT NULL,
@@ -259,6 +288,21 @@ CREATE TABLE "public".vente
     FOREIGN KEY (id_point_vente) REFERENCES point_vente (id_point_vente)
 );
 
+-- etat
+CREATE TABLE etat
+(
+    id_etat SERIAL PRIMARY KEY,
+    nom     VARCHAR(50)
+);
+
+-- etat_utilitaire
+CREATE TABLE etat_utilitaire
+(
+    id_etat_utilitaire   SERIAL PRIMARY KEY,
+    id_utilitaire        INTEGER,
+    id_etat              INTEGER,
+    date_etat_utilitaire DATE
+);
 
 -- Vues
 
@@ -276,37 +320,7 @@ GROUP BY pv.id_point_vente,
          pv.localisation,
          v.date_vente;
 
-CREATE OR REPLACE VIEW vue_chiffre_affaire AS 
-SELECT 
-    v.id_chariot AS id_employe, 
-    SUM(v.quantite * p.prix) AS chiffre_affaires
-FROM 
-    vente v 
-JOIN 
-    produit p ON v.id_produit = p.id_produit 
-GROUP BY 
-    v.id_chariot;
-
 -- view employe
-
-DROP VIEW IF EXISTS employe_performance;
-CREATE OR REPLACE VIEW employe_performance AS
-SELECT
-    e.id_employe,
-    e.nom,
-    e.prenom,
-    e.photo AS photo_de_profil,
-    MAX(v.quantite) AS meilleur_quantite_vente,
-    MAX(c.chiffre_affaires) AS meilleur_chiffre_d_affaires
-FROM
-    employe e
-LEFT JOIN
-    vente v ON e.id_employe = v.id_chariot
-LEFT JOIN
-    vue_chiffre_affaire c ON e.id_employe = c.id_employe
-GROUP BY
-    e.id_employe, e.nom, e.prenom, e.photo;
-
 
 CREATE OR REPLACE VIEW vue_employe_type AS
 SELECT e.id_employe,
@@ -324,4 +338,108 @@ FROM employe e
 
 
 
+CREATE OR REPLACE VIEW vue_chiffre_affaire AS
+SELECT v.id_chariot             AS id_employe,
+       SUM(v.quantite * p.prix) AS chiffre_affaires
+FROM vente v
+         JOIN
+     produit p ON v.id_produit = p.id_produit
+GROUP BY v.id_chariot;
 
+
+DROP VIEW IF EXISTS employe_performance;
+CREATE OR REPLACE VIEW employe_performance AS
+SELECT e.id_employe,
+       e.nom,
+       e.prenom,
+       e.photo                 AS photo_de_profil,
+       MAX(v.quantite)         AS meilleur_quantite_vente,
+       MAX(c.chiffre_affaires) AS meilleur_chiffre_d_affaires
+FROM employe e
+         LEFT JOIN
+     vente v ON e.id_employe = v.id_chariot
+         LEFT JOIN
+     vue_chiffre_affaire c ON e.id_employe = c.id_employe
+GROUP BY e.id_employe, e.nom, e.prenom, e.photo;
+
+CREATE OR REPLACE VIEW recette_vente AS
+(
+SELECT SUM(p.prix * quantite) AS sum_vente,
+       v.date_vente           AS date_vente,
+       e.id_employe,
+       e.id_type_employe,
+       e.nom                  as nom,
+       e.prenom               as prenom,
+       te.cota,
+       SUM(v.quantite)        AS nombre_vente
+FROM Vente v
+         JOIN chariot c ON v.id_chariot = c.id_chariot
+         JOIN employe e ON c.id_employe = e.id_employe
+         JOIN produit p ON v.id_produit = p.id_produit
+         JOIN type_employe te ON e.id_type_employe = te.id_type_employe
+GROUP BY e.id_employe, v.date_vente, te.cota
+    );
+--view recherche somme poinvente par date
+CREATE VIEW vue_ventes_par_mois_annee AS
+SELECT ROW_NUMBER() OVER ()           AS numero_ligne,
+        id_point_vente,
+       localisation,
+       EXTRACT(YEAR FROM date_vente)  AS annee,
+       EXTRACT(MONTH FROM date_vente) AS mois,
+       SUM(total_ventes)              AS total_ventes_mois
+FROM vue_somme_ventes_point_vente
+GROUP BY id_point_vente,
+         localisation,
+         annee,
+         mois
+ORDER BY annee,
+         mois,
+         id_point_vente;
+
+--view depenses
+CREATE OR REPLACE VIEW vue_depenses_par_mois_annee AS
+SELECT
+    EXTRACT(YEAR FROM date_depense) AS annee,
+    EXTRACT(MONTH FROM date_depense) AS mois,
+    SUM(prix) AS total_depenses_mois
+FROM
+    depense
+GROUP BY
+    annee,
+    mois
+ORDER BY
+    annee,
+    mois;
+
+--view cA
+CREATE OR REPLACE VIEW vue_ventes_par_mois_annee2 AS
+SELECT
+    EXTRACT(YEAR FROM date_vente) AS annee,
+    EXTRACT(MONTH FROM date_vente) AS mois,
+    SUM(total_ventes) AS total_ventes_mois
+FROM
+    vue_somme_ventes_point_vente
+GROUP BY
+    annee,
+    mois
+ORDER BY
+    annee,
+    mois;
+
+--view gestion
+CREATE OR REPLACE VIEW vue_gestion AS
+SELECT ROW_NUMBER() OVER ()           AS numero_ligne,
+        COALESCE(v.annee, d.annee) AS annee,
+       COALESCE(v.mois, d.mois) AS mois,
+       COALESCE(v.total_ventes_mois, 0) AS total_ventes_mois,
+       COALESCE(d.total_depenses_mois, 0) AS total_depenses_mois,
+       COALESCE(v.total_ventes_mois, 0) - COALESCE(d.total_depenses_mois, 0) AS benefice_mois
+FROM
+    vue_ventes_par_mois_annee2 v
+        FULL OUTER JOIN
+    vue_depenses_par_mois_annee d
+    ON
+                v.annee = d.annee AND v.mois = d.mois
+ORDER BY
+    annee,
+    mois;

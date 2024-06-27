@@ -66,10 +66,11 @@ public class DepenseService {
     }
 
     public Double get_Benefice(Date date) {
-        Double sumVente = venteService.getRecetteAll(date);
-        Double sumDepense = getSumDepenseBy(date);
+        Double sumVente = venteService.getRecetteAll(date) != null ? venteService.getRecetteAll(date) : 0;
+        Double sumDepense = getSumDepenseBy(date) != null ? getSumDepenseBy(date) : 0;
         return sumVente - sumDepense;
     }
+
 
     public Double get_BeneficeMonth(Integer month, Integer year) {
         Double sumVente = venteService.getRecetteByMonth(month, year);

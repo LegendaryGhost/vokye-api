@@ -20,10 +20,10 @@ public class PointVente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_point_vente;
+    
 
     private String localisation;
     private double longitude;
     private double latitude;
 
-    // Getters and Setters
 }
