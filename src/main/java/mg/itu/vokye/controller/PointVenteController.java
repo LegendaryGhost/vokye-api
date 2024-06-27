@@ -1,5 +1,6 @@
 package mg.itu.vokye.controller;
 
+import mg.itu.vokye.dto.GestionDTO;
 import mg.itu.vokye.entity.PointVente;
 import mg.itu.vokye.service.PointVenteService;
 import org.springframework.web.bind.annotation.*;
@@ -44,4 +45,10 @@ public class PointVenteController {
     public void deletePointVente(@PathVariable Long id) {
         service.deletePointVente(id);
     }
+
+    @GetMapping("/statsPointVente")
+    public List<GestionDTO> getStatPointVente() {
+        return service.getStatsVentePoint();
+    }
+
 }
