@@ -320,6 +320,19 @@ GROUP BY pv.id_point_vente,
          pv.localisation,
          v.date_vente;
 
+CREATE OR REPLACE VIEW v_sale_point AS
+SELECT pv.*,
+       v.date_vente,
+       SUM(v.quantite * p.prix) AS total_ventes
+FROM point_vente pv
+         JOIN
+     vente v ON pv.id_point_vente = v.id_point_vente
+         JOIN
+     produit p ON v.id_produit = p.id_produit
+GROUP BY pv.id_point_vente,
+         pv.localisation,
+         v.date_vente;
+
 -- view employe
 
 CREATE OR REPLACE VIEW vue_employe_type AS
